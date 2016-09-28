@@ -10,15 +10,25 @@ COUNT_PARAM = 'count'
 ORDERBY_PARAM = 'orderby'
 ATTRIBUTES_PARAM = 'attributes'
 EVALUATE_URL = 'https://api.projectoxford.ai/academic/v1.0/evaluate'
+INTERPRET_URL = 'https://api.projectoxford.ai/academic/v1.0/interpret'
 
 """ url request should be in the form of
 https://api.projectoxford.ai/academic/v1.0/evaluate[?expr][&model][&count][&offset][&orderby][&attributes]
 """
-#dicks
 
 
-def construct_query():
-    return 0
+# dicks
+
+"""Interpret URL should be
+https://api.projectoxford.ai/academic/v1.0/interpret[?query][&complete][&count][&offset][&timeout][&model]
+"""
+
+
+def construct_query(user_input):
+    header = {'Ocp-Apim-Subscription-Key': '5569c93188b746fcab48355fa04a68f8'}
+    params = {'query': user_input, COUNT_PARAM: '10', MODEL_PARAM: 'latest'}
+    response = requests.get(INTERPRET_URL, headers=header, params=params)
+    return response.json()
 
 
 def construct_params(query, model, count, orderby, attributes):
@@ -52,10 +62,11 @@ def evaluate_request(params):
 def main():
     p = construct_params("and(composite(AA.AuN='brian davison'),Y>2005)", 'latest', '10', '', {'Ti', 'AA.AuN', 'Id'})
     res = evaluate_request(p)
-    json_data = json.loads(res)
-    print("h", json_data['AuN'])
-    print("\n")
+    query = construct_query("brian davison")
+    print("QUERY\n")
+    print(json.dumps(query, indent=4))
     print("REQUEST\n")
-    print(res)
+    print(json.dumps(res, indent=4))
+
 
 main()
