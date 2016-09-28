@@ -35,3 +35,5 @@ to compile a list of experts for a specific topic.
 * https://www.microsoft.com/cognitive-services/en-us/Academic-Knowledge-API/documentation/EvaluateMethod
 * https://www.microsoft.com/cognitive-services/en-us/Academic-Knowledge-API/documentation/InterpretMethod
 * https://www.microsoft.com/cognitive-services/en-us/Academic-Knowledge-API/documentation/QueryExpressionSyntax
+* https://dev.projectoxford.ai/docs/services/56332331778daf02acc0a50b/operations/565d753be597ed16ac3ffc03
+* https://dev.projectoxford.ai/docs/services/56332331778daf02acc0a50b/operations/56332331778daf06340c9666/console
