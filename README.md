@@ -1,6 +1,5 @@
 # README #
-### # Expert Finder # ###
-
+# Expert Finder Tool #
 ### What is this repository for? ###
 
 * Quick summary
