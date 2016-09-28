@@ -17,14 +17,17 @@ https://api.projectoxford.ai/academic/v1.0/evaluate[?expr][&model][&count][&offs
 """
 
 
-# dicks
-
 """Interpret URL should be
 https://api.projectoxford.ai/academic/v1.0/interpret[?query][&complete][&count][&offset][&timeout][&model]
 """
 
 
 def construct_query(user_input):
+    """
+    Constructs a query given a user search term
+    :param user_input: User entered search term
+    :return: JSON reponse of Microsoft Academic
+    """
     header = {'Ocp-Apim-Subscription-Key': '5569c93188b746fcab48355fa04a68f8'}
     params = {'query': user_input, COUNT_PARAM: '10', MODEL_PARAM: 'latest'}
     response = requests.get(INTERPRET_URL, headers=header, params=params)
