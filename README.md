@@ -1,12 +1,7 @@
 # README #
 # Expert Finder Tool #
-### What is this repository for? ###
 
-* Joe use this one
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
-
+### Joe, use this one ###
 ### How do I get set up? ###
 
 * Summary of set up
