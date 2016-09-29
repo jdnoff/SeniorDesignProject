@@ -84,12 +84,19 @@ def query(user_text):
     value = q['interpretations'][1]['rules'][0]['output']['value']
 
     # Use value to send evaluate request
-    p = construct_params(value, 'latest', '10', '', attributes)
+    p = construct_params(value, 'latest', '20', '', attributes)
     res = evaluate_request(p)
 
-    for result in res['entities']:
-        for field in result:
-            print(field, ": ", result[field])
+    return res['entities']
 
 
-query("brian davison")
+def test_query():
+    """
+    Test method to generate a results list
+    :return: result list
+    """
+    with open('results_example.txt') as data_file:
+        return json.load(data_file)
+
+
+print(json.dumps(query("brian davison")))
