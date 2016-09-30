@@ -84,7 +84,7 @@ def query(user_text):
     value = q['interpretations'][1]['rules'][0]['output']['value']
 
     # Use value to send evaluate request
-    p = construct_params(value, 'latest', '20', '', attributes)
+    p = construct_params(value, 'latest', '10', '', attributes)
     res = evaluate_request(p)
 
     return res['entities']
