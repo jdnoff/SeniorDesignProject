@@ -1,8 +1,8 @@
 {% load static %}
-<div class="w3-container w3-card-2 w3-white w3-round w3-margin"><br>
+<div class="w3-container w3-hover-light-grey w3-card-2 w3-white w3-round w3-margin"><br>
     <img src="{% static "ExpertFinderTool/academic_logo.gif" %}" alt="Avatar" class="w3-left w3-circle w3-margin-right"
          style="width:60px">
-    <span class="w3-right w3-opacity">{% block rank %}{% endblock %}</span>
+    <span class="w3-right ">{% block rank %}{% endblock %}</span>
     <h4>{% block author_name %}{% endblock %}</h4><br>
     <hr class="w3-clear">
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
@@ -11,7 +11,7 @@
 
     <button type="button" class="w3-btn w3-theme-d2 w3-margin-bottom"><i class="fa fa-envelope"></i>  Email</button>
     <span class="w3-right">
-        <button type="button" class="w3-btn w3-theme-d1 w3-margin-bottom"><i
+        <button type="button" class="w3-btn w3-red w3-opacity w3-margin-bottom"><i
                 class="fa fa-thumbs-down"></i> Remove</button>
     </span>
 </div>

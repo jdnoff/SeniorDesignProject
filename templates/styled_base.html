@@ -39,7 +39,8 @@
             </div>
         </li>
         <li class="w3-hide-small w3-right"><a href="#" class="w3-padding-large w3-hover-white" title="My Account"><img
-                src="img_avatar2.png" class="w3-circle" style="height:25px;width:25px" alt="Avatar"></a></li>
+                src="{% static "ExpertFinderTool/expert_logo.jpg" %}" class="w3-circle" style="height:25px;width:25px"
+                alt="Avatar"></a></li>
     </ul>
 </div>
 
@@ -97,22 +98,28 @@
                         <div class="w3-row-padding">
                             <br>
                             <div class="w3-half">
-                                <img src="img_lights.jpg" style="width:100%" class="w3-margin-bottom">
+                                <img src="{% static "ExpertFinderTool/expert_logo.jpg" %}" style="width:100%"
+                                     class="w3-margin-bottom">
                             </div>
                             <div class="w3-half">
-                                <img src="img_nature.jpg" style="width:100%" class="w3-margin-bottom">
+                                <img src="{% static "ExpertFinderTool/expert_logo.jpg" %}" style="width:100%"
+                                     class="w3-margin-bottom">
                             </div>
                             <div class="w3-half">
-                                <img src="img_mountains.jpg" style="width:100%" class="w3-margin-bottom">
+                                <img src="{% static "ExpertFinderTool/expert_logo.jpg" %}" style="width:100%"
+                                     class="w3-margin-bottom">
                             </div>
                             <div class="w3-half">
-                                <img src="img_forest.jpg" style="width:100%" class="w3-margin-bottom">
+                                <img src="{% static "ExpertFinderTool/expert_logo.jpg" %}" style="width:100%"
+                                     class="w3-margin-bottom">
                             </div>
                             <div class="w3-half">
-                                <img src="img_nature.jpg" style="width:100%" class="w3-margin-bottom">
+                                <img src="{% static "ExpertFinderTool/expert_logo.jpg" %}" style="width:100%"
+                                     class="w3-margin-bottom">
                             </div>
                             <div class="w3-half">
-                                <img src="img_fjords.jpg" style="width:100%" class="w3-margin-bottom">
+                                <img src="{% static "ExpertFinderTool/expert_logo.jpg" %}" style="width:100%"
+                                     class="w3-margin-bottom">
                             </div>
                         </div>
                     </div>
@@ -153,7 +160,7 @@
                         <div class="w3-container w3-padding">
                             <h6 class="w3-opacity">Enter a query for an academic manuscript</h6>
                             {#                {% include "search.html" %}#}
-                            <form type="get" action="/results/" style="...">
+                            <form type="get" action="/results/">
                                 <input id="search_box" class="w3-border w3-padding" type="text" name="search_box"
                                        placeholder="Search...">
                                 <button id="search_submit" type="submit" class="w3-btn w3-theme"><i
@@ -165,67 +172,39 @@
                 </div>
             </div>
             {% include "subtemplates/author_sub.html" %}
-            <div class="w3-container w3-card-2 w3-white w3-round w3-margin"><br>
-                <img src="img_avatar2.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
-                <span class="w3-right w3-opacity">1 min</span>
-                <h4>John Doe</h4><br>
-                <hr class="w3-clear">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                    aliquip ex ea commodo consequat.</p>
-                <div class="w3-row-padding" style="margin:0 -16px">
-                    <div class="w3-half">
-                        <img src="img_lights.jpg" style="width:100%" alt="Northern Lights" class="w3-margin-bottom">
-                    </div>
-                    <div class="w3-half">
-                        <img src="img_nature.jpg" style="width:100%" alt="Nature" class="w3-margin-bottom">
-                    </div>
-                </div>
-                <button type="button" class="w3-btn w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  Like
-                </button>
-                <button type="button" class="w3-btn w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  Comment
-                </button>
-            </div>
+            {% include "subtemplates/author_sub.html" %}
+            {% include "subtemplates/author_sub.html" %}
+            {% include "subtemplates/author_sub.html" %}
+            {% include "subtemplates/author_sub.html" %}
+            {% include "subtemplates/author_sub.html" %}
+            {% include "subtemplates/author_sub.html" %}
+            {% include "subtemplates/author_sub.html" %}
 
-            <div class="w3-container w3-card-2 w3-white w3-round w3-margin"><br>
-                <img src="img_avatar5.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
-                <span class="w3-right w3-opacity">16 min</span>
-                <h4>Jane Doe</h4><br>
-                <hr class="w3-clear">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                    aliquip ex ea commodo consequat.</p>
-                <button type="button" class="w3-btn w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  Like
-                </button>
-                <button type="button" class="w3-btn w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  Comment
-                </button>
-            </div>
-
-            <div class="w3-container w3-card-2 w3-white w3-round w3-margin"><br>
-                <img src="img_avatar6.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
-                <span class="w3-right w3-opacity">32 min</span>
-                <h4>Angie Jane</h4><br>
-                <hr class="w3-clear">
-                <p>Have you seen this?</p>
-                <img src="img_nature.jpg" style="width:100%" class="w3-margin-bottom">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                    aliquip ex ea commodo consequat.</p>
-                <button type="button" class="w3-btn w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  Like
-                </button>
-                <button type="button" class="w3-btn w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  Comment
-                </button>
-            </div>
 
             <!-- End Middle Column -->
         </div>
 
         <!-- Right Column -->
         <div class="w3-col m2">
+
+            <!-- Slide mixer-->
+            <div class="w3-card-2 w3-round w3-white w3-center">
+                <div class="w3-container">
+                    <p>Attribute Weighting</p>
+                    <input type="range" class="w3-input" name="points" id="points" value="50" min="0" max="100">
+                    <input type="range" class="w3-input" name="points" id="points" value="50" min="0" max="100">
+                    <input type="range" class="w3-input" name="points" id="points" value="50" min="0" max="100">
+                    <input type="range" class="w3-input" name="points" id="points" value="50" min="0" max="100">
+                    <p>
+                        <button class="w3-btn w3-btn-block w3-green w3-opacity">Search again</button>
+                    </p>
+                </div>
+            </div>
+            <br>
             <div class="w3-card-2 w3-round w3-white w3-center">
                 <div class="w3-container">
                     <p>Upcoming Events:</p>
-                    <img src="img_forest.jpg" alt="Forest" style="width:100%;">
+                    <img src="{% static "ExpertFinderTool/expert_logo.jpg" %}" alt="Forest" style="width:100%;">
                     <p><strong>Holiday</strong></p>
                     <p>Friday 15:00</p>
                     <p>
@@ -234,11 +213,10 @@
                 </div>
             </div>
             <br>
-
             <div class="w3-card-2 w3-round w3-white w3-center">
                 <div class="w3-container">
                     <p>Friend Request</p>
-                    <img src="img_avatar6.png" alt="Avatar" style="width:50%"><br>
+                    <img src="{% static "ExpertFinderTool/expert_logo.jpg" %}" alt="Avatar" style="width:50%"><br>
                     <span>Jane Doe</span>
                     <div class="w3-row w3-opacity">
                         <div class="w3-half">
