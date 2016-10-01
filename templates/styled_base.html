@@ -63,9 +63,9 @@
             <!-- Profile -->
             <div class="w3-card-2 w3-round w3-white">
                 <div class="w3-container">
-                    <h4 class="w3-center">Expert Finder</h4>
+                    <h2 class="w3-center">Expert Finder</h2>
                     <p class="w3-center"><img src="{% static "ExpertFinderTool/expert_logo.jpg" %}" class="w3-circle"
-                                              style="height:106px;width:106px" alt="Expert Finder"></p>
+                                              style="height:306px;width:306px" alt="Expert Finder"></p>
                     <hr>
                     <p>Senior Project By</p>
                     <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> Jacob Hassel</p>
@@ -161,8 +161,10 @@
                             <h6 class="w3-opacity">Enter a query for an academic manuscript</h6>
                             {#                {% include "search.html" %}#}
                             <form type="get" action="/results/">
-                                <input id="search_box" class="w3-border w3-padding" type="text" name="search_box"
+                                <input id="search_box" class=" w3-input w3-animate-input w3-border w3-padding"
+                                       style="width:75%" type="text" name="search_box"
                                        placeholder="Search...">
+                                <br>
                                 <button id="search_submit" type="submit" class="w3-btn w3-theme"><i
                                         class="fa fa-rocket"></i> Search
                                 </button>
@@ -171,14 +173,10 @@
                     </div>
                 </div>
             </div>
-            {% include "subtemplates/author_sub.html" %}
-            {% include "subtemplates/author_sub.html" %}
-            {% include "subtemplates/author_sub.html" %}
-            {% include "subtemplates/author_sub.html" %}
-            {% include "subtemplates/author_sub.html" %}
-            {% include "subtemplates/author_sub.html" %}
-            {% include "subtemplates/author_sub.html" %}
-            {% include "subtemplates/author_sub.html" %}
+            <!------------------------------------------------------------------------------------------->
+            {% block content_area %}
+
+            {% endblock %}
 
 
             <!-- End Middle Column -->
