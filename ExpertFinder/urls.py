@@ -19,6 +19,6 @@ from ExpertFinderTool import views
 
 urlpatterns = [
     url(r'^results/', views.search),
-    url(r'^', views.index, name='search'),
+    url(r'^', views.index, name='home'),
     url(r'^admin/', admin.site.urls),
 ]
