@@ -1,0 +1,12 @@
+{% extends "styled_base.html" %}
+{% block content_area %}
+    <div class="w3-container w3-card-2 w3-theme-d2 w3-round w3-margin"><br>
+        <span class="w3-right ">{{ number }}</span>
+        <h2>Search results for: {{ query }}</h2>
+        <hr class="w3-clear">
+    </div>
+
+    {% for result in results_list %}
+        {% include "subtemplates/author_sub.html" with author_name=result.Ti number="1" %}
+    {% endfor %}
+{% endblock %}
