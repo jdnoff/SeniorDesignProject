@@ -10,23 +10,23 @@ from django.http import HttpResponse
 
 
 def index(request):
-	return render(request, 'search.html')
+    return render(request, 'search.html')
 
 
 def search(request):
-	if request.method == 'GET':
-		search_query = request.GET.get('search_box', None)
+    if request.method == 'GET':
+        search_query = request.GET.get('search_box', None)
 
-		""" test_query returns a sample results list. Use this for testing instead of query so we can cut down on the
+        """ test_query returns a sample results list. Use this for testing instead of query so we can cut down on the
 		number of requests sent to microsoft academic"""
-		# results = query(search_query)
-		results = test_query()
+        # results = query(search_query)
+        results = test_query()
 
-		# Send query to page for testing
-		return render(request, 'results.html', {
-			'query': search_query,
-			'results_list': results
-		})
+        # Send query to page for testing
+        return render(request, 'results.html', {
+            'query': search_query,
+            'results_list': results
+        })
 
-	else:
-		return render(request, 'styled_base.html')
+    else:
+        return render(request, 'styled_base.html')
