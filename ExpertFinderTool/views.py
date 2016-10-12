@@ -12,7 +12,6 @@ from django.http import HttpResponse
 def index(request):
     return render(request, 'search.html')
 
-
 def search(request):
     if request.method == 'GET':
         search_query = request.GET.get('search_box', None)

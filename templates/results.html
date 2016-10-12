@@ -27,6 +27,6 @@
     </div>
 
     {% for result in results_list %}
-        {% include "subtemplates/author_sub.html" with author_name=result.Ti number="1" %}
+        {% include "subtemplates/author_sub.html" with author_name=result.AA paper_title=result.Ti number="1" %}
     {% endfor %}
 {% endblock %}

@@ -99,4 +99,5 @@ def test_query():
         return json.load(data_file)
 
 
-print(json.dumps(query("brian davison")))
+# print(json.dumps(query("brian davison")))
+
