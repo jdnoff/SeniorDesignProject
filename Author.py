@@ -8,11 +8,14 @@ class Author:
     # keyWords -- list of all keywords from all papers in paperTitles (given by 'W' attribute)
     # fieldsOfStudy -- list of all fields of study the papers encompass (given by 'F.FN' attribute)
     # citationByPaper -- number of citations for each paper in result list (given by 'CC' attribute)
+        # used to sum all total citations for an author
 
+    def __init__(self, input):
 
-    def __init__(self):
-        # results = query()
-        results = test_query()
+        # input should be the json result of a query for an author
+        # which gets the attributes 'Ti', 'W', 'F.FN', 'CC'
+        results = input
+        # results = test_query()
 
         self.paperTitles = []
         self.keyWords = []
@@ -20,7 +23,10 @@ class Author:
         self.citationByPaper = []
         for result in results:
             self.paperTitles.append(result['Ti'].title())
+            self.keyWords.append(result['W'])
+            self.fieldsOfStudy.append(result['F.FN'].title())
+            self.citationByPaper.append(result['CC'])
 
-        print(self.paperTitles)
+        # print(self.paperTitles)
 
 
