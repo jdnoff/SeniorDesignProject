@@ -6,13 +6,25 @@
                 <div class="w3-container w3-padding">
                     <h6 class="w3-opacity">Enter a query for an academic manuscript</h6>
                     <form type="get" action="/results/">
-                        <input id="search_box" class=" w3-input w3-animate-input w3-border w3-padding"
-                               style="width:75%" type="text" name="search_box"
-                               placeholder="Search...">
-                        <span class="w3-right ">
-                            <button id="search_submit" type="submit" class="w3-btn w3-theme"><i
+                        <label class="w3-label">Manuscript Title</label>
+                        <input id="title_input" class=" w3-input w3-border w3-padding"
+                               style="width:75%" type="text" name="manuscript_title"
+                               placeholder="Title of manuscript">
+                        <label class="w3-label">Manuscript Author</label>
+                        <input id="author_input" class=" w3-input w3-border w3-padding"
+                               style="width:75%" type="text" name="manuscript_author"
+                               placeholder="Author name">
+                        <label class="w3-label">Manuscript Fields of Study</label>
+                        <input id="fos_input" class=" w3-input w3-border w3-padding"
+                               style="width:75%" type="text" name="manuscript_field_of_study"
+                               placeholder="List the fields of study">
+                        <label class="w3-label">Manuscript Abstract</label>
+                        <textarea class=" w3-input w3-border w3-padding" style="width:75% " rows="4" cols="40"
+                                  placeholder="Paste the manuscript's abstract here!"></textarea>
+                        <span>
+                        <button id="search_submit" type="submit" class="w3-btn w3-theme"><i
                                     class="fa fa-rocket"></i> Search
-                            </button>
+                        </button>
                         </span>
                     </form>
                 </div>
