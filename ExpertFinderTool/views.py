@@ -1,16 +1,56 @@
 from django.shortcuts import render
+from django.shortcuts import HttpResponseRedirect
 
-import json
+from django.views.generic.list import ListView
+
 from AS_RequestHandler import query
 from AS_RequestHandler import test_query
-from django.http import HttpResponse
 
+from .forms import TopicSearchForm
+from .forms import AuthorSearchForm
+from .forms import AuthorSearchSubsetForm
 
 # Create your views here.
 
 
-def index(request):
-	return render(request, 'search.html')
+def landing_page(request):
+	return render(request, 'landing_page.html')
+
+
+def author_search(request):
+	if request.method == 'POST':
+		# create a form instance and populate it with data from the request:
+		form = AuthorSearchForm(request.POST)
+		# check whether it's valid:
+		if form.is_valid():
+			# process the data in form.cleaned_data as required
+			# ...
+			# redirect to a new URL:
+			return render(request, 'search.html', {'form': AuthorSearchSubsetForm()})
+
+		# if a GET (or any other method) we'll create a blank form
+	else:
+		form = AuthorSearchForm()
+
+	return render(request, 'search.html', {'form': form})
+
+
+def topic_search(request):
+	if request.method == 'POST':
+		# create a form instance and populate it with data from the request:
+		form = TopicSearchForm(request.POST)
+		# check whether it's valid:
+		if form.is_valid():
+			# process the data in form.cleaned_data as required
+			# ...
+			# redirect to a new URL:
+			return HttpResponseRedirect('/thanks/')
+
+		# if a GET (or any other method) we'll create a blank form
+	else:
+		form = TopicSearchForm()
+
+	return render(request, 'search.html', {'form': form})
 
 
 def search(request):

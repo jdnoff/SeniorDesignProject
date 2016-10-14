@@ -18,7 +18,9 @@ from django.contrib import admin
 from ExpertFinderTool import views
 
 urlpatterns = [
-    url(r'^results/', views.search),
-    url(r'^', views.index, name='home'),
-    url(r'^admin/', admin.site.urls),
+	url(r'^results/', views.search),
+	url(r'^author/', views.author_search, name='author_search'),
+	url(r'^topic/', views.topic_search, name='topic_search'),
+	url(r'^', views.landing_page, name='home'),
+	url(r'^admin/', admin.site.urls),
 ]
