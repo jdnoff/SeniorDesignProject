@@ -16,11 +16,12 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from ExpertFinderTool import views
+from ExpertFinderTool.views import LandingView
 
 urlpatterns = [
 	url(r'^results/', views.search),
 	url(r'^author/', views.author_search, name='author_search'),
 	url(r'^topic/', views.topic_search, name='topic_search'),
-	url(r'^', views.landing_page, name='home'),
+	url(r'^', LandingView.as_view(), name='home'),
 	url(r'^admin/', admin.site.urls),
 ]
