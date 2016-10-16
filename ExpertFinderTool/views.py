@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.shortcuts import HttpResponseRedirect
 
 from django.views.generic import TemplateView
+from django.views.generic import View
 
 from AS_RequestHandler import query
 from AS_RequestHandler import test_query
@@ -16,6 +17,24 @@ from .forms import AuthorSearchSubsetForm
 
 class LandingView(TemplateView):
 	template_name = 'landing_page.html'
+
+
+class TopicSearchView(View):
+	form_class = TopicSearchForm
+	template_name = 'search.html'
+
+	def get(self, request, *args, **kwargs):
+		form = self.form_class()
+		return render(request, self.template_name, {'form': form})
+
+	def post(self, request, *args, **kwargs):
+		form = self.form_class(request.POST)
+		if form.is_valid():
+			# <process form cleaned data>
+			data = form.cleaned_data
+			return HttpResponseRedirect('/results/')
+
+		return render(request, self.template_name, {'form': form})
 
 
 def author_search(request):
@@ -33,31 +52,6 @@ def author_search(request):
 		# if a GET (or any other method) we'll create a blank form
 	else:
 		form = AuthorSearchForm()
-
-	return render(request, 'search.html', {'form': form})
-
-
-def topic_search(request):
-	"""
-	This view handles form entry for the topic search use case
-	:param request: http request
-	:return:
-	"""
-
-	if request.method == 'POST':
-		# create a form instance and populate it with data from the request:
-		form = TopicSearchForm(request.POST)
-		# check whether it's valid:
-		if form.is_valid():
-			# process the data in form.cleaned_data as required
-			data = form.cleaned_data
-
-			# redirect to a new URL:
-			return HttpResponseRedirect('/results/')
-
-		# if a GET (or any other method) we'll create a blank form
-	else:
-		form = TopicSearchForm()
 
 	return render(request, 'search.html', {'form': form})
 
