@@ -26,6 +26,12 @@ class TopicSearchView(View):
 		if form.is_valid():
 			# <process form cleaned data>
 			data = form.cleaned_data
+			title = data['manuscript_title']
+			author = data['manuscript_author']
+			fos = data['manuscript_field_of_study']
+			abstract = data['manuscript_abstract']
+			# TODO: generate query from this data and send query to academic search
+
 			return HttpResponseRedirect('/results/')
 
 		return render(request, self.template_name, {'form': form})
@@ -45,25 +51,21 @@ class AuthorSearchView(View):
 		if form.is_valid():
 			# <process form cleaned data>
 			data = form.cleaned_data
+			author = data['author']
+			# TODO: Search author in AS then display paper results in next form
+
 			return render(request, self.template_name, {'form': AuthorSearchSubsetForm()})
 
 		return render(request, self.search_tmp, {'form': form})
 
 
-def search(request):
-	if request.method == 'GET':
-		search_query = request.GET.get('search_box', None)
+# TODO: Make class based view for results page
+class ResultsView(TemplateView):
+	template_name = 'results.html'
 
-		""" test_query returns a sample results list. Use this for testing instead of query so we can cut down on the
-		number of requests sent to microsoft academic"""
-		# results = query(search_query)
-		results = test_query()
-
-		# Send query to page for testing
-		return render(request, 'results.html', {
-			'query': search_query,
-			'results_list': results
-		})
-
-	else:
-		return render(request, 'styled_base.html')
+	def get_context_data(self, **kwargs):
+		context = {
+			'results_list': test_query(),
+			'query': "Test Query"
+		}
+		return context
