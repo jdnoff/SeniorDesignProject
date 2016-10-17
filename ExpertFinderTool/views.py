@@ -59,7 +59,6 @@ class AuthorSearchView(View):
 		return render(request, self.search_tmp, {'form': form})
 
 
-# TODO: Make class based view for results page
 class ResultsView(TemplateView):
 	template_name = 'results.html'
 
