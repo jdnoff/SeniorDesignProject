@@ -24,7 +24,13 @@ class Author:
             self.keyWords.append(result['W'])
             self.fieldsOfStudy.append(result['F.FN'].title())
             self.citationByPaper.append(result['CC'])
+        self.totalCitations = self.sumCitations()
 
-        # print(self.paperTitles)
+    def sumCitations(self):
+        total = 0
+        for i in self.citationByPaper:
+            total += self.citationByPaper[i]
+        return total
+
 
 
