@@ -4,15 +4,18 @@
         <div class="w3-col m12">
             <div class="w3-card-2 w3-round w3-white">
                 <div class="w3-container w3-padding">
-                    <h6 class="w3-opacity">Enter a query for an academic manuscript</h6>
-                    <form type="get" action="/results/">
-                        <input id="search_box" class=" w3-input w3-animate-input w3-border w3-padding"
-                               style="width:75%" type="text" name="search_box"
-                               placeholder="Search...">
-                        <span class="w3-right ">
-                            <button id="search_submit" type="submit" class="w3-btn w3-theme" style="margin-top: 10px;"><i
+                    <h5 class="w3-opacity">Enter information about the manuscript you would like to find reviewers
+                        for</h5>
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        {% for field in form %}
+                            <label class="w3-label" for="{{ field.name }}">{{ field.label }}</label>
+                            {{ field }}
+                        {% endfor %}
+                        <span>
+                        <button id="search_submit" type="submit" class="w3-btn w3-theme"><i
                                     class="fa fa-rocket"></i> Search
-                            </button>
+                        </button>
                         </span>
                     </form>
                 </div>
