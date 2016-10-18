@@ -1,6 +1,5 @@
 # Author object file
 from AS_RequestHandler import test_query
-from AS_RequestHandler import query
 
 class Author:
     # List of Class Attributes
@@ -11,7 +10,6 @@ class Author:
         # used to sum all total citations for an author
 
     def __init__(self, input):
-
         # input should be the json result of a query for an author
         # which gets the attributes 'Ti', 'W', 'F.FN', 'CC'
         results = input
