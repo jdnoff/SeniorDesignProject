@@ -97,5 +97,3 @@ def test_query():
 	with open('results_example.txt') as data_file:
 		return json.load(data_file)
 
-
-print(json.dumps(query("brian davison")))
