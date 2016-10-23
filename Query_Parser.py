@@ -17,7 +17,7 @@ API_KEY2 = '62841b36e69d4c3eb4cddfdb7ac56b74'
 ANALYTICS_HEADERS = { 'Content-Type': 'application/json',
                       'Ocp-Apim-Subscription-Key': API_KEY1 }
 
-params = urllib.parse.urlencode({ })
+params = urllib.parse.urlencode({    })
 
 TEST_INPUT = {  "documents": [
                     {
@@ -49,14 +49,13 @@ TEST_INPUT = {  "documents": [
              }
 
 # Detect key phrases.
-def test_query():
+#def test_query():
     #try:
-        conn = http.client.HTTPSConnection('westus.api.cognitive.microsoft.com')
-        conn.request("POST", "/text/analytics/v2.0/keyPhrases?%s" % params, TEST_INPUT, ANALYTICS_HEADERS)
-        response = conn.getresponse()
-        data = response.read()
-        print(data)
-        conn.close()
+conn = http.client.HTTPSConnection('westus.api.cognitive.microsoft.com')
+conn.request("POST", "/text/analytics/v2.0/keyPhrases?%s" % params, TEST_INPUT, ANALYTICS_HEADERS)
+response = conn.getresponse()
+data = response.read()
+print(data)
+conn.close()
     #except Exception as e:
        # print("[Errno {0}] {1}".format(e.errno, e.strerror))
-
