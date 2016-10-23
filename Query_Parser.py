@@ -3,6 +3,8 @@
 
 import json
 import requests
+import urllib
+import http.client
 import sys
 import base64
 
@@ -12,12 +14,10 @@ import base64
 API_KEY1 = '2188eefffbb2449f88b73e563deab172'
 API_KEY2 = '62841b36e69d4c3eb4cddfdb7ac56b74'
 
-# Azure portal URL.
-base_url = 'https://westus.api.cognitive.microsoft.com/'
+ANALYTICS_HEADERS = { 'Content-Type': 'application/json',
+                      'Ocp-Apim-Subscription-Key': API_KEY1 }
 
-ANALYTICS_HEADERS = {'Ocp-Apim-Subscription-Key': API_KEY1,
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'}
+params = urllib.parse.urlencode({ })
 
 TEST_INPUT = {  "documents": [
                     {
@@ -50,15 +50,13 @@ TEST_INPUT = {  "documents": [
 
 # Detect key phrases.
 def test_query():
-    batch_keyphrase_url = base_url + 'text/analytics/v2.0/keyPhrases'
-    response = requests.get(batch_keyphrase_url, headers=ANALYTICS_HEADERS, params=TEST_INPUT)
-    obj = response.json()
-    for keyphrase_analysis in obj['documents']:
-        print('Key phrases '+str(keyphrase_analysis['id'])+': '+', '.join(map(str,keyphrase_analysis['keyPhrases'])))
+    #try:
+        conn = http.client.HTTPSConnection('westus.api.cognitive.microsoft.com')
+        conn.request("POST", "/text/analytics/v2.0/keyPhrases?%s" % params, TEST_INPUT, ANALYTICS_HEADERS)
+        response = conn.getresponse()
+        data = response.read()
+        print(data)
+        conn.close()
+    #except Exception as e:
+       # print("[Errno {0}] {1}".format(e.errno, e.strerror))
 
-
-"""
-POST https://westus.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment
-POST https://westus.api.cognitive.microsoft.com/text/analytics/v2.0/keyPhrases
-POST https://westus.api.cognitive.microsoft.com/text/analytics/v2.0/languages
-"""
