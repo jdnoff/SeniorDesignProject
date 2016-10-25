@@ -4,12 +4,7 @@
 import json
 import requests
 
-import urllib
-import http.client
-import sys
-import base64
-
-# CURRENTLY TESTING (DOES NOT WORK)
+# CURRENTLY TESTING
 
 # Use Key 1 for testing, Key 2 for Demos/etc.
 API_KEY1 = '2188eefffbb2449f88b73e563deab172'
