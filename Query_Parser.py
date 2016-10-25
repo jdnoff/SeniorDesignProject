@@ -43,6 +43,22 @@ TEST_INPUT = {"documents": [
 ]
 }
 
-response = requests.post(KEYPHRASE_URL, json=TEST_INPUT, headers=ANALYTICS_HEADERS)
-data = response.json()
-print(json.dumps(data, indent=3))
+def construct_query(user_input):
+	query = { "documents": [
+				{ "language": "en",
+				  "id": "1",
+				  "text": user_input
+				}
+			] }
+	return query
+
+def parseQuery(user_input):
+	response = requests.post(KEYPHRASE_URL, json=construct_query(user_input) , headers=ANALYTICS_HEADERS)
+	data = response.json()
+	return data
+
+def test_query():
+	""" Test method to generate a keyword list
+		:return: keyword list """
+	with open('Analytics_results_test') as data_file:
+		return json.load(data_file)
