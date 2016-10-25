@@ -6,7 +6,7 @@ from AS_RequestHandler import test_query
 from .forms import TopicSearchForm
 from .forms import AuthorSearchForm
 from .forms import AuthorSearchSubsetForm
-
+from topic_search import do_topic_search
 
 # Create your views here.
 class LandingView(TemplateView):
@@ -28,9 +28,9 @@ class TopicSearchView(View):
 			data = form.cleaned_data
 			title = data['manuscript_title']
 			author = data['manuscript_author']
-			fos = data['manuscript_field_of_study']
 			abstract = data['manuscript_abstract']
 			# TODO: generate query from this data and send query to academic search
+			do_topic_search(abstract)
 
 			return HttpResponseRedirect('/results/')
 

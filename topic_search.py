@@ -2,9 +2,21 @@ from nltk.corpus import stopwords
 from AS_RequestHandler import interpret_request
 import string
 import json
+from AS_RequestHandler import construct_params
+from AS_RequestHandler import evaluate_request
+import academic_constants
 
 
 # Handler for the topic search use case
+
+def do_topic_search(abstract):
+	attributes = {academic_constants.ATT_AUTHOR_NAME}
+	# TODO: Send abstract to query processor
+	keyword_list = get_keywords(abstract)
+	query_string = create_query(keyword_list)
+	params = construct_params(query_string, 'latest', '10', '', attributes)
+	# TODO: Do evaluate request
+	return
 
 
 # Generate a query for AS
