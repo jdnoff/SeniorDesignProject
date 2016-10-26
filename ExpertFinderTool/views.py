@@ -34,8 +34,7 @@ class TopicSearchView(View):
 			author_list = do_topic_search(abstract)
 			return render(request, 'results.html', {
 				'results_list': author_list,
-				'i': 1,
-				'query': "Test Query"
+				'query': title
 			})
 
 		return render(request, self.template_name, {'form': form})

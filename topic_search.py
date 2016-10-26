@@ -1,9 +1,7 @@
-from AS_RequestHandler import interpret_request
-import string
 import json
 from AS_RequestHandler import construct_params
 from AS_RequestHandler import evaluate_request
-from Query_Parser import test_query
+from Query_Parser import parseQuery
 import academic_constants
 
 
@@ -12,9 +10,10 @@ import academic_constants
 def do_topic_search(abstract):
 	attributes = {academic_constants.ATT_AUTHOR_NAME}
 	# TODO: Send abstract to query processor instead of test_query
-	keyword_list = test_query()
+	# keyword_list = test_query()
+	keyword_list = parseQuery(abstract)
 	query_string = create_query(keyword_list)
-	params = construct_params(query_string, 'latest', '10', '', attributes)
+	params = construct_params(query_string, 'latest', '11', '', attributes)
 	data = evaluate_request(params)
 	return compile_author_list(data)
 
