@@ -2,6 +2,7 @@ import json
 from AS_RequestHandler import construct_params
 from AS_RequestHandler import evaluate_request
 from Query_Parser import parseQuery
+from Query_Parser import test_query
 import academic_constants
 from Author import *
 
@@ -15,6 +16,7 @@ def do_topic_search(abstract):
 	query_string = create_query(keyword_list)
 	params = construct_params(query_string, 'latest', '11', '', attributes)
 	data = evaluate_request(params)
+	# data = get_test_results('author_result_example')
 	return search_list_of_authors(compile_author_list(data))
 
 
@@ -29,6 +31,7 @@ def search_list_of_authors(authorname_list):
 			academic_constants.ATT_FIELD_OF_STUDY
 		})
 		data = evaluate_request(params)
+		# data = get_test_results('author_result_example')
 		print(json.dumps(data))
 		a = Author(auth, data)
 		author_list.append(a)
@@ -44,7 +47,6 @@ def compile_author_list(data):
 	return ret
 
 
-# STUB
 def create_query(keyword_list):
 	wordslist = []
 	for key in keyword_list['documents'][0]['keyPhrases']:
@@ -56,12 +58,16 @@ def create_query(keyword_list):
 	return wordslist[0]
 
 
-def get_test_results():
-	with open('AS_example_result') as data_file:
+def get_test_results(file):
+	with open(file) as data_file:
 		return json.load(data_file)
 
 
 def test_methods():
 	print(create_query(test_query()))
-	for res in compile_author_list(get_test_results()):
+	for res in compile_author_list(get_test_results('AS_example_result')):
 		print(res)
+
+
+def testMakeAuthors(data):
+	return

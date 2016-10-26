@@ -22,9 +22,9 @@ class Author:
 		self.fieldsOfStudy = []
 		self.citationByPaper = []
 		for result in results:
-			self.paperTitles = result['Ti']
-			self.keyWords.append(result['W'])
-			self.fieldsOfStudy.append(result['F.FN'])
+			self.paperTitles.append(result['Ti'])
+			# self.keyWords.append(result['W'])
+			# self.fieldsOfStudy.append(['F.FN'])
 			self.citationByPaper.append(result['CC'])
 		self.totalCitations = self.sumCitations()
 
