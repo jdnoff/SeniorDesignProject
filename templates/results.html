@@ -8,6 +8,6 @@
     </div>
 
     {% for result in results_list %}
-        {% include "subtemplates/author_sub.html" with author_name=result number=forloop.counter %}
+        {% include "subtemplates/author_sub.html" with author=result number=forloop.counter %}
     {% endfor %}
 {% endblock %}
