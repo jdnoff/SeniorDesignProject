@@ -1,0 +1,133 @@
+{
+    "expr": "And(W=='data',W=='mining',W=='technology')",
+    "entities": [
+        {
+            "logprob": -16.888,
+            "AA": [
+                {
+                    "AuN": "robbert van renesse"
+                },
+                {
+                    "AuN": "kenneth p birman"
+                },
+                {
+                    "AuN": "werner vogels"
+                }
+            ]
+        },
+        {
+            "logprob": -17.405,
+            "AA": [
+                {
+                    "AuN": "osmar r zaiane"
+                },
+                {
+                    "AuN": "man xin"
+                },
+                {
+                    "AuN": "jiawei han"
+                }
+            ]
+        },
+        {
+            "logprob": -17.93,
+            "AA": [
+                {
+                    "AuN": "chenfu chien"
+                },
+                {
+                    "AuN": "lifei chen"
+                }
+            ]
+        },
+        {
+            "logprob": -18.313,
+            "AA": [
+                {
+                    "AuN": "martin kuhlmann"
+                },
+                {
+                    "AuN": "dalia shohat"
+                },
+                {
+                    "AuN": "gerhard schimpf"
+                }
+            ]
+        },
+        {
+            "logprob": -18.927,
+            "AA": [
+                {
+                    "AuN": "paul losiewicz"
+                },
+                {
+                    "AuN": "douglas w oard"
+                },
+                {
+                    "AuN": "ronald n kostoff"
+                }
+            ]
+        },
+        {
+            "logprob": -19.026,
+            "AA": [
+                {
+                    "AuN": "guoqing zhou"
+                },
+                {
+                    "AuN": "linbing wang"
+                },
+                {
+                    "AuN": "dong wang"
+                },
+                {
+                    "AuN": "scott reichle"
+                }
+            ]
+        },
+        {
+            "logprob": -19.088,
+            "AA": [
+                {
+                    "AuN": "m a chuanqi"
+                }
+            ]
+        },
+        {
+            "logprob": -19.106,
+            "AA": [
+                {
+                    "AuN": "liu xiangyun"
+                }
+            ]
+        },
+        {
+            "logprob": -19.159,
+            "AA": [
+                {
+                    "AuN": "paolo bonato"
+                },
+                {
+                    "AuN": "paul jarle mork"
+                },
+                {
+                    "AuN": "d m sherrill"
+                },
+                {
+                    "AuN": "r h westgaard"
+                }
+            ]
+        },
+        {
+            "logprob": -19.351,
+            "AA": [
+                {
+                    "AuN": "dave donnellan"
+                },
+                {
+                    "AuN": "claus pahl"
+                }
+            ]
+        }
+    ]
+}

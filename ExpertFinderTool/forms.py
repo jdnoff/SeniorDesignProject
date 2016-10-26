@@ -9,14 +9,12 @@ class TopicSearchForm(forms.Form):
 	                                   widget=forms.TextInput(attrs=style_attribute))
 	manuscript_author = forms.CharField(label='Author Name', max_length=200, required=False,
 	                                    widget=forms.TextInput(attrs=style_attribute))
-	manuscript_field_of_study = forms.CharField(label='Manuscript Field Of Study', max_length=200, required=False,
-	                                            widget=forms.TextInput(attrs=style_attribute))
-	manuscript_abstract = forms.CharField(label='Manuscript Abstract', max_length=400, required=True,
+	manuscript_abstract = forms.CharField(label='Manuscript Abstract', max_length=3000, required=True,
 	                                      widget=forms.Textarea(attrs=style_attribute))
 
 
 class AuthorSearchForm(forms.Form):
-	author = forms.CharField(label='Author Name', max_length=200, required=False,
+	author = forms.CharField(label='Author Name', max_length=1000, required=False,
 	                         widget=forms.TextInput(attrs=style_attribute))
 
 

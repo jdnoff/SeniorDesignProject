@@ -6,7 +6,8 @@ from AS_RequestHandler import test_query
 from .forms import TopicSearchForm
 from .forms import AuthorSearchForm
 from .forms import AuthorSearchSubsetForm
-
+from topic_search import do_topic_search
+import json
 
 # Create your views here.
 class LandingView(TemplateView):
@@ -28,11 +29,13 @@ class TopicSearchView(View):
 			data = form.cleaned_data
 			title = data['manuscript_title']
 			author = data['manuscript_author']
-			fos = data['manuscript_field_of_study']
 			abstract = data['manuscript_abstract']
 			# TODO: generate query from this data and send query to academic search
-
-			return HttpResponseRedirect('/results/')
+			author_list = do_topic_search(abstract)
+			return render(request, 'results.html', {
+				'results_list': author_list,
+				'query': title
+			})
 
 		return render(request, self.template_name, {'form': form})
 
@@ -59,12 +62,13 @@ class AuthorSearchView(View):
 		return render(request, self.search_tmp, {'form': form})
 
 
+# not using this anymore
 class ResultsView(TemplateView):
 	template_name = 'results.html'
-
 	def get_context_data(self, **kwargs):
+		author_list = self.request.session.get('author_list')
 		context = {
-			'results_list': test_query(),
+			'results_list': author_list,
 			'i': 1,
 			'query': "Test Query"
 		}
