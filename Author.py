@@ -1,5 +1,6 @@
 # Author object file
 from AS_RequestHandler import test_query
+from academic_constants import *
 
 
 class Author:
@@ -10,26 +11,34 @@ class Author:
 	# citationByPaper -- number of citations for each paper in result list (given by 'CC' attribute)
 	# used to sum all total citations for an author
 
-	def __init__(self, author_name, input):
+	def __init__(self, author_name, author_id, data):
 		# input should be the json result of a query for an author
 		self.author_name = author_name
+		self.author_id = author_id
 		# which gets the attributes 'Ti', 'W', 'F.FN', 'CC'
-		results = input
+		results = []
+		if 'entities' in data:
+			results = data['entities']
+		else:
+			return
 		# results = test_query()
 
 		self.paperTitles = []
 		self.keyWords = []
 		self.fieldsOfStudy = []
 		self.citationByPaper = []
-		for result in results:
-			self.paperTitles.append(result['Ti'])
-			# self.keyWords.append(result['W'])
-			# self.fieldsOfStudy.append(['F.FN'])
-			self.citationByPaper.append(result['CC'])
+		for paper in results:
+			self.paperTitles.append(paper[ATT_PAPER_TITLE].title())
+			self.citationByPaper.append(int(paper[ATT_CITATIONS]))
+			if ATT_WORDS in paper:
+				self.keyWords += (paper[ATT_WORDS])
+			if 'F' in paper:
+				for field in paper['F']:
+					self.fieldsOfStudy.append(field['FN'])
 		self.totalCitations = self.sumCitations()
 
 	def sumCitations(self):
 		total = 0
 		for i in self.citationByPaper:
-			total += self.citationByPaper[i]
+			total += i
 		return total

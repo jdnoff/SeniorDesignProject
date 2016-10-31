@@ -7,6 +7,7 @@ from .forms import TopicSearchForm
 from .forms import AuthorSearchForm
 from .forms import AuthorSearchSubsetForm
 from topic_search import do_topic_search
+from topic_search import testMakeAuthors
 import json
 
 # Create your views here.
@@ -32,6 +33,7 @@ class TopicSearchView(View):
 			abstract = data['manuscript_abstract']
 			# TODO: generate query from this data and send query to academic search
 			author_list = do_topic_search(abstract)
+			# author_list = testMakeAuthors()
 			return render(request, 'results.html', {
 				'results_list': author_list,
 				'query': title

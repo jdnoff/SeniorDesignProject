@@ -3,12 +3,14 @@
     <img src="{% static "ExpertFinderTool/academic_logo.gif" %}" alt="Avatar" class="w3-left w3-circle w3-margin-right"
          style="width:60px">
     <span class="w3-right "> Rank: {{ number }}</span>
-    <h4>{{ author.author_name }}</h4>
+    <h2>{{ author.author_name }}</h2>
     <hr class="w3-clear">
 
+    <ul class="w3-ul w3-hoverable " style="width:100%">
     {% for item1 in author.paperTitles %}
-        <p>List1 element: {{ item1 }}</p>
+        <li>{{ item1 }}</li>
     {% endfor %}
+    </ul>
     <p></p>
 
     <button type="button" class="w3-btn w3-theme-d2 w3-margin-bottom"><i class="fa fa-envelope"></i>  Email</button>
