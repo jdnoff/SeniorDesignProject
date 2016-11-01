@@ -75,8 +75,9 @@ def test_methods():
 
 
 def testMakeAuthors():
+	brybry = 2203702053
 	data = get_test_results("author_result_example.txt")
-	auth = Author("test Author", 0, data)
+	auth = Author("test Author", brybry, data)
 	print(auth.author_name)
 	print("words:")
 	for w in auth.keyWords:
