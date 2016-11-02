@@ -40,7 +40,7 @@ ATT_JOURNAL_NAME = 'J.JN'  # Journal name
 ATT_JOURNAL_ID = 'J.JId'  # Journal ID
 ATT_CONFERENCE_NAME = 'C.CN'  # Conference series name
 ATT_CONFERENCE_ID = 'C.CId'  # Conference series ID
-ATT_WORDS = 'W'  # Words from paper title/abstract for full text search
+ATT_WORDS = 'W' # Words from paper title/abstract for full text search
 ATT_EXTENDED = 'E'  # Extended metadata (see table below)
 
 ATT_EXT_DISPLAY_NAME = 'DN'  # Display Name of the paper
