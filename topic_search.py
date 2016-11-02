@@ -22,7 +22,7 @@ def compile_author_list(data):
 	ret = []
 	for paper in data['entities']:
 		for auth in paper['AA']:
-			ret.append(auth['AuN'])
+			ret.append(auth['AuN'].title())
 	return ret
 
 
