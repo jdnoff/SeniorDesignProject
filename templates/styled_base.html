@@ -28,12 +28,9 @@
             }
         }
 
-
         $("#pancake").click(function () {
             toggleSideNav();
         })
-
-        $("")
 
     });
 
@@ -110,28 +107,21 @@
 
 <!-- Navbar -->
 <div id="mySidenav" class=" w3-theme-d1 sidenav">
-    {#    <a href="javascript:void(0)" class="closebtn" onclick="closeSideNav()">&times;</a>#}
-    <img style=" width:250px; -webkit-filter: invert(100%)"
-         src="{% static "ExpertFinderTool/academic_logo_tassle_left.png" %}" class="w3-circle"
-         alt="Avatar">
-    <a href="#">Topic Search</a>
-    <a href="#">Author Search</a>
-    <a href="#">About Us</a>
-    <a href="#">Contact</a>
+    <a style="padding: 0%" href="{% url 'home' %}"><img style=" width:250px; -webkit-filter: invert(100%)"
+                                                        src="{% static "ExpertFinderTool/academic_logo_tassle_left.png" %}"
+                                                        class="w3-circle"
+                                                        alt="Avatar">
+    </a>
+    <a href="{% url 'topic_search' %}">Topic Search</a>
+    <a href="{% url 'author_search' %}">Author Search</a>
+    <a href="{% url 'about_us' %} #}">About Us</a>
 </div>
 
-<!-- Use any element to open the sidenav -->
-{#<span onclick="openNav()">open</span>#}
 
 <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
 <div id="main">
-    {#    <div class="sidebar left">Hello World</div>#}
     <div class="w3-top">
         <ul class="w3-navbar w3-theme-d1 w3-left-align w3-large">
-            {#            <li class="w3-hide-medium w3-hide-large w3-opennav w3-right">#}
-            {#                <a class="w3-padding-large w3-hover-white w3-large w3-theme-d2" href="javascript:void(0);"#}
-            {#                   onclick="openNav()"><i class="fa fa-bars"></i></a>#}
-            {#            </li>#}
             <li class="w3-hide-small">
                 <div id="pancake" class="w3-padding-large w3-hover-white" title="News"><i
                         id="pancake" class="fa fa-bars"></i></div>
@@ -168,13 +158,9 @@
     <br>
 
     <!-- Footer -->
-    <footer class="w3-container w3-bottom w3-theme-d1 w3-padding-16">
+    <footer class="w3-container w3-bottom w3-theme-d1 w3-padding-10">
         <h5>Expert Finder</h5>
     </footer>
-
-    {#    <footer class="w3-container w3-bottom w3-theme-d5">#}
-    {#        <p>Sponsored by Lehigh University</p>#}
-    {#    </footer>#}
 </div>
 </body>
 </html>

@@ -13,15 +13,15 @@
     <img src="{% static "ExpertFinderTool/academic_logo.gif" %}" alt="Avatar" class="w3-left w3-circle w3-margin-right"
          style="width:60px">
     <span class="w3-right "> Rank: {{ number }}</span>
-    <h2><a href="https://academic.microsoft.com/#/detail/{{ author.author_id }}2203702053">{{ author.author_name }}</a>
+    <h2>{{ author.author_name }}
     </h2>
     <hr class="w3-clear">
 
     <div id="tabs" class="tabs">
         <ul class="w3-navbar">
-            <li><a href="#paper_titles">Paper Titles</a></li>
-            <li><a href="#author_fields">Author's Fields</a></li>
-            <li><a href="#author_keywords">Author's Keywords</a></li>
+            <li class="w3-theme-l1"><a href="#paper_titles">Paper Titles</a></li>
+            <li class="w3-theme-l1"><a href="#author_fields">Author's Fields</a></li>
+            <li class="w3-theme-l1"><a href="#author_keywords">Author's Keywords</a></li>
         </ul>
         <div id="paper_titles" class="w3-animate-opacity" style="max-height: 200px; overflow-y: scroll">
             <ul class="w3-ul w3-hoverable " style="width:100%">

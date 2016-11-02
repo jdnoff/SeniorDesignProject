@@ -20,11 +20,13 @@ from ExpertFinderTool.views import LandingView
 from ExpertFinderTool.views import TopicSearchView
 from ExpertFinderTool.views import AuthorSearchView
 from ExpertFinderTool.views import ResultsView
+from ExpertFinderTool.views import AboutUsView
 
 urlpatterns = [
 	url(r'^results/', ResultsView.as_view(), name='results'),
 	url(r'^author/', AuthorSearchView.as_view(), name='author_search'),
 	url(r'^topic/', TopicSearchView.as_view(), name='topic_search'),
+	url(r'^aboutUs/', AboutUsView.as_view(), name="about_us"),
 	url(r'^', LandingView.as_view(), name='home'),
 	url(r'^admin/', admin.site.urls),
 ]

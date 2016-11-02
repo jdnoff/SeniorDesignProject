@@ -10,9 +10,14 @@ from topic_search import do_topic_search
 from topic_search import testMakeAuthors
 import json
 
+
 # Create your views here.
 class LandingView(TemplateView):
 	template_name = 'landing_page.html'
+
+
+class AboutUsView(TemplateView):
+	template_name = 'about_us.html'
 
 
 class TopicSearchView(View):
@@ -34,6 +39,7 @@ class TopicSearchView(View):
 			# TODO: generate query from this data and send query to academic search
 			author_list = do_topic_search(abstract)
 			# author_list = testMakeAuthors()
+			# author_list += testMakeAuthors()
 			return render(request, 'results.html', {
 				'results_list': author_list,
 				'query': title
@@ -67,6 +73,7 @@ class AuthorSearchView(View):
 # not using this anymore
 class ResultsView(TemplateView):
 	template_name = 'results.html'
+
 	def get_context_data(self, **kwargs):
 		author_list = self.request.session.get('author_list')
 		context = {
