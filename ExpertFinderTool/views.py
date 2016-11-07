@@ -38,8 +38,7 @@ class TopicSearchView(View):
 			abstract = data['manuscript_abstract']
 			# TODO: generate query from this data and send query to academic search
 			author_list = do_topic_search(abstract)
-			# author_list = testMakeAuthors()
-			# author_list += testMakeAuthors()
+
 			return render(request, 'results.html', {
 				'results_list': author_list,
 				'query': title

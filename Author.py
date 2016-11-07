@@ -11,22 +11,40 @@ class Author:
 	# citationByPaper -- number of citations for each paper in result list (given by 'CC' attribute)
 	# used to sum all total citations for an author
 
-	def __init__(self, author_name, author_id, data):
+	def __init__(self, author_name, author_id):
 		# input should be the json result of a query for an author
 		self.author_name = author_name
 		self.author_id = author_id
 		# which gets the attributes 'Ti', 'W', 'F.FN', 'CC'
-		results = []
+
+		self.papers = []
+		self.paperTitles = self.getPapers()
+		self.keyWords = []
+		self.fieldsOfStudy = []
+		self.citationByPaper = []
+		self.totalCitations = self.sumCitations()
+
+	def getPapers(self):
+		ret = []
+		for paper in self.papers:
+			ret.append(paper.title)
+		return ret
+
+	def addPaper(self, paper):
+		"""
+		Adds an AcademicPaper to the papers list of this author
+		:param paper: AcademicPaper
+		"""
+		self.papers.append(paper)
+		self.paperTitles.append(paper.title)
+
+	def readData(self, data):
 		if 'entities' in data:
 			results = data['entities']
 		else:
 			return
 		# results = test_query()
 
-		self.paperTitles = []
-		self.keyWords = []
-		self.fieldsOfStudy = []
-		self.citationByPaper = []
 		for paper in results:
 			self.paperTitles.append(paper[ATT_PAPER_TITLE].title())
 			self.citationByPaper.append(int(paper[ATT_CITATIONS]))
@@ -35,10 +53,31 @@ class Author:
 			if 'F' in paper:
 				for field in paper['F']:
 					self.fieldsOfStudy.append(field['FN'])
-		self.totalCitations = self.sumCitations()
 
 	def sumCitations(self):
 		total = 0
 		for i in self.citationByPaper:
 			total += i
 		return total
+
+
+class AcademicPaper:
+	def __init__(self, paper_title):
+		self.title = paper_title
+		self.authors = []
+		self.keywords = []
+
+	def addKeywords(self, keywords_list):
+		for k in keywords_list:
+			self.keywords.append(k)
+
+	def addAuthor(self, author):
+		self.authors.append(author)
+
+	def addAuthors(self, author_list):
+		"""
+		:param author_list: list of AuId
+		:return:
+		"""
+		for a in author_list:
+			self.append(a)

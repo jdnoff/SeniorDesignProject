@@ -5,23 +5,39 @@ from Query_Parser import parseQuery
 from Query_Parser import test_query
 import academic_constants
 from Author import *
-
+import Query_Parser
+from TestResults.test_factory import get_evaluate_test_results
 
 # Handler for the topic search use case
 
 def do_topic_search(abstract):
-	attributes = {academic_constants.ATT_AUTHOR_NAME, academic_constants.ATT_AUTHOR_ID}
+	attributes = {
+		academic_constants.ATT_AUTHOR_NAME,
+		academic_constants.ATT_AUTHOR_ID,
+		academic_constants.ATT_WORDS,
+		academic_constants.ATT_PAPER_TITLE,
+		academic_constants.ATT_CITATIONS
+	}
 	# TODO: Send abstract to query processor instead of test_query
 	# keyword_list = test_query()
 	keyword_list = parseQuery(abstract)
 	query_string = create_query(keyword_list)
-	params = construct_params(query_string, 'latest', '5', '', attributes)
-	data = evaluate_request(params)
-	# data = get_test_results('author_result_example')
-	return search_list_of_authors(compile_author_list(data))
+	params = construct_params(query_string, 'latest', '25', '', attributes)
+	real_data = evaluate_request(params)
+	# real_data = get_evaluate_test_results()
+	print(json.dumps(real_data, indent=3))
+
+	populated_authors = compile_author_list(real_data)
+	return populated_authors
 
 
+# Not currently being used
 def search_list_of_authors(authorname_list):
+	"""
+	Performs an evaluate request on each author in a given list.
+	:param authorname_list: a list of author names to be searched
+	:return: a list of Author objects
+	"""
 	author_list = []
 	for auth in authorname_list:
 		query = "Composite({}={})".format(academic_constants.ATT_AUTHOR_ID, authorname_list[auth])
@@ -32,7 +48,7 @@ def search_list_of_authors(authorname_list):
 			academic_constants.ATT_FIELD_OF_STUDY,
 		})
 		data = evaluate_request(params)
-		# data = get_test_results('author_result_example')
+		# data = get_test_results('author_result_example.txt')
 		print(json.dumps(data))
 		a = Author(auth, authorname_list[auth], data)
 		author_list.append(a)
@@ -40,15 +56,39 @@ def search_list_of_authors(authorname_list):
 
 
 def compile_author_list(data):
-	ret = {}
+	authors = {}
 	if 'entities' in data:
 		for paper in data['entities']:
+			p = AcademicPaper(paper[ATT_PAPER_TITLE].title())
+			if ATT_WORDS in paper:
+				p.addKeywords(paper[ATT_WORDS])
+
+			# Iterate through paper authors and create Authors
 			for auth in paper['AA']:
-				ret[auth['AuN']] = auth['AuId']
+				auth_id = auth['AuId']
+				auth_name = auth['AuN']
+				# ret[auth['AuN']] = auth['AuId']
+				if auth_id in authors.keys():
+					# If already present, add paper to Author
+					authors[auth_id].addPaper(p)
+					print("-------------------------------------------------------------------------------------------")
+					print(authors[auth_id].author_name)
+					print("-------------------------------------------------------------------------------------------")
+				else:
+					# Create new Author
+					a = Author(author_name=auth_name, author_id=auth_id)
+					a.addPaper(p)
+					authors[auth_id] = a
 	else:
 		# bad response
 		print("Bad response")
 
+	ret = []
+	i = 0
+	for a in authors.keys():
+		ret.append(authors[a])
+		print("%d: %s" % (i, authors[a].author_name))
+		i += 1
 	return ret
 
 
@@ -60,7 +100,8 @@ def create_query(keyword_list):
 			wrd.append('W==\'{}\''.format(w))
 		line = ','.join(wrd)
 		wordslist.append('And({})'.format(line))
-	return wordslist[0]
+	# Or together and return
+	return 'Or({})'.format(','.join(wordslist))
 
 
 def get_test_results(file):
@@ -93,6 +134,3 @@ def testMakeAuthors():
 	ret = [auth]
 	return ret
 
-
-# print(json.dumps(get_test_results("author_result_example.txt"),indent=4))
-testMakeAuthors()
