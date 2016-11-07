@@ -1,0 +1,868 @@
+{
+   "entities": [
+      {
+         "Ti": "bowling alone the collapse and revival of american community",
+         "logprob": -14.424,
+         "AA": [
+            {
+               "AuId": 2147764452,
+               "AuN": "robert d putnam"
+            }
+         ],
+         "W": [
+            "alone",
+            "american",
+            "bowling",
+            "collapse",
+            "community",
+            "revival"
+         ],
+         "CC": 13698
+      },
+      {
+         "Ti": "a scalable content addressable network",
+         "logprob": -14.458,
+         "AA": [
+            {
+               "AuId": 190228929,
+               "AuN": "sylvia ratnasamy"
+            },
+            {
+               "AuId": 2184963950,
+               "AuN": "paul francis"
+            },
+            {
+               "AuId": 2281506998,
+               "AuN": "mark handley"
+            },
+            {
+               "AuId": 1964658237,
+               "AuN": "richard m karp"
+            },
+            {
+               "AuId": 719828399,
+               "AuN": "scott shenker"
+            }
+         ],
+         "W": [
+            "addressable",
+            "content",
+            "network",
+            "scalable"
+         ],
+         "CC": 5569
+      },
+      {
+         "Ti": "photonic crystals molding the flow of light",
+         "logprob": -14.555,
+         "AA": [
+            {
+               "AuId": 2335990857,
+               "AuN": "j d joannopoulos"
+            },
+            {
+               "AuId": 2157199530,
+               "AuN": "steven g johnson"
+            },
+            {
+               "AuId": 2096169200,
+               "AuN": "joshua n winn"
+            },
+            {
+               "AuId": 2522343014,
+               "AuN": "robert d meade"
+            }
+         ],
+         "W": [
+            "crystals",
+            "flow",
+            "light",
+            "molding",
+            "photonic"
+         ],
+         "CC": 3372
+      },
+      {
+         "Ti": "users of the world unite the challenges and opportunities of social media",
+         "logprob": -14.59,
+         "AA": [
+            {
+               "AuId": 2126599289,
+               "AuN": "andreas m kaplan"
+            },
+            {
+               "AuId": 892854437,
+               "AuN": "michael haenlein"
+            }
+         ],
+         "W": [
+            "challenges",
+            "media",
+            "opportunities",
+            "social",
+            "unite",
+            "users",
+            "world"
+         ],
+         "CC": 3553
+      },
+      {
+         "Ti": "networking named content",
+         "logprob": -14.684,
+         "AA": [
+            {
+               "AuId": 2022230021,
+               "AuN": "van jacobson"
+            },
+            {
+               "AuId": 2021378273,
+               "AuN": "diana k smetters"
+            },
+            {
+               "AuId": 2148951222,
+               "AuN": "james d thornton"
+            },
+            {
+               "AuId": 1981823869,
+               "AuN": "michael f plass"
+            },
+            {
+               "AuId": 2009767549,
+               "AuN": "nicholas h briggs"
+            },
+            {
+               "AuId": 1971374928,
+               "AuN": "rebecca l braynard"
+            }
+         ],
+         "W": [
+            "content",
+            "named",
+            "networking"
+         ],
+         "CC": 1946
+      },
+      {
+         "Ti": "intelligent paper",
+         "logprob": -14.749,
+         "AA": [
+            {
+               "AuId": 45542770,
+               "AuN": "marc dymetman"
+            },
+            {
+               "AuId": 2306741859,
+               "AuN": "max copperman"
+            }
+         ],
+         "W": [
+            "intelligent",
+            "paper"
+         ],
+         "CC": 845
+      },
+      {
+         "Ti": "visible light photocatalysis in nitrogen doped titanium oxides",
+         "logprob": -14.954,
+         "AA": [
+            {
+               "AuId": 2058172656,
+               "AuN": "ryoji asahi"
+            },
+            {
+               "AuId": 2174605765,
+               "AuN": "takeshi morikawa"
+            },
+            {
+               "AuId": 2081663378,
+               "AuN": "t ohwaki"
+            },
+            {
+               "AuId": 2117613446,
+               "AuN": "kazumaro aoki"
+            },
+            {
+               "AuId": 2013213066,
+               "AuN": "yasunori taga"
+            }
+         ],
+         "W": [
+            "doped",
+            "light",
+            "nitrogen",
+            "oxides",
+            "photocatalysis",
+            "titanium",
+            "visible"
+         ],
+         "CC": 6489
+      },
+      {
+         "Ti": "finding and evaluating community structure in networks",
+         "logprob": -15.035,
+         "AA": [
+            {
+               "AuId": 2394749673,
+               "AuN": "m e j newman"
+            },
+            {
+               "AuId": 2441999158,
+               "AuN": "michelle girvan"
+            }
+         ],
+         "W": [
+            "community",
+            "evaluating",
+            "finding",
+            "networks",
+            "structure"
+         ],
+         "CC": 4516
+      },
+      {
+         "Ti": "three approaches to qualitative content analysis",
+         "logprob": -15.04,
+         "AA": [
+            {
+               "AuId": 2103438708,
+               "AuN": "hsiufang hsieh"
+            },
+            {
+               "AuId": 2111315299,
+               "AuN": "sarah e shannon"
+            }
+         ],
+         "W": [
+            "approaches",
+            "content",
+            "qualitative",
+            "three"
+         ],
+         "CC": 5775
+      },
+      {
+         "Ti": "primer3 on the www for general users and for biologist programmers",
+         "logprob": -15.042,
+         "AA": [
+            {
+               "AuId": 2013916798,
+               "AuN": "steve rozen"
+            },
+            {
+               "AuId": 1635857869,
+               "AuN": "helen skaletsky"
+            }
+         ],
+         "W": [
+            "biologist",
+            "general",
+            "primer3",
+            "programmers",
+            "users",
+            "www"
+         ],
+         "CC": 9668
+      },
+      {
+         "Ti": "dynamic light scattering",
+         "logprob": -15.084,
+         "AA": [
+            {
+               "AuId": 2016642554,
+               "AuN": "w i goldburg"
+            }
+         ],
+         "W": [
+            "dynamic",
+            "light",
+            "scattering"
+         ],
+         "CC": 2286
+      },
+      {
+         "Ti": "mapping short dna sequencing reads and calling variants using mapping quality scores",
+         "logprob": -15.11,
+         "AA": [
+            {
+               "AuId": 2099885873,
+               "AuN": "heng li"
+            },
+            {
+               "AuId": 2170349888,
+               "AuN": "jue ruan"
+            },
+            {
+               "AuId": 1445484688,
+               "AuN": "richard durbin"
+            }
+         ],
+         "W": [
+            "calling",
+            "dna",
+            "mapping",
+            "quality",
+            "reads",
+            "scores",
+            "sequencing",
+            "short",
+            "variants"
+         ],
+         "CC": 1754
+      },
+      {
+         "Ti": "community structure in social and biological networks",
+         "logprob": -15.132,
+         "AA": [
+            {
+               "AuId": 2441999158,
+               "AuN": "michelle girvan"
+            },
+            {
+               "AuId": 2394749673,
+               "AuN": "m e j newman"
+            }
+         ],
+         "W": [
+            "biological",
+            "community",
+            "networks",
+            "social",
+            "structure"
+         ],
+         "CC": 5130
+      },
+      {
+         "Ti": "content based image retrieval at the end of the early years",
+         "logprob": -15.203,
+         "AA": [
+            {
+               "AuId": 92229816,
+               "AuN": "arnold w m smeulders"
+            },
+            {
+               "AuId": 2434177406,
+               "AuN": "m worring"
+            },
+            {
+               "AuId": 2096221691,
+               "AuN": "simone santini"
+            },
+            {
+               "AuId": 2273179273,
+               "AuN": "anoop gupta"
+            },
+            {
+               "AuId": 2147230496,
+               "AuN": "r jain"
+            }
+         ],
+         "W": [
+            "content",
+            "early",
+            "end",
+            "image",
+            "retrieval",
+            "years"
+         ],
+         "CC": 4206
+      },
+      {
+         "Ti": "qiime allows analysis of high throughput community sequencing data",
+         "logprob": -15.227,
+         "AA": [
+            {
+               "AuId": 1995678064,
+               "AuN": "j gregory caporaso"
+            },
+            {
+               "AuId": 2027001072,
+               "AuN": "justin kuczynski"
+            },
+            {
+               "AuId": 2033600902,
+               "AuN": "jesse stombaugh"
+            },
+            {
+               "AuId": 2118349020,
+               "AuN": "kyle bittinger"
+            },
+            {
+               "AuId": 1500131670,
+               "AuN": "frederic d bushman"
+            },
+            {
+               "AuId": 2162389237,
+               "AuN": "elizabeth k costello"
+            },
+            {
+               "AuId": 599516390,
+               "AuN": "noah fierer"
+            },
+            {
+               "AuId": 2126310615,
+               "AuN": "antonio gonzalez pena"
+            },
+            {
+               "AuId": 2113322023,
+               "AuN": "julia k goodrich"
+            },
+            {
+               "AuId": 2154387675,
+               "AuN": "jeffrey i gordon"
+            },
+            {
+               "AuId": 1843286711,
+               "AuN": "gavin a huttley"
+            },
+            {
+               "AuId": 2166393535,
+               "AuN": "scott t kelley"
+            },
+            {
+               "AuId": 2100954238,
+               "AuN": "dan knights"
+            },
+            {
+               "AuId": 2143283063,
+               "AuN": "jeremy e koenig"
+            },
+            {
+               "AuId": 2153749140,
+               "AuN": "ruth e ley"
+            },
+            {
+               "AuId": 271023826,
+               "AuN": "catherine a lozupone"
+            },
+            {
+               "AuId": 2181210931,
+               "AuN": "daniel mcdonald"
+            },
+            {
+               "AuId": 2310105369,
+               "AuN": "brian d muegge"
+            },
+            {
+               "AuId": 2432473348,
+               "AuN": "meg pirrung"
+            },
+            {
+               "AuId": 2132109389,
+               "AuN": "jens reeder"
+            },
+            {
+               "AuId": 2023798447,
+               "AuN": "joel r sevinsky"
+            },
+            {
+               "AuId": 242678278,
+               "AuN": "peter j turnbaugh"
+            },
+            {
+               "AuId": 2107872655,
+               "AuN": "william a walters"
+            },
+            {
+               "AuId": 2138100964,
+               "AuN": "jeremy widmann"
+            },
+            {
+               "AuId": 87505537,
+               "AuN": "tanya yatsunenko"
+            },
+            {
+               "AuId": 2413028446,
+               "AuN": "jesse zaneveld"
+            },
+            {
+               "AuId": 2159013505,
+               "AuN": "rob knight"
+            }
+         ],
+         "W": [
+            "allows",
+            "community",
+            "data",
+            "high",
+            "qiime",
+            "sequencing",
+            "throughput"
+         ],
+         "CC": 4453
+      },
+      {
+         "Ti": "qualitative content analysis in nursing research concepts procedures and measures to achieve trustworthiness",
+         "logprob": -15.229,
+         "AA": [
+            {
+               "AuId": 1966736736,
+               "AuN": "ulla hallgren graneheim"
+            },
+            {
+               "AuId": 2271988415,
+               "AuN": "berit lundman"
+            }
+         ],
+         "W": [
+            "achieve",
+            "concepts",
+            "content",
+            "measures",
+            "nursing",
+            "procedures",
+            "qualitative",
+            "research",
+            "trustworthiness"
+         ],
+         "CC": 5235
+      },
+      {
+         "Ti": "community detection in graphs",
+         "logprob": -15.233,
+         "AA": [
+            {
+               "AuId": 2122189410,
+               "AuN": "santo fortunato"
+            }
+         ],
+         "W": [
+            "community",
+            "detection",
+            "graphs"
+         ],
+         "CC": 2993
+      },
+      {
+         "Ti": "light emitting diodes",
+         "logprob": -15.239,
+         "AA": [
+            {
+               "AuId": 2101390090,
+               "AuN": "e fred schubert"
+            }
+         ],
+         "W": [
+            "diodes",
+            "emitting",
+            "light"
+         ],
+         "CC": 974
+      },
+      {
+         "Ti": "earthquake shakes twitter users real time event detection by social sensors",
+         "logprob": -15.243,
+         "AA": [
+            {
+               "AuId": 2075209366,
+               "AuN": "takeshi sakaki"
+            },
+            {
+               "AuId": 2498139151,
+               "AuN": "makoto okazaki"
+            },
+            {
+               "AuId": 2102950735,
+               "AuN": "yutaka matsuo"
+            }
+         ],
+         "W": [
+            "detection",
+            "earthquake",
+            "event",
+            "real",
+            "sensors",
+            "shakes",
+            "social",
+            "time",
+            "twitter",
+            "users"
+         ],
+         "CC": 1498
+      },
+      {
+         "Ti": "introducing mothur open source platform independent community supported software for describing and comparing microbial communities",
+         "logprob": -15.278,
+         "AA": [
+            {
+               "AuId": 2065076183,
+               "AuN": "patrick d schloss"
+            },
+            {
+               "AuId": 1886121137,
+               "AuN": "sarah l westcott"
+            },
+            {
+               "AuId": 715326322,
+               "AuN": "thomas ryabin"
+            },
+            {
+               "AuId": 2160192594,
+               "AuN": "justine r hall"
+            },
+            {
+               "AuId": 2528984903,
+               "AuN": "martin hartmann"
+            },
+            {
+               "AuId": 2486358421,
+               "AuN": "emily b hollister"
+            },
+            {
+               "AuId": 1993113695,
+               "AuN": "ryan a lesniewski"
+            },
+            {
+               "AuId": 1971160486,
+               "AuN": "brian b oakley"
+            },
+            {
+               "AuId": 2041264951,
+               "AuN": "donovan h parks"
+            },
+            {
+               "AuId": 2526358042,
+               "AuN": "courtney j robinson"
+            },
+            {
+               "AuId": 2220852130,
+               "AuN": "jason w sahl"
+            },
+            {
+               "AuId": 2278061038,
+               "AuN": "blaz stres"
+            },
+            {
+               "AuId": 2054485410,
+               "AuN": "gerhard g thallinger"
+            },
+            {
+               "AuId": 2481983163,
+               "AuN": "david j van horn"
+            },
+            {
+               "AuId": 2129276219,
+               "AuN": "carolyn f weber"
+            }
+         ],
+         "W": [
+            "communities",
+            "community",
+            "comparing",
+            "describing",
+            "independent",
+            "introducing",
+            "microbial",
+            "mothur",
+            "open",
+            "platform",
+            "software",
+            "source",
+            "supported"
+         ],
+         "CC": 4550
+      },
+      {
+         "Ti": "organometal halide perovskites as visible light sensitizers for photovoltaic cells",
+         "logprob": -15.324,
+         "AA": [
+            {
+               "AuId": 2168777343,
+               "AuN": "akihiro kojima"
+            },
+            {
+               "AuId": 2308834354,
+               "AuN": "kenjiro teshima"
+            },
+            {
+               "AuId": 2140280102,
+               "AuN": "yasuo shirai"
+            },
+            {
+               "AuId": 2110897668,
+               "AuN": "tsutomu miyasaka"
+            }
+         ],
+         "W": [
+            "cells",
+            "halide",
+            "light",
+            "organometal",
+            "perovskites",
+            "photovoltaic",
+            "sensitizers",
+            "visible"
+         ],
+         "CC": 2157
+      },
+      {
+         "Ti": "quantum squeezed light in gravitational wave detectors",
+         "logprob": -15.341,
+         "AA": [
+            {
+               "AuId": 2133767007,
+               "AuN": "sheon chua"
+            },
+            {
+               "AuId": 2059989788,
+               "AuN": "b j j slagmolen"
+            },
+            {
+               "AuId": 2311189936,
+               "AuN": "daniel a shaddock"
+            },
+            {
+               "AuId": 2310408017,
+               "AuN": "d e mcclelland"
+            }
+         ],
+         "W": [
+            "detectors",
+            "gravitational",
+            "light",
+            "quantum",
+            "squeezed",
+            "wave"
+         ],
+         "CC": 170
+      },
+      {
+         "Ti": "infectious diseases society of america american thoracic society consensus guidelines on the management of community acquired pneumonia in adults",
+         "logprob": -15.358,
+         "AA": [
+            {
+               "AuId": 2166249147,
+               "AuN": "lionel a mandell"
+            },
+            {
+               "AuId": 2165526827,
+               "AuN": "richard g wunderink"
+            },
+            {
+               "AuId": 2070389193,
+               "AuN": "antonio anzueto"
+            },
+            {
+               "AuId": 2140492574,
+               "AuN": "john g bartlett"
+            },
+            {
+               "AuId": 2522529335,
+               "AuN": "g douglas campbell"
+            },
+            {
+               "AuId": 2156015220,
+               "AuN": "nathan c dean"
+            },
+            {
+               "AuId": 2140058506,
+               "AuN": "scott f dowell"
+            },
+            {
+               "AuId": 2121929028,
+               "AuN": "thomas m file"
+            },
+            {
+               "AuId": 476212626,
+               "AuN": "daniel m musher"
+            },
+            {
+               "AuId": 2112047330,
+               "AuN": "michael s niederman"
+            },
+            {
+               "AuId": 2345284311,
+               "AuN": "antonio torres"
+            },
+            {
+               "AuId": 2194075447,
+               "AuN": "cynthia g whitney"
+            }
+         ],
+         "W": [
+            "acquired",
+            "adults",
+            "america",
+            "american",
+            "community",
+            "consensus",
+            "diseases",
+            "guidelines",
+            "infectious",
+            "management",
+            "pneumonia",
+            "society",
+            "thoracic"
+         ],
+         "CC": 2501
+      },
+      {
+         "Ti": "light emitting diodes based on conjugated polymers",
+         "logprob": -15.418,
+         "AA": [
+            {
+               "AuId": 2507756830,
+               "AuN": "a r brown"
+            },
+            {
+               "AuId": 2014668049,
+               "AuN": "d d c bradley"
+            },
+            {
+               "AuId": 2008103236,
+               "AuN": "j h burroughes"
+            },
+            {
+               "AuId": 2017562867,
+               "AuN": "richard h friend"
+            },
+            {
+               "AuId": 2204208534,
+               "AuN": "n c greenham"
+            },
+            {
+               "AuId": 1978380413,
+               "AuN": "paul l burn"
+            },
+            {
+               "AuId": 2471379239,
+               "AuN": "a b holmes"
+            },
+            {
+               "AuId": 2128300439,
+               "AuN": "a kraft"
+            }
+         ],
+         "W": [
+            "conjugated",
+            "diodes",
+            "emitting",
+            "light",
+            "polymers"
+         ],
+         "CC": 6326
+      },
+      {
+         "Ti": "absorption and scattering of light by small particles",
+         "logprob": -15.432,
+         "AA": [
+            {
+               "AuId": 343533070,
+               "AuN": "craig f bohren"
+            },
+            {
+               "AuId": 2156112790,
+               "AuN": "donald r huffman"
+            }
+         ],
+         "W": [
+            "absorption",
+            "light",
+            "particles",
+            "scattering",
+            "small"
+         ],
+         "CC": 9117
+      }
+   ],
+   "expr": "Or(And(W=='users'),And(W=='metadata',W=='of',W=='messages'),And(W=='popular',W=='messages'),And(W=='temporal',W=='information'),And(W=='popularity',W=='of',W=='messages'),And(W=='viable',W=='source',W=='of',W=='information'),And(W=='social',W=='graph'),And(W=='kinds',W=='of',W=='factors',W=='influence',W=='information',W=='propagation'),And(W=='number',W=='of',W=='future',W=='retweets'),And(W=='classification',W=='problem'),And(W=='personalized',W=='message',W=='recommendation'),And(W=='number',W=='of',W=='tasks'),And(W=='breaking',W=='news',W=='detection'),And(W=='Social',W=='network',W=='services'),And(W=='content'),And(W=='Twitter'),And(W=='light'),And(W=='wide',W=='spectrum',W=='of',W=='features'),And(W=='variants'),And(W=='large',W=='scale',W=='dataset'),And(W=='viral',W=='marketing'),And(W=='structural',W=='properties'),And(W=='characteristics',W=='of'),And(W=='community'),And(W=='good',W=='performance'),And(W=='paper'),And(W=='method'))"
+}
