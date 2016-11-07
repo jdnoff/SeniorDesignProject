@@ -27,6 +27,6 @@ urlpatterns = [
 	url(r'^author/', AuthorSearchView.as_view(), name='author_search'),
 	url(r'^topic/', TopicSearchView.as_view(), name='topic_search'),
 	url(r'^aboutUs/', AboutUsView.as_view(), name="about_us"),
-	url(r'^', LandingView.as_view(), name='home'),
+	url(r'^', TopicSearchView.as_view(), name='home'),
 	url(r'^admin/', admin.site.urls),
 ]
