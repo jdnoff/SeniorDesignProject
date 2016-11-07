@@ -7,11 +7,9 @@
       href="https://cdn3.iconfinder.com/data/icons/objects-1/100/square_academic_cap_graduate_cap_mortarboard-512.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
-<link rel="stylesheet" href="http://www.w3schools.com/lib/w3-theme-blue-grey.css">
 <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <link rel='stylesheet' href="{% static "ExpertFinderTool/style.css" %}">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-sidebar/3.3.2/jquery.sidebar.min.js"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
@@ -39,16 +37,6 @@
     html, body, h1, h2, h3, h4, h5 {
         font-family: "Open Sans", sans-serif
     }
-
-    {#    .w3-theme-l1 {#}
-    {#        color: #fff !important;#}
-    {#        background-color: #0479cc !important#}
-    {#    }#}
-    {##}
-    {#    .w3-theme-d1 {#}
-    {#        color: #fff !important;#}
-    {#        background-color: #024575 !important#}
-    {#    }#}
 
     /* The side navigation menu */
     .sidenav {
@@ -138,19 +126,13 @@
 
     <!-- Page Container -->
     <div class="w3-container w3-content" style="max-width:1400px;margin-top:80px;">
-        <!-- The Grid -->
-        <div class="w3-row">
-            <!-- Middle Column -->
-            <div class="w3-col m9">
-                <!------------------------------------------------------------------------------------------->
+        <!-- Middle Column -->
+        <div class="w3-col m12">
+            <!------------------------------------------------------------------------------------------->
+            {% block content_area %}
 
-                {% block content_area %}
-
-                {% endblock %}
-                <!-- End Middle Column -->
-            </div>
-
-            <!-- End Grid -->
+            {% endblock %}
+            <!-- End Middle Column -->
         </div>
 
         <!-- End Page Container -->

@@ -8,7 +8,10 @@
                  style="width:60px; -webkit-filter: invert(100%)">
             <h3> Topic Search</h3>
             <hr class="w3-clear">
-            <p> Use this tool to find reviewers for a manuscript</p>
+            <p> Use this tool to find reviewers for a manuscript. Topic search will compile a list of potential
+                reviewers given the abstract and title of an academic manuscript. The reviewers will be ranked
+                by their likelihood of being in the field of research of the given manuscript.
+            </p>
         </div>
     </a>
     <a style="text-decoration:none" href="{% url 'author_search' %}">
@@ -18,7 +21,10 @@
                  style="width:60px; -webkit-filter: invert(100%)">
             <h3> Author Search</h3>
             <hr class="w3-clear">
-            <p> Use this tool to find reviewers for an authors body of work</p>
+            <p> Use this tool to find reviewers for an authors body of work. Author Search will compile a list of
+                an author's published papers. After allowing the user to select a subset, Author Search will return
+                a list of potential reviewers ranked by their likelihood of being qualified enough to review thier
+                work.</p>
         </div>
     </a>
 {% endblock %}
