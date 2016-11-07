@@ -18,8 +18,6 @@ def do_topic_search(abstract):
 		academic_constants.ATT_PAPER_TITLE,
 		academic_constants.ATT_CITATIONS
 	}
-	# TODO: Send abstract to query processor instead of test_query
-	# keyword_list = test_query()
 	keyword_list = parseQuery(abstract)
 	query_string = create_query(keyword_list)
 	params = construct_params(query_string, 'latest', '25', '', attributes)
