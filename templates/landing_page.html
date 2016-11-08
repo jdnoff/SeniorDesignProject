@@ -1,28 +1,30 @@
 {% extends 'styled_base.html' %}
 {% load static %}
 {% block content_area %}
-    <table style="margin-left: 8px">
-        <tr>
-        <td style="width:180px">
-        <a style="text-decoration:none" href="{% url 'topic_search' %}">
-            <div class="w3-container w3-hover-white w3-card-2 w3-theme-d2 w3-round" style="height: 55px">
-                <img src="{% static "ExpertFinderTool/manuscript_search_logo.png" %}" alt="Avatar"
-                     class="w3-left w3-margin-right w3-margin-bottom"
-                     style="width:35px;margin-top:8px">
-                <h3 style="font-size: 13px;margin-top:19px"> Topic Search</h3>
-            </div>
-        </a>
-        </td>
-        <td style="width:180px">
-        <a style="text-decoration:none" href="{% url 'author_search' %}">
-            <div class="w3-container w3-hover-white w3-card-2 w3-theme-d2 w3-round" style="height: 55px">
-                <img src="{% static "ExpertFinderTool/author_search_logo.png" %}" alt="Avatar"
-                     class="w3-left w3-margin-right w3-margin-bottom"
-                     style="width:35px;margin-top:8px">
-                <h3 style="font-size: 13px;margin-top:18px"> Author Search</h3>
-            </div>
-        </a>
-        </td>
-        </tr>
-    </table>
+    <a style="text-decoration:none" href="{% url 'topic_search' %}">
+        <div class="w3-container w3-hover-white w3-card-2 w3-theme-d1 w3-round w3-margin"><br>
+            <img src="{% static "ExpertFinderTool/manuscript_search_logo.png" %}" alt="Avatar"
+                 class="w3-left w3-margin-right"
+                 style="width:60px; -webkit-filter: invert(100%)">
+            <h3> Topic Search</h3>
+            <hr class="w3-clear">
+            <p> Use this tool to find reviewers for a manuscript. Topic search will compile a list of potential
+                reviewers given the abstract and title of an academic manuscript. The reviewers will be ranked
+                by their likelihood of being in the field of research of the given manuscript.
+            </p>
+        </div>
+    </a>
+    <a style="text-decoration:none" href="{% url 'author_search' %}">
+        <div class="w3-container w3-hover-white w3-card-2 w3-theme-d1 w3-round w3-margin"><br>
+            <img src="{% static "ExpertFinderTool/author_search_logo.png" %}" alt="Avatar"
+                 class="w3-left w3-margin-right"
+                 style="width:60px; -webkit-filter: invert(100%)">
+            <h3> Author Search</h3>
+            <hr class="w3-clear">
+            <p> Use this tool to find reviewers for an authors body of work. Author Search will compile a list of
+                an author's published papers. After allowing the user to select a subset, Author Search will return
+                a list of potential reviewers ranked by their likelihood of being qualified enough to review thier
+                work.</p>
+        </div>
+    </a>
 {% endblock %}

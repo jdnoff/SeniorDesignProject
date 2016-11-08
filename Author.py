@@ -1,36 +1,83 @@
 # Author object file
 from AS_RequestHandler import test_query
+from academic_constants import *
+
 
 class Author:
-    # List of Class Attributes
-    # paperTitles -- list of all papers associated with this author given by the query (given by 'Ti' attribute)
-    # keyWords -- list of all keywords from all papers in paperTitles (given by 'W' attribute)
-    # fieldsOfStudy -- list of all fields of study the papers encompass (given by 'F.FN' attribute)
-    # citationByPaper -- number of citations for each paper in result list (given by 'CC' attribute)
-        # used to sum all total citations for an author
+	# List of Class Attributes
+	# paperTitles -- list of all papers associated with this author given by the query (given by 'Ti' attribute)
+	# keyWords -- list of all keywords from all papers in paperTitles (given by 'W' attribute)
+	# fieldsOfStudy -- list of all fields of study the papers encompass (given by 'F.FN' attribute)
+	# citationByPaper -- number of citations for each paper in result list (given by 'CC' attribute)
+	# used to sum all total citations for an author
 
-    def __init__(self, input):
-        # input should be the json result of a query for an author
-        # which gets the attributes 'Ti', 'W', 'F.FN', 'CC'
-        results = input
-        # results = test_query()
+	def __init__(self, author_name, author_id):
+		# input should be the json result of a query for an author
+		self.author_name = author_name
+		self.author_id = author_id
+		# which gets the attributes 'Ti', 'W', 'F.FN', 'CC'
 
-        self.paperTitles = []
-        self.keyWords = []
-        self.fieldsOfStudy = []
-        self.citationByPaper = []
-        for result in results:
-            self.paperTitles.append(result['Ti'].title())
-            self.keyWords.append(result['W'])
-            self.fieldsOfStudy.append(result['F.FN'].title())
-            self.citationByPaper.append(result['CC'])
-        self.totalCitations = self.sumCitations()
+		self.papers = []
+		self.paperTitles = self.getPapers()
+		self.keyWords = []
+		self.fieldsOfStudy = []
+		self.citationByPaper = []
+		self.totalCitations = self.sumCitations()
 
-    def sumCitations(self):
-        total = 0
-        for i in self.citationByPaper:
-            total += self.citationByPaper[i]
-        return total
+	def getPapers(self):
+		ret = []
+		for paper in self.papers:
+			ret.append(paper.title)
+		return ret
+
+	def addPaper(self, paper):
+		"""
+		Adds an AcademicPaper to the papers list of this author
+		:param paper: AcademicPaper
+		"""
+		self.papers.append(paper)
+		self.paperTitles.append(paper.title)
+
+	def readData(self, data):
+		if 'entities' in data:
+			results = data['entities']
+		else:
+			return
+		# results = test_query()
+
+		for paper in results:
+			self.paperTitles.append(paper[ATT_PAPER_TITLE].title())
+			self.citationByPaper.append(int(paper[ATT_CITATIONS]))
+			if ATT_WORDS in paper:
+				self.keyWords += (paper[ATT_WORDS])
+			if 'F' in paper:
+				for field in paper['F']:
+					self.fieldsOfStudy.append(field['FN'])
+
+	def sumCitations(self):
+		total = 0
+		for i in self.citationByPaper:
+			total += i
+		return total
 
 
+class AcademicPaper:
+	def __init__(self, paper_title):
+		self.title = paper_title
+		self.authors = []
+		self.keywords = []
 
+	def addKeywords(self, keywords_list):
+		for k in keywords_list:
+			self.keywords.append(k)
+
+	def addAuthor(self, author):
+		self.authors.append(author)
+
+	def addAuthors(self, author_list):
+		"""
+		:param author_list: list of AuId
+		:return:
+		"""
+		for a in author_list:
+			self.append(a)

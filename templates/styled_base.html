@@ -7,192 +7,143 @@
       href="https://cdn3.iconfinder.com/data/icons/objects-1/100/square_academic_cap_graduate_cap_mortarboard-512.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
-<link rel="stylesheet" href="http://www.w3schools.com/lib/w3-theme-blue-grey.css">
 <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<link rel='stylesheet' href="{% static "ExpertFinderTool/style.css" %}">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    $(document).ready(function () {
+
+        function toggleSideNav() {
+            if ($("#mySidenav").width() === 0) {
+                $("#mySidenav").width(250);
+                $("#main").css("marginLeft", "250px");
+
+            } else {
+                $("#mySidenav").width(0);
+                $("#main").css("marginLeft", "0px");
+            }
+        }
+
+        $("#pancake").click(function () {
+            toggleSideNav();
+        })
+
+    });
+
+</script>
 <style>
     html, body, h1, h2, h3, h4, h5 {
         font-family: "Open Sans", sans-serif
+    }
+
+    /* The side navigation menu */
+    .sidenav {
+        height: 100%; /* 100% Full-height */
+        width: 0; /* 0 width - change this with JavaScript */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Stay on top */
+        top: 0;
+        left: 0;
+        background-color: #111; /* Black*/
+        overflow-x: hidden; /* Disable horizontal scroll */
+        padding-top: 60px; /* Place content 60px from the top */
+        transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    }
+
+    /* The navigation menu links */
+    .sidenav a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 25px;
+        display: block;
+        transition: 0.3s
+    }
+
+    /* When you mouse over the navigation links, change their color */
+    .sidenav a:hover, .offcanvas a:focus {
+        color: #022841;
+    }
+
+    /* Position and style the close button (top right corner) */
+    .sidenav .closebtn {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+    }
+
+    /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+    #main {
+        transition: margin-left .5s;
+    }
+
+    /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+    @media screen and (max-height: 450px) {
+        .sidenav {
+            padding-top: 15px;
+        }
+
+        .sidenav a {
+            font-size: 18px;
+        }
     }
 </style>
 <body class="w3-theme-l5">
 
 <!-- Navbar -->
-<div class="w3-top">
-    <ul class="w3-navbar w3-theme-d2 w3-left-align w3-large">
-        <li class="w3-hide-medium w3-hide-large w3-opennav w3-right">
-            <a class="w3-padding-large w3-hover-white w3-large w3-theme-d2" href="javascript:void(0);"
-               onclick="openNav()"><i class="fa fa-bars"></i></a>
-        </li>
-        <li><a href="{% url 'home' %}" class="w3-padding-large w3-theme-d4"><i class="fa fa-home w3-margin-right"></i>Expert
-            Finder</a></li>
-        <li class="w3-hide-small"><a href="#" class="w3-padding-large w3-hover-white" title="News"><i
-                class="fa fa-globe"></i></a></li>
-        <li class="w3-hide-small"><a href="#" class="w3-padding-large w3-hover-white" title="Account Settings"><i
-                class="fa fa-user"></i></a></li>
-        <li class="w3-hide-small"><a href="#" class="w3-padding-large w3-hover-white" title="Messages"><i
-                class="fa fa-envelope"></i></a></li>
-        <li class="w3-hide-small w3-dropdown-hover">
-            <a href="#" class="w3-padding-large w3-hover-white" title="Notifications"><i class="fa fa-bell"></i><span
-                    class="w3-badge w3-right w3-small w3-green">3</span></a>
-            <div class="w3-dropdown-content w3-white w3-card-4">
-                <a href="#">One new friend request</a>
-                <a href="#">John Doe posted on your wall</a>
-                <a href="#">Jane likes your post</a>
-            </div>
-        </li>
-        <li class="w3-hide-small w3-right"><a href="#" class="w3-padding-large w3-hover-white" title="My Account"><img
-                src="{% static "ExpertFinderTool/academic_logo_tassle_left.png" %}" class="w3-circle"
-                style="height:25px;width:25px"
-                alt="Avatar"></a></li>
-    </ul>
+<div id="mySidenav" class=" w3-theme-d1 sidenav">
+    <a style="padding: 0%" href="{% url 'home' %}"><img style=" width:250px; -webkit-filter: invert(100%)"
+                                                        src="{% static "ExpertFinderTool/academic_logo_tassle_left.png" %}"
+                                                        class="w3-circle"
+                                                        alt="Avatar">
+    </a>
+    <a href="{% url 'topic_search' %}">Topic Search</a>
+    <a href="{% url 'author_search' %}">Author Search</a>
+    <a href="{% url 'about_us' %} #}">About Us</a>
 </div>
 
-<!-- Navbar on small screens -->
-<div id="navDemo" class="w3-hide w3-hide-large w3-hide-medium w3-top" style="margin-top:51px">
-    <ul class="w3-navbar w3-left-align w3-large w3-theme">
-        <li><a class="w3-padding-large" href="#">Link 1</a></li>
-        <li><a class="w3-padding-large" href="#">Link 2</a></li>
-        <li><a class="w3-padding-large" href="#">Link 3</a></li>
-        <li><a class="w3-padding-large" href="#">My Profile</a></li>
-    </ul>
-</div>
 
-<!-- Page Container -->
-<div class="w3-container w3-content" style="max-width:1400px;margin-top:80px;">
-    <!-- The Grid -->
-    <div class="w3-row">
-        <!-- Left Column -->
-        <div class="w3-col m3" >
-            <!-- Profile -->
-            <div class="w3-card-2 w3-round w3-white">
-                <div class="w3-container">
-                    <h2 class="w3-center">Expert Finder</h2>
-                    <p class="w3-center"><img src="{% static "ExpertFinderTool/academic_logo_tassle_left.png" %}"
-                                              class="w3-circle"
-                                              style="height:306px;width:306px" alt="Expert Finder"></p>
-                    <hr>
-                    <p>Senior Project By</p>
-                    <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> Jacob Hassel</p>
-                    <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> Joe D'Onofrio</p>
-                    <p>Advised By</p>
-                    <p><i class="fa fa-cube fa-fw w3-margin-right w3-text-theme"></i> Brian Davison</p>
-                </div>
-            </div>
-            <br>
+<!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
+<div id="main">
+    <div class="w3-top">
+        <ul class="w3-navbar w3-theme-d1 w3-left-align w3-large">
+            <li class="w3-hide-small">
+                <div id="pancake" class="w3-padding-large w3-hover-white" title="News"><i
+                        id="pancake" class="fa fa-bars"></i></div>
+            </li>
+            <li><a href="{% url 'home' %}" class="w3-padding-large w3-hover-white w3-theme-d1"><i
+                    class="fa fa-home w3-margin-right"></i>Expert Finder</a></li>
+            <li class="w3-hide-small w3-right"><a href="#" class="w3-padding-large w3-hover-white"
+                                                  title="My Account"><img
+                    style="height:25px;width:25px; -webkit-filter: invert(100%)"
+                    src="{% static "ExpertFinderTool/academic_logo_tassle_left.png" %}" class="w3-circle"
+                    alt="Avatar"></a></li>
+        </ul>
+    </div>
 
-            <!-- Accordion -->
-            <div class="w3-card-2 w3-round">
-                <div class="w3-accordion w3-white">
-                    <button onclick="myFunction('Demo1')" class="w3-btn-block w3-theme-l1 w3-left-align"><i
-                            class="fa fa-circle-o-notch fa-fw w3-margin-right"></i> About Us
-                    </button>
-                    <div id="Demo1" class="w3-accordion-content w3-container">
-                        <p>Some text..</p>
-                    </div>
-                    <button onclick="myFunction('Demo2')" class="w3-btn-block w3-theme-l1 w3-left-align"><i
-                            class="fa fa-calendar-check-o fa-fw w3-margin-right"></i> Project Deadlines
-                    </button>
-                    <div id="Demo2" class="w3-accordion-content w3-container">
-                        <ul>
-                            <li>09/20/16 - Deliverable 1: Project Definition</li>
-                            <li>10/04/16 - Deliverable 2: Project Planning</li>
-                            <li>10/25/16 - Deliverable 3: Project Design</li>
-                            <li>11/08/16 - Deliverable 4: Project Implementation</li>
-                            <li>12/09/16 - Final Poster Presentation</li>
-                        </ul>
-                    </div>
-                    <button onclick="myFunction('Demo3')" class="w3-btn-block w3-theme-l1 w3-left-align"><i
-                            class="fa fa-users fa-fw w3-margin-right"></i> Deliverables
-                    </button>
-                    <div id="Demo3" class="w3-accordion-content w3-container">
-                        <div class="w3-row-padding">
-                            <br>
-                            <div class="w3-half">
-                                <img src="{% static "ExpertFinderTool/expert_logo.jpg" %}" style="width:100%"
-                                     class="w3-margin-bottom">
-                            </div>
-                            <div class="w3-half">
-                                <img src="{% static "ExpertFinderTool/expert_logo.jpg" %}" style="width:100%"
-                                     class="w3-margin-bottom">
-                            </div>
-                            <div class="w3-half">
-                                <img src="{% static "ExpertFinderTool/expert_logo.jpg" %}" style="width:100%"
-                                     class="w3-margin-bottom">
-                            </div>
-                            <div class="w3-half">
-                                <img src="{% static "ExpertFinderTool/expert_logo.jpg" %}" style="width:100%"
-                                     class="w3-margin-bottom">
-                            </div>
-                            <div class="w3-half">
-                                <img src="{% static "ExpertFinderTool/expert_logo.jpg" %}" style="width:100%"
-                                     class="w3-margin-bottom">
-                            </div>
-                            <div class="w3-half">
-                                <img src="{% static "ExpertFinderTool/expert_logo.jpg" %}" style="width:100%"
-                                     class="w3-margin-bottom">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <br>
-
-            <!-- End Left Column -->
-        </div>
-        <div class="w3-col" style="width:75%;margin-top: -1px">
+    <!-- Page Container -->
+    <div class="w3-container w3-content" style="max-width:1400px;margin-top:80px;">
+        <!-- Middle Column -->
+        <div class="w3-col m12">
+            <!------------------------------------------------------------------------------------------->
             {% block content_area %}
 
             {% endblock %}
-        </div>
-        <!-- Middle Column -->
-        <div class="w3-col">
-            <!------------------------------------------------------------------------------------------->
-
             <!-- End Middle Column -->
         </div>
 
-        <!-- End Grid -->
+        <!-- End Page Container -->
     </div>
+    <br>
 
-    <!-- End Page Container -->
+    <!-- Footer -->
+    <footer class="w3-container w3-bottom w3-theme-d1 w3-padding-10">
+        <h5>Expert Finder</h5>
+    </footer>
 </div>
-<br>
-
-<!-- Footer -->
-<footer class="w3-container w3-theme-d3 w3-padding-16">
-    <h5>Expert Finder</h5>
-</footer>
-
-<footer class="w3-container w3-theme-d5">
-    <p>Sponsored by Lehigh University</p>
-</footer>
-
-<script>
-    // Accordion
-    function myFunction(id) {
-        var x = document.getElementById(id);
-        if (x.className.indexOf("w3-show") == -1) {
-            x.className += " w3-show";
-            x.previousElementSibling.className += " w3-theme-d1";
-        } else {
-            x.className = x.className.replace("w3-show", "");
-            x.previousElementSibling.className =
-                    x.previousElementSibling.className.replace(" w3-theme-d1", "");
-        }
-    }
-
-    // Used to toggle the menu on smaller screens when clicking on the menu button
-    function openNav() {
-        var x = document.getElementById("navDemo");
-        if (x.className.indexOf("w3-show") == -1) {
-            x.className += " w3-show";
-        } else {
-            x.className = x.className.replace(" w3-show", "");
-        }
-    }
-</script>
-
 </body>
 </html>
 

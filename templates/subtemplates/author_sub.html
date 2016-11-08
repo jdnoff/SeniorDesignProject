@@ -1,13 +1,38 @@
+{% load static author_tags %}
 {% load static %}
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <div class="w3-container w3-hover-light-grey w3-card-2 w3-white w3-round w3-margin"><br>
     <img src="{% static "ExpertFinderTool/academic_logo.gif" %}" alt="Avatar" class="w3-left w3-circle w3-margin-right"
          style="width:60px">
     <span class="w3-right "> Rank: {{ number }}</span>
-    <h4>{{ author_name }}</h4>
+    <h2>{{ author.author_name }}
+    </h2>
     <hr class="w3-clear">
-    <p></p>
 
-    <button type="button" class="w3-btn w3-theme-d2 w3-margin-bottom"><i class="fa fa-envelope"></i>  Email</button>
+    <table class="w3-table w3-hoverable">
+        <tr>
+            <th>Paper Title</th>
+            <th>Keywords</th>
+        </tr>
+        {% for paper in author.papers %}
+            <tr>
+                <td>{{ paper.title }}</td>
+                <td>
+                    {% for a in paper.keywords %}
+                        {{ a }}
+                    {% endfor %}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <p></p>
+    <button type="button" class="w3-btn w3-theme-d1 w3-margin-bottom"><i class="fa fa-user"></i>  <a
+            style="text-decoration: none" href="https://academic.microsoft.com/#/detail/{{ author.author_id }}">
+        Microsoft Academic Profile</a></button>
     <span class="w3-right">
         <button type="button" class="w3-btn w3-red w3-opacity w3-margin-bottom"><i
                 class="fa fa-thumbs-down"></i> Remove</button>
