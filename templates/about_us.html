@@ -1,36 +1,37 @@
 {% extends "styled_base.html" %}
 {% load static %}
-<script>
-    // Accordion
-    function myFunction(id) {
-        var x = document.getElementById(id);
-        if (x.className.indexOf("w3-show") == -1) {
-            x.className += " w3-show";
-            x.previousElementSibling.className += " w3-theme-d1";
-        } else {
-            x.className = x.className.replace("w3-show", "");
-            x.previousElementSibling.className =
-                    x.previousElementSibling.className.replace(" w3-theme-d1", "");
-        }
-    }
 
-    // Used to toggle the menu on smaller screens when clicking on the menu button
-    function openNav() {
-        var x = document.getElementById("navDemo");
-        if (x.className.indexOf("w3-show") == -1) {
-            x.className += " w3-show";
-        } else {
-            x.className = x.className.replace(" w3-show", "");
-        }
-    }
-</script>
 {% block content_area %}
+    <script>
+        // Accordion
+        function myFunction(id) {
+            var x = document.getElementById(id);
+            if (x.className.indexOf("w3-show") == -1) {
+                x.className += " w3-show";
+                x.previousElementSibling.className += " w3-theme-d1";
+            } else {
+                x.className = x.className.replace("w3-show", "");
+                x.previousElementSibling.className =
+                        x.previousElementSibling.className.replace(" w3-theme-d1", "");
+            }
+        }
+
+        // Used to toggle the menu on smaller screens when clicking on the menu button
+        function openNav() {
+            var x = document.getElementById("navDemo");
+            if (x.className.indexOf("w3-show") == -1) {
+                x.className += " w3-show";
+            } else {
+                x.className = x.className.replace(" w3-show", "");
+            }
+        }
+    </script>
     <div class="w3-card-2 w3-round w3-white">
         <div class="w3-container">
             <h2 class="w3-center">Expert Finder</h2>
             <p class="w3-center"><img src="{% static "ExpertFinderTool/academic_logo_tassle_left.png" %}"
                                       class="w3-circle"
-                                      style="height:306px;width:306px" alt="Expert Finder"></p>
+                                      style="height:206px;width:206px" alt="Expert Finder"></p>
             <hr>
             <p>Senior Project By</p>
             <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> Jacob Hassel</p>
@@ -42,7 +43,7 @@
     <br>
 
     <!-- Accordion -->
-    <div class="w3-card-2 w3-round">
+    <div class="w3-card-2 w3-round w3-padding-1">
         <div class="w3-accordion w3-white">
             <button onclick="myFunction('Demo1')" class="w3-btn-block w3-theme-l1 w3-left-align"><i
                     class="fa fa-circle-o-notch fa-fw w3-margin-right"></i> About Us

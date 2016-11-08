@@ -13,7 +13,7 @@ class Author:
 
 	def __init__(self, author_name, author_id):
 		# input should be the json result of a query for an author
-		self.author_name = author_name
+		self.author_name = author_name.title()
 		self.author_id = author_id
 		# which gets the attributes 'Ti', 'W', 'F.FN', 'CC'
 
