@@ -2,31 +2,94 @@ import json
 from AS_RequestHandler import construct_params
 from AS_RequestHandler import evaluate_request
 from Query_Parser import parseQuery
+from Query_Parser import test_query
 import academic_constants
-
+from Author import *
+import Query_Parser
+from TestResults.test_factory import get_evaluate_test_results
 
 # Handler for the topic search use case
 
 def do_topic_search(abstract):
-	attributes = {academic_constants.ATT_AUTHOR_NAME}
-	# TODO: Send abstract to query processor instead of test_query
-	# keyword_list = test_query()
+	attributes = {
+		academic_constants.ATT_AUTHOR_NAME,
+		academic_constants.ATT_AUTHOR_ID,
+		academic_constants.ATT_WORDS,
+		academic_constants.ATT_PAPER_TITLE,
+		academic_constants.ATT_CITATIONS
+	}
 	keyword_list = parseQuery(abstract)
 	query_string = create_query(keyword_list)
-	params = construct_params(query_string, 'latest', '11', '', attributes)
-	data = evaluate_request(params)
-	return compile_author_list(data)
+	params = construct_params(query_string, 'latest', '25', '', attributes)
+	real_data = evaluate_request(params)
+	# real_data = get_evaluate_test_results()
+	print(json.dumps(real_data, indent=3))
+
+	populated_authors = compile_author_list(real_data)
+	return populated_authors
+
+
+# Not currently being used
+def search_list_of_authors(authorname_list):
+	"""
+	Performs an evaluate request on each author in a given list.
+	:param authorname_list: a list of author names to be searched
+	:return: a list of Author objects
+	"""
+	author_list = []
+	for auth in authorname_list:
+		query = "Composite({}={})".format(academic_constants.ATT_AUTHOR_ID, authorname_list[auth])
+		params = construct_params(query, 'latest', 5, '', {
+			academic_constants.ATT_CITATIONS,
+			academic_constants.ATT_WORDS,
+			academic_constants.ATT_PAPER_TITLE,
+			academic_constants.ATT_FIELD_OF_STUDY,
+		})
+		data = evaluate_request(params)
+		# data = get_test_results('author_result_example.txt')
+		print(json.dumps(data))
+		a = Author(auth, authorname_list[auth], data)
+		author_list.append(a)
+	return author_list
 
 
 def compile_author_list(data):
+	authors = {}
+	if 'entities' in data:
+		for paper in data['entities']:
+			p = AcademicPaper(paper[ATT_PAPER_TITLE].title())
+			if ATT_WORDS in paper:
+				p.addKeywords(paper[ATT_WORDS])
+
+			# Iterate through paper authors and create Authors
+			for auth in paper['AA']:
+				auth_id = auth['AuId']
+				auth_name = auth['AuN']
+				# ret[auth['AuN']] = auth['AuId']
+				if auth_id in authors.keys():
+					# If already present, add paper to Author
+					authors[auth_id].addPaper(p)
+					print("-------------------------------------------------------------------------------------------")
+					print(authors[auth_id].author_name)
+					print("-------------------------------------------------------------------------------------------")
+				else:
+					# Create new Author
+					a = Author(author_name=auth_name, author_id=auth_id)
+					a.addPaper(p)
+					authors[auth_id] = a
+	else:
+		# bad response
+		print("Bad response")
+
 	ret = []
-	for paper in data['entities']:
-		for auth in paper['AA']:
-			ret.append(auth['AuN'].title())
+	i = 0
+	for a in authors.keys():
+		ret.append(authors[a])
+		print("%d: %s" % (i, authors[a].author_name))
+		i += 1
 	return ret
 
 
-# STUB
 def create_query(keyword_list):
 	wordslist = []
 	for key in keyword_list['documents'][0]['keyPhrases']:
@@ -35,15 +98,37 @@ def create_query(keyword_list):
 			wrd.append('W==\'{}\''.format(w))
 		line = ','.join(wrd)
 		wordslist.append('And({})'.format(line))
-	return wordslist[0]
+	# Or together and return
+	return 'Or({})'.format(','.join(wordslist))
 
 
-def get_test_results():
-	with open('AS_example_result') as data_file:
+def get_test_results(file):
+	with open(file) as data_file:
 		return json.load(data_file)
 
 
 def test_methods():
 	print(create_query(test_query()))
-	for res in compile_author_list(get_test_results()):
+	for res in compile_author_list(get_test_results('AS_example_result')):
 		print(res)
+
+
+def testMakeAuthors():
+	brybry = 2203702053
+	data = get_test_results("author_result_example.txt")
+	auth = Author("test Author", brybry, data)
+	print(auth.author_name)
+	print("words:")
+	for w in auth.keyWords:
+		print(w)
+
+	print("Titles")
+	for ti in auth.paperTitles:
+		print(ti)
+
+	print("fields of study")
+	for fs in auth.fieldsOfStudy:
+		print(fs)
+	ret = [auth]
+	return ret
+
