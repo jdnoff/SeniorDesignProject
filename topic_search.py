@@ -69,9 +69,6 @@ def compile_author_list(data):
 				if auth_id in authors.keys():
 					# If already present, add paper to Author
 					authors[auth_id].addPaper(p)
-					print("-------------------------------------------------------------------------------------------")
-					print(authors[auth_id].author_name)
-					print("-------------------------------------------------------------------------------------------")
 				else:
 					# Create new Author
 					a = Author(author_name=auth_name, author_id=auth_id)
