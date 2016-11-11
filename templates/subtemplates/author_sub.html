@@ -4,12 +4,14 @@
 <link rel="stylesheet" href="/resources/demos/style.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<div class="w3-container w3-hover-light-grey w3-card-2 w3-white w3-round w3-margin"><br>
+<div class="author-list-item w3-container w3-hover-light-grey w3-card-2 w3-white w3-round w3-margin"
+     data-author-score="{{ score }}"><br>
     <img src="{% static "ExpertFinderTool/academic_logo.gif" %}" alt="Avatar" class="w3-left w3-circle w3-margin-right"
          style="width:60px">
     <span class="w3-right "> Rank: {{ number }}</span>
     <h2>{{ author.author_name }}
     </h2>
+    <p class="w3-opacity">{{ author.author_id }}</p>
     <hr class="w3-clear">
 
     <table class="w3-table w3-hoverable">
