@@ -1,13 +1,33 @@
 {% extends "styled_base.html" %}
 {% block content_area %}
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#reorder-button").click(orderResults());
+
+            function orderResults() {
+                var resultList = $(".author-list-item");
+                resultList.sort(function (a, b) {
+                    return $(a).data("author-score") - $(b).data("author-score")
+                });
+                $("#all-results").html(resultList);
+            }
+        });
+    </script>
     <div class="w3-container w3-card-2 w3-theme-d1 w3-round w3-margin"><br>
         <span class="w3-right ">{{ number }}</span>
         <h2 style="margin-bottom: -6px;">Search results for: {{ query }} </h2>
+        <button id="reorder-button" type="button" class="w3-btn w3-theme-d5 w3-margin-bottom" value="Reorder elements">
+            <i
+                    class="fa fa-user"></i> Reorder
+        </button>
         <a href="\expert_finder\template\search.html" style="font-size: 13px;">clear search</a>
         <hr class="w3-clear">
     </div>
-
-    {% for result in results_list %}
-        {% include "subtemplates/author_sub.html" with author=result number=forloop.counter %}
-    {% endfor %}
+    <div id="all-results">
+        {% for result in results_list %}
+            {% include "subtemplates/author_sub.html" with author=result number=forloop.counter score=result.author_id %}
+        {% endfor %}
+    </div>
 {% endblock %}
