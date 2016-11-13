@@ -17,6 +17,8 @@ class Author:
 		self.author_id = author_id
 		# which gets the attributes 'Ti', 'W', 'F.FN', 'CC'
 
+		# Stores the raw ranking score
+		self.score = 0
 		self.papers = []
 		self.paperTitles = self.getPapers()
 		self.keyWords = []

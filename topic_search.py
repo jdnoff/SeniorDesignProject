@@ -54,6 +54,11 @@ def search_list_of_authors(authorname_list):
 
 
 def compile_author_list(data):
+	"""
+	Translates a json response into Author objects
+	:param data: json response from Evaluate request
+	:return: a list of Authors
+	"""
 	authors = {}
 	if 'entities' in data:
 		for paper in data['entities']:
@@ -65,13 +70,9 @@ def compile_author_list(data):
 			for auth in paper['AA']:
 				auth_id = auth['AuId']
 				auth_name = auth['AuN']
-				# ret[auth['AuN']] = auth['AuId']
 				if auth_id in authors.keys():
 					# If already present, add paper to Author
 					authors[auth_id].addPaper(p)
-					print("-------------------------------------------------------------------------------------------")
-					print(authors[auth_id].author_name)
-					print("-------------------------------------------------------------------------------------------")
 				else:
 					# Create new Author
 					a = Author(author_name=auth_name, author_id=auth_id)
@@ -99,7 +100,8 @@ def create_query(keyword_list):
 		line = ','.join(wrd)
 		wordslist.append('And({})'.format(line))
 	# Or together and return
-	return 'Or({})'.format(','.join(wordslist))
+	keyword_query = 'Or({})'.format(','.join(wordslist))
+	return 'And({},{})'.format(keyword_query, "Composite(F.FId=41008148)")
 
 
 def get_test_results(file):
