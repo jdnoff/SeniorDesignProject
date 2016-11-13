@@ -5,6 +5,7 @@ from Query_Parser import parseQuery
 from Query_Parser import test_query
 import academic_constants
 from Author import *
+from similarity_measure import jaccard_test
 import Query_Parser
 from TestResults.test_factory import get_evaluate_test_results
 
@@ -25,7 +26,9 @@ def do_topic_search(abstract):
 	# real_data = get_evaluate_test_results()
 	print(json.dumps(real_data, indent=3))
 
-	populated_authors = compile_author_list(real_data)
+	populated_authors = compile_author_list(real_data,keyword_list)
+	for author in populated_authors:
+		author.scoreAuthor()
 	return populated_authors
 
 
@@ -53,7 +56,7 @@ def search_list_of_authors(authorname_list):
 	return author_list
 
 
-def compile_author_list(data):
+def compile_author_list(data,query_keywords):
 	"""
 	Translates a json response into Author objects
 	:param data: json response from Evaluate request
@@ -64,6 +67,7 @@ def compile_author_list(data):
 		for paper in data['entities']:
 			p = AcademicPaper(paper[ATT_PAPER_TITLE].title())
 			if ATT_WORDS in paper:
+				p.addScore(jaccard_test(query_keywords['documents'][0]['keyPhrases'],paper[ATT_WORDS]))
 				p.addKeywords(paper[ATT_WORDS])
 
 			# Iterate through paper authors and create Authors

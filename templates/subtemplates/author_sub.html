@@ -11,7 +11,7 @@
     <span class="w3-right "> Rank: {{ number }}</span>
     <h2>{{ author.author_name }}
     </h2>
-    <p class="w3-opacity">{{ author.author_id }}</p>
+    <p class="w3-opacity">{{ author.author_id }} <br> Author Score: {{ author.score }} </p>
     <hr class="w3-clear">
 
     <table class="w3-table w3-hoverable">
@@ -21,7 +21,7 @@
         </tr>
         {% for paper in author.papers %}
             <tr>
-                <td>{{ paper.title }}</td>
+                <td>{{ paper.title }}<p>Score: {{ paper.score }} </p> </td>
                 <td>
                     {% for a in paper.keywords %}
                         {{ a }}

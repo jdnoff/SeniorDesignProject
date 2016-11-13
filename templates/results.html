@@ -29,7 +29,7 @@
     </div>
     <div id="all-results">
         {% for result in results_list %}
-            {% include "subtemplates/author_sub.html" with author=result number=forloop.counter score=result.author_id %}
+            {% include "subtemplates/author_sub.html" with author=result number=forloop.counter score=result.score %}
         {% endfor %}
     </div>
 {% endblock %}

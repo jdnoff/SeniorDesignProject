@@ -62,9 +62,13 @@ class Author:
 			total += i
 		return total
 
+	def scoreAuthor(self):
+		for paper in self.papers:
+			self.score += paper.score
 
 class AcademicPaper:
 	def __init__(self, paper_title):
+		self.score = 0
 		self.title = paper_title
 		self.authors = []
 		self.keywords = []
@@ -72,6 +76,9 @@ class AcademicPaper:
 	def addKeywords(self, keywords_list):
 		for k in keywords_list:
 			self.keywords.append(k)
+
+	def addScore(self, score):
+		self.score = score
 
 	def addAuthor(self, author):
 		self.authors.append(author)
