@@ -42,13 +42,13 @@ def in_phrases(key):
 			return True
 	return False
 
-
-def jaccard_test():
-	doc_one = test_query()
-	doc_one = doc_one['documents'][0]['keyPhrases']
-	doc_two = ['data mining technology', 'complex data', 'data warehouses', 'mining stream', 'live data', 'real-world',
-	           'guide', 'theory', 'practice']
+def jaccard_test(doc_one, doc_two):
+	#doc_one = test_query()
+	#doc_one = doc_one['documents'][0]['keyPhrases']
+	#doc_two = ['data mining technology', 'complex data', 'data warehouses', 'mining stream', 'live data', 'real-world',
+	#           'guide', 'theory', 'practice']
+	print(doc_one)
 	union = set(doc_one).union(doc_two)
 	intersect = set(doc_one).intersection(doc_two)
 	index = len(intersect) / len(union)
-	print(index)
+	return index
