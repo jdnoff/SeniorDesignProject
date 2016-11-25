@@ -23,8 +23,7 @@ class Author:
 		self.paperTitles = self.getPapers()
 		self.keyWords = []
 		self.fieldsOfStudy = []
-		self.citationByPaper = []
-		self.totalCitations = self.sumCitations()
+		self.citations = 0
 
 	def getPapers(self):
 		ret = []
@@ -57,10 +56,8 @@ class Author:
 					self.fieldsOfStudy.append(field['FN'])
 
 	def sumCitations(self):
-		total = 0
-		for i in self.citationByPaper:
-			total += i
-		return total
+		for paper in self.papers:
+			self.citations += paper.citations
 
 	def scoreAuthor(self):
 		for paper in self.papers:
@@ -79,6 +76,9 @@ class AcademicPaper:
 
 	def addScore(self, score):
 		self.score = score
+
+	def addCitations(self,citations):
+		self.citations = citations
 
 	def addAuthor(self, author):
 		self.authors.append(author)

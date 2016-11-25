@@ -12,7 +12,7 @@
                     }
                 });
                 resultList.sort(function (a, b) {
-                    return $(a).data("author-score") - $(b).data("author-score")
+                    return $(b).data("author-score") - $(a).data("author-score")
                 });
                 $("#all-results").html(resultList);
             });
