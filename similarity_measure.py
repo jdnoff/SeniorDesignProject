@@ -47,3 +47,4 @@ def jaccard_test(doc_one, doc_two):
 	intersect = set(doc_one).intersection(doc_two)
 	index = len(intersect) / len(union)
 	return index
+

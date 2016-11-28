@@ -29,6 +29,7 @@ def do_topic_search(abstract):
 	populated_authors = compile_author_list(real_data,keyword_list)
 	for author in populated_authors:
 		author.scoreAuthor()
+		author.sumCitations()
 	return populated_authors
 
 
@@ -69,7 +70,8 @@ def compile_author_list(data,query_keywords):
 			if ATT_WORDS in paper:
 				p.addScore(jaccard_test(query_keywords['documents'][0]['keyPhrases'],paper[ATT_WORDS]))
 				p.addKeywords(paper[ATT_WORDS])
-
+			p.addCitations(paper[ATT_CITATIONS])
+			print(paper[ATT_PAPER_TITLE],paper[ATT_CITATIONS])
 			# Iterate through paper authors and create Authors
 			for auth in paper['AA']:
 				auth_id = auth['AuId']
