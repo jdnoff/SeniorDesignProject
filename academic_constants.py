@@ -3,7 +3,7 @@
 """
 
 # Subscription key placed in header
-REQUEST_HEADER = {'Ocp-Apim-Subscription-Key': '5569c93188b746fcab48355fa04a68f8'}
+REQUEST_HEADER = {'Ocp-Apim-Subscription-Key': 'a5b4e6e0c02b4a8d8bc7fe6b35fa0930'}
 
 # REST endpoints
 EVALUATE_URL = 'https://api.projectoxford.ai/academic/v1.0/evaluate'
