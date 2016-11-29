@@ -89,22 +89,13 @@ def compile_author_list(data, query_keywords):
 	authors = {}
 	if 'entities' in data:
 		for paper in data['entities']:
-			p = AcademicPaper(paper[ATT_PAPER_TITLE].title())
-			if ATT_WORDS in paper:
-				p.addScore(jaccard_test(query_keywords['documents'][0]['keyPhrases'], paper[ATT_WORDS]))
-				p.addKeywords(paper[ATT_WORDS])
-			p.addCitations(paper[ATT_CITATIONS])
 			# Iterate through paper authors and create Authors
 			for auth in paper['AA']:
 				auth_id = auth['AuId']
 				auth_name = auth['AuN']
-				if auth_id in authors.keys():
-					# If already present, add paper to Author
-					authors[auth_id].addPaper(p)
-				else:
+				if auth_id not in authors.keys():
 					# Create new Author
 					a = Author(author_name=auth_name, author_id=auth_id)
-					a.addPaper(p)
 					authors[auth_id] = a
 	else:
 		# bad response
