@@ -1,5 +1,4 @@
 # Author object file
-from AS_RequestHandler import test_query
 from academic_constants import *
 
 
@@ -24,6 +23,13 @@ class Author:
 		self.keyWords = []
 		self.fieldsOfStudy = []
 		self.citations = 0
+		self.mostRecentYear = -1
+		self.numPublications = 0
+
+	def computeMostRecentYear(self):
+		for paper in self.papers:
+			if paper.year > self.mostRecentYear:
+				self.mostRecentYear = paper.year
 
 	def getPapers(self):
 		ret = []
@@ -38,13 +44,13 @@ class Author:
 		"""
 		self.papers.append(paper)
 		self.paperTitles.append(paper.title)
+		self.numPublications += 1
 
 	def readData(self, data):
 		if 'entities' in data:
 			results = data['entities']
 		else:
 			return
-		# results = test_query()
 
 		for paper in results:
 			self.paperTitles.append(paper[ATT_PAPER_TITLE].title())
@@ -62,6 +68,7 @@ class Author:
 	def scoreAuthor(self):
 		for paper in self.papers:
 			self.score += paper.score
+
 
 class AcademicPaper:
 	def __init__(self, paper_title):
