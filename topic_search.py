@@ -41,6 +41,7 @@ def do_topic_search(abstract):
 	return populated_authors
 
 
+# 2
 def search_list_of_authors(author_list, query_keywords):
 	"""
 	Performs an evaluate request on each author in a given list.
@@ -77,10 +78,12 @@ def search_list_of_authors(author_list, query_keywords):
 				author.addPaper(p)
 
 
+# 1
 def compile_author_list(data, query_keywords):
 	"""
 	This is the first step of our query. Translates a json response of papers into a list of Authors
 	:param data: json response from Evaluate request
+	:param query_keywords: keywords parsed from the query
 	:return: a list of Authors
 	"""
 	authors = {}
@@ -91,7 +94,6 @@ def compile_author_list(data, query_keywords):
 				p.addScore(jaccard_test(query_keywords['documents'][0]['keyPhrases'], paper[ATT_WORDS]))
 				p.addKeywords(paper[ATT_WORDS])
 			p.addCitations(paper[ATT_CITATIONS])
-			# print(paper[ATT_PAPER_TITLE],paper[ATT_CITATIONS])
 			# Iterate through paper authors and create Authors
 			for auth in paper['AA']:
 				auth_id = auth['AuId']
@@ -118,6 +120,11 @@ def compile_author_list(data, query_keywords):
 
 
 def create_query(keyword_list):
+	"""
+	Creates the query used by topic search to find the initial list of authors
+	:param keyword_list: A list of keywords that were parsed from the abstract
+	:return: A query string formatted for use with microsoft academic
+	"""
 	wordslist = []
 	for key in keyword_list['documents'][0]['keyPhrases']:
 		wrd = []
@@ -128,34 +135,3 @@ def create_query(keyword_list):
 	# Or together and return
 	keyword_query = 'Or({})'.format(','.join(wordslist))
 	return 'And({},{})'.format(keyword_query, "Composite(F.FId=41008148)")
-
-
-def get_test_results(file):
-	with open(file) as data_file:
-		return json.load(data_file)
-
-
-def test_methods():
-	print(create_query(test_query()))
-	for res in compile_author_list(get_test_results('AS_example_result')):
-		print(res)
-
-
-def testMakeAuthors():
-	brybry = 2203702053
-	data = get_test_results("author_result_example.txt")
-	auth = Author("test Author", brybry, data)
-	print(auth.author_name)
-	print("words:")
-	for w in auth.keyWords:
-		print(w)
-
-	print("Titles")
-	for ti in auth.paperTitles:
-		print(ti)
-
-	print("fields of study")
-	for fs in auth.fieldsOfStudy:
-		print(fs)
-	ret = [auth]
-	return ret
