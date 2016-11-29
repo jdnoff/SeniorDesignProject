@@ -5,24 +5,31 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <div class="author-list-item w3-container w3-hover-light-grey w3-card-2 w3-white w3-round w3-margin"
-     data-author-score="{{ score }}"><br>
+     data-author-score="{{ score }}"
+     data-recent-year="{{ year }}"
+     data-total-citations="{{ author.citations }}"
+     data-author-numPublications="{{ author.numPublications }}">
+    <br>
     <img src="{% static "ExpertFinderTool/academic_logo.gif" %}" alt="Avatar" class="w3-left w3-circle w3-margin-right"
          style="width:60px">
     <span class="w3-right "> Rank: {{ number }}</span>
     <h2>{{ author.author_name }}
     </h2>
-    <p class="w3-opacity">Score:{{ author.score }} <br> Author citations: {{ author.citations }} </p>
+    <p class="w3-opacity">Score: {{ author.score }} <br> Total Citations: {{ author.citations }} <br> Most Recent
+        Publication: {{ year }} <br> Number of Publications: {{ author.numPublications }}</p>
     <hr class="w3-clear">
 
-    <div id="cont" style="overflow-y: scroll; height:300px;">
+    <div id="cont" style="overflow-y: scroll; height:250px;">
         <table class="w3-table w3-hoverable">
             <tr>
                 <th>Paper Title</th>
+                <th>Score</th>
                 <th>Keywords</th>
             </tr>
             {% for paper in author.papers %}
                 <tr>
-                    <td>{{ paper.title }}<p>Score: {{ paper.score }} </p></td>
+                    <td>{{ paper.title }}<p></p></td>
+                    <td>{{ paper.score }} </td>
                     <td>
                         {% for a in paper.keywords %}
                             {{ a }}
