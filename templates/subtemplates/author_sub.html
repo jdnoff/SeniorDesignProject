@@ -11,26 +11,27 @@
     <span class="w3-right "> Rank: {{ number }}</span>
     <h2>{{ author.author_name }}
     </h2>
-    <p class="w3-opacity">{{ author.author_id }} <br> Author citations: {{ author.citations }} </p>
+    <p class="w3-opacity">Score:{{ author.score }} <br> Author citations: {{ author.citations }} </p>
     <hr class="w3-clear">
 
-    <table class="w3-table w3-hoverable">
-        <tr>
-            <th>Paper Title</th>
-            <th>Keywords</th>
-        </tr>
-        {% for paper in author.papers %}
+    <div id="cont" style="overflow-y: scroll; height:300px;">
+        <table class="w3-table w3-hoverable">
             <tr>
-                <td>{{ paper.title }}<p>Score: {{ paper.score }} </p> </td>
-                <td>
-                    {% for a in paper.keywords %}
-                        {{ a }}
-                    {% endfor %}
-                </td>
+                <th>Paper Title</th>
+                <th>Keywords</th>
             </tr>
-        {% endfor %}
-    </table>
-
+            {% for paper in author.papers %}
+                <tr>
+                    <td>{{ paper.title }}<p>Score: {{ paper.score }} </p></td>
+                    <td>
+                        {% for a in paper.keywords %}
+                            {{ a }}
+                        {% endfor %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
     <p></p>
     <button type="button" class="w3-btn w3-theme-d1 w3-margin-bottom"><i class="fa fa-user"></i>  <a
             style="text-decoration: none" href="https://academic.microsoft.com/#/detail/{{ author.author_id }}">

@@ -7,7 +7,6 @@ from .forms import TopicSearchForm
 from .forms import AuthorSearchForm
 from .forms import AuthorSearchSubsetForm
 from topic_search import do_topic_search
-from topic_search import testMakeAuthors
 import json
 
 

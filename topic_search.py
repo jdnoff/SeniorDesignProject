@@ -9,6 +9,7 @@ from similarity_measure import jaccard_test
 import Query_Parser
 from TestResults.test_factory import get_evaluate_test_results
 
+
 # Handler for the topic search use case
 
 def do_topic_search(abstract):
@@ -21,43 +22,54 @@ def do_topic_search(abstract):
 	}
 	keyword_list = parseQuery(abstract)
 	query_string = create_query(keyword_list)
-	params = construct_params(query_string, 'latest', '25', '', attributes)
+	params = construct_params(query_string, 'latest', '15', '', attributes)
 	real_data = evaluate_request(params)
 	# real_data = get_evaluate_test_results()
-	print(json.dumps(real_data, indent=3))
 
-	populated_authors = compile_author_list(real_data,keyword_list)
+	populated_authors = compile_author_list(real_data, keyword_list)
+	search_list_of_authors(populated_authors, keyword_list)
 	for author in populated_authors:
 		author.scoreAuthor()
 		author.sumCitations()
 	return populated_authors
 
 
-# Not currently being used
-def search_list_of_authors(authorname_list):
+def search_list_of_authors(author_list, query_keywords):
 	"""
 	Performs an evaluate request on each author in a given list.
 	:param authorname_list: a list of author names to be searched
 	:return: a list of Author objects
 	"""
-	author_list = []
-	for auth in authorname_list:
-		query = "Composite({}={})".format(academic_constants.ATT_AUTHOR_ID, authorname_list[auth])
-		params = construct_params(query, 'latest', 5, '', {
+	for author in author_list:
+		query = "Composite({}={})".format(academic_constants.ATT_AUTHOR_ID, author.author_id)
+		params = construct_params(query, 'latest', 25, '', {
 			academic_constants.ATT_CITATIONS,
 			academic_constants.ATT_WORDS,
 			academic_constants.ATT_PAPER_TITLE,
 			academic_constants.ATT_FIELD_OF_STUDY,
+			academic_constants.ATT_YEAR,
+			academic_constants.ATT_ID
 		})
 		data = evaluate_request(params)
-		# data = get_test_results('author_result_example.txt')
 		print(json.dumps(data))
-		a = Author(auth, authorname_list[auth], data)
-		author_list.append(a)
-	return author_list
+		# Authors papers
+		if 'entities' in data:
+			for paper in data['entities']:
+				p = AcademicPaper(paper[ATT_PAPER_TITLE].title())
+				if ATT_WORDS in paper:
+					p.addScore(jaccard_test(query_keywords['documents'][0]['keyPhrases'], paper[ATT_WORDS]))
+					p.addKeywords(paper[ATT_WORDS])
+
+				if ATT_CITATIONS in paper:
+					p.addCitations(paper[ATT_CITATIONS])
+
+				if ATT_YEAR in paper:
+					p.year = paper[ATT_YEAR]
+				# print(paper.title)
+				author.addPaper(p)
 
 
-def compile_author_list(data,query_keywords):
+def compile_author_list(data, query_keywords):
 	"""
 	Translates a json response into Author objects
 	:param data: json response from Evaluate request
@@ -68,10 +80,10 @@ def compile_author_list(data,query_keywords):
 		for paper in data['entities']:
 			p = AcademicPaper(paper[ATT_PAPER_TITLE].title())
 			if ATT_WORDS in paper:
-				p.addScore(jaccard_test(query_keywords['documents'][0]['keyPhrases'],paper[ATT_WORDS]))
+				p.addScore(jaccard_test(query_keywords['documents'][0]['keyPhrases'], paper[ATT_WORDS]))
 				p.addKeywords(paper[ATT_WORDS])
 			p.addCitations(paper[ATT_CITATIONS])
-			print(paper[ATT_PAPER_TITLE],paper[ATT_CITATIONS])
+			# print(paper[ATT_PAPER_TITLE],paper[ATT_CITATIONS])
 			# Iterate through paper authors and create Authors
 			for auth in paper['AA']:
 				auth_id = auth['AuId']
@@ -139,4 +151,3 @@ def testMakeAuthors():
 		print(fs)
 	ret = [auth]
 	return ret
-

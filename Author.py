@@ -69,6 +69,7 @@ class AcademicPaper:
 		self.title = paper_title
 		self.authors = []
 		self.keywords = []
+		self.year = -1
 
 	def addKeywords(self, keywords_list):
 		for k in keywords_list:
@@ -77,7 +78,7 @@ class AcademicPaper:
 	def addScore(self, score):
 		self.score = score
 
-	def addCitations(self,citations):
+	def addCitations(self, citations):
 		self.citations = citations
 
 	def addAuthor(self, author):
