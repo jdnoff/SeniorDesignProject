@@ -4,14 +4,7 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
         $(function () {
-            {#            var resultList = $(".author-list-item");#}
-            var resultList = $("#all-results").children(".author-list-item");
-            resultList.sort(function (a, b) {
-                return $(b).data("author-score") - $(a).data("author-score");
-            });
-            {#            $("#all-results").empty().append(resultList);#}
-        });
-        $(function () {
+
             <!-- Attribute Sliders -->
             $("#citation-slider").slider({
                 range: true,
@@ -71,6 +64,16 @@
                     }
                 });
             });
+        });
+
+        $(function () {
+            {#            var resultList = $(".author-list-item");#}
+            {#            var resultList = $("#all-results").children(".author-list-item");#}
+            var resultList = $("#all-results").find('.author-list-item');
+            resultList.sort(function (a, b) {
+                return $(b).data("author-score") - $(a).data("author-score");
+            });
+            {#            $("#all-results").empty().append(resultList);#}
         });
     </script>
     <div class="w3-container w3-card-2 w3-theme-d1 w3-round w3-margin"><br>
