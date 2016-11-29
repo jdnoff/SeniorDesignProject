@@ -11,8 +11,12 @@ from TestResults.test_factory import get_evaluate_test_results
 
 
 # Handler for the topic search use case
-
 def do_topic_search(abstract):
+	"""
+	Handler for the topic search use case
+	:param abstract: full text of a paper abstract
+	:return: List of Authors ready to be displayed
+	"""
 	attributes = {
 		academic_constants.ATT_AUTHOR_NAME,
 		academic_constants.ATT_AUTHOR_ID,
@@ -22,36 +26,40 @@ def do_topic_search(abstract):
 	}
 	keyword_list = parseQuery(abstract)
 	query_string = create_query(keyword_list)
-	params = construct_params(query_string, 'latest', '15', '', attributes)
+	params = construct_params(query_string, 'latest', '1', '', attributes)
 	real_data = evaluate_request(params)
 	# real_data = get_evaluate_test_results()
 
 	populated_authors = compile_author_list(real_data, keyword_list)
 	search_list_of_authors(populated_authors, keyword_list)
+
+	# Compute scores for each author before sending them to be displayed
 	for author in populated_authors:
 		author.scoreAuthor()
 		author.sumCitations()
+		author.computeMostRecentYear()
 	return populated_authors
 
 
 def search_list_of_authors(author_list, query_keywords):
 	"""
 	Performs an evaluate request on each author in a given list.
-	:param authorname_list: a list of author names to be searched
+	:param author_list: a list of author names to be searched
 	:return: a list of Author objects
 	"""
 	for author in author_list:
 		query = "Composite({}={})".format(academic_constants.ATT_AUTHOR_ID, author.author_id)
-		params = construct_params(query, 'latest', 25, '', {
+		params = construct_params(query, 'latest', 5, '', {
 			academic_constants.ATT_CITATIONS,
 			academic_constants.ATT_WORDS,
 			academic_constants.ATT_PAPER_TITLE,
 			academic_constants.ATT_FIELD_OF_STUDY,
 			academic_constants.ATT_YEAR,
-			academic_constants.ATT_ID
+			academic_constants.ATT_ID,
+			"RId"
 		})
 		data = evaluate_request(params)
-		print(json.dumps(data))
+		print(json.dumps(data, indent=1))
 		# Authors papers
 		if 'entities' in data:
 			for paper in data['entities']:
@@ -71,7 +79,7 @@ def search_list_of_authors(author_list, query_keywords):
 
 def compile_author_list(data, query_keywords):
 	"""
-	Translates a json response into Author objects
+	This is the first step of our query. Translates a json response of papers into a list of Authors
 	:param data: json response from Evaluate request
 	:return: a list of Authors
 	"""
