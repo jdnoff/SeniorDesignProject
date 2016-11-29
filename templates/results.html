@@ -4,32 +4,112 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
         $(function () {
-            $("#reorder-button").click(function (event) {
+
+            <!-- Attribute Sliders -->
+            $("#citation-slider").slider({
+                range: true,
+                min: 0,
+                max: 100000,
+                values: [0, 100000],
+                slide: function (event, ui) {
+                    $("#citation-range").val("" + ui.values[0] + " - " + ui.values[1]);
+                }
+            });
+            $("#year-slider").slider({
+                range: true,
+                min: 1950,
+                max: 2016,
+                values: [1950, 2016],
+                slide: function (event, ui) {
+                    $("#year-range").val("" + ui.values[0] + " - " + ui.values[1]);
+                }
+            });
+            $("#papernum-slider").slider({
+                range: true,
+                min: 0,
+                max: 100,
+                values: [0, 100],
+                slide: function (event, ui) {
+                    $("#papernum-range").val("" + ui.values[0] + " - " + ui.values[1]);
+                }
+            });
+
+            <!-- Slider labels-->
+            $("#year-range").val("" + $("#year-slider").slider("values", 0) +
+                    " - " + $("#year-slider").slider("values", 1));
+            $("#citation-range").val("" + $("#citation-slider").slider("values", 0) +
+                    " - " + $("#citation-slider").slider("values", 1));
+            $("#papernum-range").val("" + $("#papernum-slider").slider("values", 0) +
+                    " - " + $("#papernum-slider").slider("values", 1));
+
+
+            $("#filter-button").click(function (event) {
                 var resultList = $(".author-list-item");
-                $.each(resultList, function (result) {
-                    if ($(result).data("author-score") < 0) {
-                        result.remove();
+                resultList.each(function () {
+                    if (($(this).data("recent-year") < $("#year-slider").slider("values", 0)) ||
+                            ($(this).data("recent-year") > $("#year-slider").slider("values", 1))) {
+                        $(this).remove();
                     }
                 });
-                resultList.sort(function (a, b) {
-                    return $(b).data("author-score") - $(a).data("author-score")
+                resultList.each(function () {
+                    if (($(this).data("total-citations") < $("#citation-slider").slider("values", 0)) ||
+                            ($(this).data("total-citations") > $("#citation-slider").slider("values", 1))) {
+                        $(this).remove();
+                    }
                 });
-                $("#all-results").html(resultList);
+                resultList.each(function () {
+                    if (($(this).data("author-numPublications") < $("#papernum-slider").slider("values", 0)) ||
+                            ($(this).data("author-numPublications") > $("#papernum-slider").slider("values", 1))) {
+                        $(this).remove();
+                    }
+                });
             });
+        });
+
+        $(function () {
+            {#            var resultList = $(".author-list-item");#}
+            {#            var resultList = $("#all-results").children(".author-list-item");#}
+            var resultList = $("#all-results").find('.author-list-item');
+            resultList.sort(function (a, b) {
+                return $(b).data("author-score") - $(a).data("author-score");
+            });
+            {#            $("#all-results").empty().append(resultList);#}
         });
     </script>
     <div class="w3-container w3-card-2 w3-theme-d1 w3-round w3-margin"><br>
         <span class="w3-right ">{{ number }}</span>
         <h2 style="margin-bottom: -6px;">Search results for: {{ query }} </h2>
-        <button id="reorder-button" type="button" class="w3-btn w3-theme-d5 w3-margin-bottom" value="Reorder elements">
-            <i class="fa fa-user"></i> Reorder
-        </button>
-        <a href="\expert_finder\template\search.html" style="font-size: 13px;">clear search</a>
+
+        <!-- Attribute sliders -->
         <hr class="w3-clear">
+        <div id="slider-container" class="w3-container" style="width: 60%">
+            <!-- Number of citations slider-->
+            <label for="citation-range">Total Number of Citations:</label>
+            <input type="text" id="citation-range" readonly
+                   style="background:transparent; border: none; color: white; font-weight:bold;">
+            <div id="citation-slider"></div>
+
+            <!-- Publication date slider-->
+            <label for="year-range">Latest Publication Date:</label>
+            <input type="text" id="year-range" readonly
+                   style="background:transparent; border: none; color: white; font-weight:bold;">
+            <div id="year-slider"></div>
+
+            <!-- Publication number slider-->
+            <label for="papernum-range">Number of Publications:</label>
+            <input type="text" id="papernum-range" readonly
+                   style="background:transparent; border: none; color: white; font-weight:bold;">
+            <div id="papernum-slider"></div>
+        </div>
+
+        <hr class="w3-clear">
+        <button id="filter-button" type="button" class="w3-btn w3-theme-d5 w3-margin-bottom" value="Reorder elements">
+            <i class="fa fa-user"></i> Apply Filters
+        </button>
     </div>
     <div id="all-results">
         {% for result in results_list %}
-            {% include "subtemplates/author_sub.html" with author=result number=forloop.counter score=result.score %}
+            {% include "subtemplates/author_sub.html" with author=result number=forloop.counter score=result.score year=result.mostRecentYear %}
         {% endfor %}
     </div>
 {% endblock %}
