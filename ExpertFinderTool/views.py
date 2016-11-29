@@ -2,12 +2,10 @@ from django.shortcuts import render
 from django.shortcuts import HttpResponseRedirect
 from django.views.generic import TemplateView
 from django.views.generic import View
-from AS_RequestHandler import test_query
 from .forms import TopicSearchForm
 from .forms import AuthorSearchForm
 from .forms import AuthorSearchSubsetForm
 from topic_search import do_topic_search
-import json
 
 
 # Create your views here.
@@ -35,7 +33,7 @@ class TopicSearchView(View):
 			title = data['manuscript_title']
 			author = data['manuscript_author']
 			abstract = data['manuscript_abstract']
-			# TODO: generate query from this data and send query to academic search
+
 			author_list = do_topic_search(abstract)
 
 			return render(request, 'results.html', {
