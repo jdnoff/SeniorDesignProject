@@ -16,6 +16,7 @@ IMPORTANT: run this function and download stopwords corpus from the window:
 				nltk.download()
 """
 
+
 # Handler for the topic search use case
 def do_topic_search(abstract):
 	"""
@@ -36,7 +37,7 @@ def do_topic_search(abstract):
 	real_data = evaluate_request(params)
 	# real_data = get_evaluate_test_results()
 
-	populated_authors = compile_author_list(real_data, keyword_list)
+	populated_authors = compile_author_list(real_data)
 	search_list_of_authors(populated_authors, keyword_list)
 
 	# Compute scores for each author before sending them to be displayed
@@ -45,7 +46,7 @@ def do_topic_search(abstract):
 		author.sumCitations()
 		author.computeMostRecentYear()
 		author.totalScore()
-	populated_authors.sort(key=lambda author: author.cumulativeScore,reverse=True)
+	populated_authors.sort(key=lambda author: author.cumulativeScore, reverse=True)
 	return populated_authors
 
 
@@ -59,7 +60,7 @@ def search_list_of_authors(author_list, query_keywords):
 	cachedStopWords = stopwords.words("english")
 	for author in author_list:
 		query = "Composite({}={})".format(academic_constants.ATT_AUTHOR_ID, author.author_id)
-		params = construct_params(query, 'latest', 8, '', {
+		params = construct_params(query, 'latest', 6, '', {
 			academic_constants.ATT_CITATIONS,
 			academic_constants.ATT_WORDS,
 			academic_constants.ATT_PAPER_TITLE,
@@ -67,7 +68,7 @@ def search_list_of_authors(author_list, query_keywords):
 			academic_constants.ATT_YEAR,
 			academic_constants.ATT_EXTENDED,
 			academic_constants.ATT_ID,
-			"RId"
+			academic_constants.ATT_RERFENCES,
 		})
 		data = evaluate_request(params)
 		# print(json.dumps(data, indent=1))
@@ -75,9 +76,6 @@ def search_list_of_authors(author_list, query_keywords):
 		if 'entities' in data:
 			for paper in data['entities']:
 				p = AcademicPaper(paper[ATT_PAPER_TITLE].title())
-				#if ATT_WORDS in paper:
-					#p.addScore(jaccard_test(query_keywords, paper[ATT_WORDS]))
-					#p.addKeywords(paper[ATT_WORDS])
 
 				if ATT_CITATIONS in paper:
 					p.addCitations(paper[ATT_CITATIONS])
@@ -102,12 +100,11 @@ def search_list_of_authors(author_list, query_keywords):
 
 				if ATT_YEAR in paper:
 					p.year = paper[ATT_YEAR]
-				# print(paper.title)
 				author.addPaper(p)
 
 
 # 1
-def compile_author_list(data, query_keywords):
+def compile_author_list(data):
 	"""
 	This is the first step of our query. Translates a json response of papers into a list of Authors
 	:param data: json response from Evaluate request
@@ -133,7 +130,7 @@ def compile_author_list(data, query_keywords):
 	i = 0
 	for a in authors.keys():
 		ret.append(authors[a])
-		# print("%d: %s" % (i, authors[a].author_name))
+		print("%d: %s" % (i, authors[a].author_name))
 		i += 1
 	return ret
 
