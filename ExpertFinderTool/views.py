@@ -65,6 +65,7 @@ class AuthorSearchView(View):
 			paperIds = request.POST.getlist('paper_list')
 
 			print(paperIds)
+			# Iterate through each selected paper and search
 			for id in paperIds:
 				do_topic_search()
 

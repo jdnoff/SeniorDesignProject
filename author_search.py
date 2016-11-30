@@ -23,7 +23,8 @@ def get_author_papers(authorName):
 		academic_constants.ATT_WORDS,
 		academic_constants.ATT_PAPER_TITLE,
 		academic_constants.ATT_CITATIONS,
-		academic_constants.ATT_RERFENCES
+		academic_constants.ATT_RERFENCES,
+		academic_constants.ATT_EXTENDED
 	}
 	query_string = "Composite(AA.AuN=\'{}\')".format(authorName)
 	params = construct_params(query_string, 'latest', '5', '', attributes)

@@ -48,15 +48,15 @@
                 resultList.each(function () {
                     if (($(this).data("recent-year") < $("#year-slider").slider("values", 0)) ||
                             ($(this).data("recent-year") > $("#year-slider").slider("values", 1))) {
-                        $(this).remove();
-                    }
-                    if (($(this).data("total-citations") < $("#citation-slider").slider("values", 0)) ||
+                        $(this).hide("slow");
+                    } else if (($(this).data("total-citations") < $("#citation-slider").slider("values", 0)) ||
                             ($(this).data("total-citations") > $("#citation-slider").slider("values", 1))) {
-                        $(this).remove();
-                    }
-                    if (($(this).data("author-numPublications") < $("#papernum-slider").slider("values", 0)) ||
+                        $(this).hide("slow");
+                    } else if (($(this).data("author-numPublications") < $("#papernum-slider").slider("values", 0)) ||
                             ($(this).data("author-numPublications") > $("#papernum-slider").slider("values", 1))) {
-                        $(this).remove();
+                        $(this).hide("slow");
+                    } else {
+                        $(this).show("slow");
                     }
                 });
             });
