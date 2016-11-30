@@ -1,4 +1,7 @@
 from django.shortcuts import render
+from django.shortcuts import render_to_response
+from django.shortcuts import reverse
+from django.template import RequestContext
 from django.shortcuts import HttpResponseRedirect
 from django.views.generic import TemplateView
 from django.views.generic import View
@@ -6,6 +9,7 @@ from .forms import TopicSearchForm
 from .forms import AuthorSearchForm
 from .forms import AuthorSearchSubsetForm
 from topic_search import do_topic_search
+from author_search import get_author_papers
 
 
 # Create your views here.
@@ -46,7 +50,7 @@ class TopicSearchView(View):
 
 class AuthorSearchView(View):
 	form_class = AuthorSearchForm
-	template_name = 'author_search.html'
+	template_name = 'subset_page.html'
 	search_tmp = 'search.html'
 
 	def get(self, request, *args, **kwargs):
@@ -55,15 +59,51 @@ class AuthorSearchView(View):
 
 	def post(self, request, *args, **kwargs):
 		form = self.form_class(request.POST)
-		if form.is_valid():
-			# <process form cleaned data>
-			data = form.cleaned_data
-			author = data['author']
-			# TODO: Search author in AS then display paper results in next form
 
-			return render(request, self.template_name, {'form': AuthorSearchSubsetForm()})
+		# Search subset of papers
+		if 'subset' in request.POST:
+			paperIds = request.POST.getlist('paper_list')
+
+			print(paperIds)
+			for id in paperIds:
+				do_topic_search()
+
+			return render(request, 'results.html')
+		else:
+			# get author name and body of work
+			if form.is_valid():
+				# <process form cleaned data>
+				data = form.cleaned_data
+				author = data['author']
+				# TODO: Search author in AS then display paper results in next form
+				papers = get_author_papers(author)
+				subsetForm = AuthorSearchSubsetForm()
+				c = [(p.id, p.title) for p in papers]
+				subsetForm.fields['paper_list'].choices = c
+				return render(request, self.template_name, {'form': subsetForm})
 
 		return render(request, self.search_tmp, {'form': form})
+
+
+class AuthorSubsetView(View):
+	template_name = 'subset_page.html'
+
+	def get(self, request, papers, **kwargs):
+		form = AuthorSearchSubsetForm()
+		if request.session.has_key('papers'):
+			print("PAPERS")
+		form.fields['paper_list'].choices = kwargs['papers']
+		return render(request, self.template_name, {'listform': form})
+
+	def post(self, request, *args, **kwargs):
+		print("POST")
+		form = AuthorSearchSubsetForm()
+		# <process form cleaned data>
+		# data = form.cleaned_data
+
+		form.fields['paper_list'].choices = [(x.title, x.id) for x in args['papers']]
+		data = {'listform': form}
+		return render_to_response(self.template_name, data, context_instance=RequestContext(request))
 
 
 # not using this anymore
