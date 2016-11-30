@@ -83,38 +83,3 @@ class AuthorSearchView(View):
 				return render(request, self.template_name, {'form': subsetForm})
 
 		return render(request, self.search_tmp, {'form': form})
-
-
-class AuthorSubsetView(View):
-	template_name = 'subset_page.html'
-
-	def get(self, request, papers, **kwargs):
-		form = AuthorSearchSubsetForm()
-		if request.session.has_key('papers'):
-			print("PAPERS")
-		form.fields['paper_list'].choices = kwargs['papers']
-		return render(request, self.template_name, {'listform': form})
-
-	def post(self, request, *args, **kwargs):
-		print("POST")
-		form = AuthorSearchSubsetForm()
-		# <process form cleaned data>
-		# data = form.cleaned_data
-
-		form.fields['paper_list'].choices = [(x.title, x.id) for x in args['papers']]
-		data = {'listform': form}
-		return render_to_response(self.template_name, data, context_instance=RequestContext(request))
-
-
-# not using this anymore
-class ResultsView(TemplateView):
-	template_name = 'results.html'
-
-	def get_context_data(self, **kwargs):
-		author_list = self.request.session.get('author_list')
-		context = {
-			'results_list': author_list,
-			'i': 1,
-			'query': "Test Query"
-		}
-		return context
