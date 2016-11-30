@@ -75,7 +75,6 @@ class AuthorSearchView(View):
 				# <process form cleaned data>
 				data = form.cleaned_data
 				author = data['author']
-				# TODO: Search author in AS then display paper results in next form
 				papers = get_author_papers(author)
 				subsetForm = AuthorSearchSubsetForm()
 				c = [(p.id, p.title) for p in papers]
