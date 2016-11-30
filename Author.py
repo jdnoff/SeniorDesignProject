@@ -1,7 +1,6 @@
 # Author object file
 from academic_constants import *
 
-
 class Author:
 	# List of Class Attributes
 	# paperTitles -- list of all papers associated with this author given by the query (given by 'Ti' attribute)
@@ -25,6 +24,10 @@ class Author:
 		self.citations = 0
 		self.mostRecentYear = -1
 		self.numPublications = 0
+		self.cumulativeScore = 0
+
+	def totalScore(self):
+		self.cumulativeScore = (self.citations/10000) + self.score
 
 	def computeMostRecentYear(self):
 		for paper in self.papers:
@@ -72,25 +75,22 @@ class Author:
 
 class AcademicPaper:
 	def __init__(self, paper_title):
-		self.id = -1
 		self.score = 0
 		self.title = paper_title
 		self.authors = []
 		self.keywords = []
 		self.year = -1
-		self.referenceIds = []
-		self.description = ""
+		self.desc = ""
 
 	def addKeywords(self, keywords_list):
 		for k in keywords_list:
 			self.keywords.append(k)
 
-	def addReferenceIds(self, refIds):
-		for ref in refIds:
-			self.referenceIds.append(ref)
-
 	def addScore(self, score):
 		self.score = score
+
+	def addDesc(self,desc):
+		self.desc = desc
 
 	def addCitations(self, citations):
 		self.citations = citations
