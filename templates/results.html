@@ -50,14 +50,10 @@
                             ($(this).data("recent-year") > $("#year-slider").slider("values", 1))) {
                         $(this).remove();
                     }
-                });
-                resultList.each(function () {
                     if (($(this).data("total-citations") < $("#citation-slider").slider("values", 0)) ||
                             ($(this).data("total-citations") > $("#citation-slider").slider("values", 1))) {
                         $(this).remove();
                     }
-                });
-                resultList.each(function () {
                     if (($(this).data("author-numPublications") < $("#papernum-slider").slider("values", 0)) ||
                             ($(this).data("author-numPublications") > $("#papernum-slider").slider("values", 1))) {
                         $(this).remove();
