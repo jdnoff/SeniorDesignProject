@@ -6,10 +6,15 @@ from Query_Parser import test_query
 import academic_constants
 from Author import *
 from similarity_measure import jaccard_test
+from similarity_measure import keySplit
 import Query_Parser
 from TestResults.test_factory import get_evaluate_test_results
 from nltk.corpus import stopwords
 
+"""
+IMPORTANT: run this function and download stopwords corpus from the window:
+				nltk.download()
+"""
 
 # Handler for the topic search use case
 def do_topic_search(abstract):
@@ -27,7 +32,7 @@ def do_topic_search(abstract):
 	}
 	keyword_list = parseQuery(abstract)
 	query_string = create_query(keyword_list)
-	params = construct_params(query_string, '', '4', '', attributes)
+	params = construct_params(query_string, '', '10', '', attributes)
 	real_data = evaluate_request(params)
 	# real_data = get_evaluate_test_results()
 
@@ -39,6 +44,8 @@ def do_topic_search(abstract):
 		author.scoreAuthor()
 		author.sumCitations()
 		author.computeMostRecentYear()
+		author.totalScore()
+	populated_authors.sort(key=lambda author: author.cumulativeScore,reverse=True)
 	return populated_authors
 
 
@@ -52,7 +59,7 @@ def search_list_of_authors(author_list, query_keywords):
 	cachedStopWords = stopwords.words("english")
 	for author in author_list:
 		query = "Composite({}={})".format(academic_constants.ATT_AUTHOR_ID, author.author_id)
-		params = construct_params(query, 'latest', 2, '', {
+		params = construct_params(query, 'latest', 8, '', {
 			academic_constants.ATT_CITATIONS,
 			academic_constants.ATT_WORDS,
 			academic_constants.ATT_PAPER_TITLE,
@@ -81,11 +88,10 @@ def search_list_of_authors(author_list, query_keywords):
 						desc = desc.split('\\"')
 						if desc[5] == 'D':
 							p.addDesc(desc[7])
-							abKey = parseQuery(desc[7])
+							abKey = keySplit(parseQuery(desc[7]),cachedStopWords)
+							queryKeys = keySplit(query_keywords, cachedStopWords)
 							p.addKeywords(abKey)
-							print(abKey)
-							score = jaccard_test(query_keywords,abKey,cachedStopWords)
-							print(score)
+							score = jaccard_test(queryKeys,abKey)
 							p.addScore(score)
 
 						else:
@@ -138,11 +144,13 @@ def create_query(keyword_list):
 	:param keyword_list: A list of keywords that were parsed from the abstract
 	:return: A query string formatted for use with microsoft academic
 	"""
+	cachedStopWords = stopwords.words("english")
 	wordslist = []
 	for key in keyword_list:
 		wrd = []
 		for w in key.split(' '):
-			wrd.append('W==\'{}\''.format(w))
+			if w not in cachedStopWords:
+				wrd.append('W==\'{}\''.format(w))
 		line = ','.join(wrd)
 		wordslist.append('And({})'.format(line))
 	# Or together and return

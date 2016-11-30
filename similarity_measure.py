@@ -51,13 +51,8 @@ def keySplit(doc, cachedStopWords):
 				wordList.append(word)
 	return wordList
 
-def jaccard_test(doc_one, doc_two,cachedStopWords):
-	doc_one = keySplit(doc_one,cachedStopWords)
-	doc_two = keySplit(doc_two,cachedStopWords)
+def jaccard_test(doc_one, doc_two):
 	union = set(doc_one).union(doc_two)
 	intersect = set(doc_one).intersection(doc_two)
 	index = len(intersect) / len(union)
 	return index
-
-#run this function and download stopwords corpus from the window
-#	nltk.download()

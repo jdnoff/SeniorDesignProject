@@ -24,6 +24,10 @@ class Author:
 		self.citations = 0
 		self.mostRecentYear = -1
 		self.numPublications = 0
+		self.cumulativeScore = 0
+
+	def totalScore(self):
+		self.cumulativeScore = (self.citations/10000) + self.score
 
 	def computeMostRecentYear(self):
 		for paper in self.papers:
