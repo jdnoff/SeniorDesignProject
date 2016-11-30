@@ -30,7 +30,7 @@ def do_topic_search(abstract):
 	real_data = evaluate_request(params)
 	# real_data = get_evaluate_test_results()
 
-	populated_authors = compile_author_list(real_data, keyword_list)
+	populated_authors = compile_author_list(real_data)
 	search_list_of_authors(populated_authors, keyword_list)
 
 	# Compute scores for each author before sending them to be displayed
@@ -57,7 +57,8 @@ def search_list_of_authors(author_list, query_keywords):
 			academic_constants.ATT_FIELD_OF_STUDY,
 			academic_constants.ATT_YEAR,
 			academic_constants.ATT_ID,
-			"RId"
+			"RId",
+			"E"
 		})
 		data = evaluate_request(params)
 		print(json.dumps(data, indent=1))
@@ -79,7 +80,7 @@ def search_list_of_authors(author_list, query_keywords):
 
 
 # 1
-def compile_author_list(data, query_keywords):
+def compile_author_list(data):
 	"""
 	This is the first step of our query. Translates a json response of papers into a list of Authors
 	:param data: json response from Evaluate request

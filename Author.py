@@ -72,15 +72,22 @@ class Author:
 
 class AcademicPaper:
 	def __init__(self, paper_title):
+		self.id = -1
 		self.score = 0
 		self.title = paper_title
 		self.authors = []
 		self.keywords = []
 		self.year = -1
+		self.referenceIds = []
+		self.description = ""
 
 	def addKeywords(self, keywords_list):
 		for k in keywords_list:
 			self.keywords.append(k)
+
+	def addReferenceIds(self, refIds):
+		for ref in refIds:
+			self.referenceIds.append(ref)
 
 	def addScore(self, score):
 		self.score = score
