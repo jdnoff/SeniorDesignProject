@@ -6,7 +6,7 @@ import fileinput
 from AS_RequestHandler import construct_params
 from AS_RequestHandler import evaluate_request
 import academic_constants
-
+import nltk
 
 def get_corpus():
 	words = []
@@ -42,9 +42,17 @@ def in_phrases(key):
 			return True
 	return False
 
+def keySplit(doc, cachedStopWords):
+	wordList = []
+	for term in doc:
+		list = term.split(" ")
+		for word in list:
+			if word not in cachedStopWords:
+				wordList.append(word)
+	return wordList
+
 def jaccard_test(doc_one, doc_two):
 	union = set(doc_one).union(doc_two)
 	intersect = set(doc_one).intersection(doc_two)
 	index = len(intersect) / len(union)
 	return index
-

@@ -58,11 +58,17 @@ def parseQuery(user_input):
 		:return: keyword list """
 	response = requests.post(KEYPHRASE_URL, json=construct_query(user_input) , headers=ANALYTICS_HEADERS)
 	data = response.json()
-	return data
+	word_list = data['documents'][0]['keyPhrases']
+	word_list = word_list[0:16]
+	return word_list
 
 def test_query():
 	""" Test function to get a stored result of a test query. Use to save requests.
 		:return: keyword list """
 	with open('Analytics_results_test') as data_file:
 		return json.load(data_file)
+
+
+
+
 
