@@ -1,7 +1,6 @@
 # Author object file
 from academic_constants import *
 
-
 class Author:
 	# List of Class Attributes
 	# paperTitles -- list of all papers associated with this author given by the query (given by 'Ti' attribute)
@@ -77,6 +76,7 @@ class AcademicPaper:
 		self.authors = []
 		self.keywords = []
 		self.year = -1
+		self.desc = ""
 
 	def addKeywords(self, keywords_list):
 		for k in keywords_list:
@@ -84,6 +84,9 @@ class AcademicPaper:
 
 	def addScore(self, score):
 		self.score = score
+
+	def addDesc(self,desc):
+		self.desc = desc
 
 	def addCitations(self, citations):
 		self.citations = citations

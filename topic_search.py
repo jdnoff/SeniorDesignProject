@@ -8,6 +8,7 @@ from Author import *
 from similarity_measure import jaccard_test
 import Query_Parser
 from TestResults.test_factory import get_evaluate_test_results
+from nltk.corpus import stopwords
 
 
 # Handler for the topic search use case
@@ -26,7 +27,7 @@ def do_topic_search(abstract):
 	}
 	keyword_list = parseQuery(abstract)
 	query_string = create_query(keyword_list)
-	params = construct_params(query_string, 'latest', '1', '', attributes)
+	params = construct_params(query_string, '', '4', '', attributes)
 	real_data = evaluate_request(params)
 	# real_data = get_evaluate_test_results()
 
@@ -48,29 +49,50 @@ def search_list_of_authors(author_list, query_keywords):
 	:param author_list: a list of author names to be searched
 	:return: a list of Author objects
 	"""
+	cachedStopWords = stopwords.words("english")
 	for author in author_list:
 		query = "Composite({}={})".format(academic_constants.ATT_AUTHOR_ID, author.author_id)
-		params = construct_params(query, 'latest', 5, '', {
+		params = construct_params(query, 'latest', 2, '', {
 			academic_constants.ATT_CITATIONS,
 			academic_constants.ATT_WORDS,
 			academic_constants.ATT_PAPER_TITLE,
 			academic_constants.ATT_FIELD_OF_STUDY,
 			academic_constants.ATT_YEAR,
+			academic_constants.ATT_EXTENDED,
 			academic_constants.ATT_ID,
 			"RId"
 		})
 		data = evaluate_request(params)
-		print(json.dumps(data, indent=1))
+		# print(json.dumps(data, indent=1))
 		# Authors papers
 		if 'entities' in data:
 			for paper in data['entities']:
 				p = AcademicPaper(paper[ATT_PAPER_TITLE].title())
-				if ATT_WORDS in paper:
-					p.addScore(jaccard_test(query_keywords['documents'][0]['keyPhrases'], paper[ATT_WORDS]))
-					p.addKeywords(paper[ATT_WORDS])
+				#if ATT_WORDS in paper:
+					#p.addScore(jaccard_test(query_keywords, paper[ATT_WORDS]))
+					#p.addKeywords(paper[ATT_WORDS])
 
 				if ATT_CITATIONS in paper:
 					p.addCitations(paper[ATT_CITATIONS])
+
+				if ATT_EXTENDED in paper:
+					desc = json.dumps(paper[ATT_EXTENDED])
+					try:
+						desc = desc.split('\\"')
+						if desc[5] == 'D':
+							p.addDesc(desc[7])
+							abKey = parseQuery(desc[7])
+							p.addKeywords(abKey)
+							print(abKey)
+							score = jaccard_test(query_keywords,abKey,cachedStopWords)
+							print(score)
+							p.addScore(score)
+
+						else:
+							p.addDesc("none")
+					except:
+						print("No Abstract")
+						break
 
 				if ATT_YEAR in paper:
 					p.year = paper[ATT_YEAR]
@@ -105,7 +127,7 @@ def compile_author_list(data, query_keywords):
 	i = 0
 	for a in authors.keys():
 		ret.append(authors[a])
-		print("%d: %s" % (i, authors[a].author_name))
+		# print("%d: %s" % (i, authors[a].author_name))
 		i += 1
 	return ret
 
@@ -117,7 +139,7 @@ def create_query(keyword_list):
 	:return: A query string formatted for use with microsoft academic
 	"""
 	wordslist = []
-	for key in keyword_list['documents'][0]['keyPhrases']:
+	for key in keyword_list:
 		wrd = []
 		for w in key.split(' '):
 			wrd.append('W==\'{}\''.format(w))
