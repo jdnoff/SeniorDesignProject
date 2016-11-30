@@ -23,7 +23,7 @@ def get_author_papers(authorName):
 		academic_constants.ATT_EXTENDED
 	}
 	query_string = "Composite(AA.AuN=\'{}\')".format(authorName)
-	params = construct_params(query_string, 'latest', '5', '', attributes)
+	params = construct_params(query_string, 'latest', '10', '', attributes)
 	real_data = evaluate_request(params)
 	print(json.dumps(real_data))
 	return read_response(real_data)
