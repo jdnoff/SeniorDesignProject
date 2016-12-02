@@ -68,25 +68,6 @@
                     " - " + $("#citation-slider").slider("values", 1));
             $("#papernum-range").val("" + $("#papernum-slider").slider("values", 0) +
                     " - " + $("#papernum-slider").slider("values", 1));
-
-
-            $("#filter-button").click(function (event) {
-                var resultList = $(".author-list-item");
-                resultList.each(function () {
-                    if (($(this).data("recent-year") < $("#year-slider").slider("values", 0)) ||
-                            ($(this).data("recent-year") > $("#year-slider").slider("values", 1))) {
-                        $(this).hide("slow");
-                    } else if (($(this).data("total-citations") < $("#citation-slider").slider("values", 0)) ||
-                            ($(this).data("total-citations") > $("#citation-slider").slider("values", 1))) {
-                        $(this).hide("slow");
-                    } else if (($(this).data("author-numPubs") < $("#papernum-slider").slider("values", 0)) ||
-                            ($(this).data("author-numPubs") > $("#papernum-slider").slider("values", 1))) {
-                        $(this).hide("slow");
-                    } else {
-                        $(this).show("slow");
-                    }
-                });
-            });
         });
     </script>
     <div class="w3-container w3-card-2 w3-theme-d1 w3-round w3-margin"><br>
@@ -116,9 +97,6 @@
         </div>
 
         <hr class="w3-clear">
-        <button id="filter-button" type="button" class="w3-btn w3-theme-d5 w3-margin-bottom" value="Reorder elements">
-            <i class="fa fa-user"></i> Apply Filters
-        </button>
     </div>
     <div id="all-results">
         {% for result in results_list %}
