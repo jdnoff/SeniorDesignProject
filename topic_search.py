@@ -30,10 +30,10 @@ def do_topic_search(abstract):
 	}
 
 	#NEW: create corpus from query words
-	docs = []
+	docs = {}
 	cachedStopWords = stopwords.words("english")
 	query = TextBlob(abstract.lower())
-	docs.append(query)
+	docs[-1] = query
 	corpWords = []
 	for word in query.words:
 		if word not in cachedStopWords and word not in corpWords:
@@ -53,17 +53,24 @@ def do_topic_search(abstract):
 	#NEW: construct tf-idf vectors from documents
 	for author in populated_authors:
 		for paper in author.papers:
-			docs.append(TextBlob(paper.desc.lower()))
+			if paper.id not in docs.keys():
+				docs[paper.id] = TextBlob(paper.desc.lower())
 	corpus = Corpus(docs, corpWords)
 	corpus.constructVectors()
 
 	#NEW: cosine similarity
 	query = corpus.scoredDocs[0].vector
+
+	# original doc has id of -1
+	for doc in corpus.scoredDocs:
+		if doc.id == -1:
+			query = doc.vector
+	docDict = {}
 	for document in corpus.scoredDocs:
-		docVector = document.vector
-		sim = cosine_sim(query, docVector)
+		sim = cosine_sim(query, document.vector)
 		document.addScore(sim)
-		print("doc", sim)
+		docDict[document.id] = sim
+		print(document.id, ": ", document.score)
 
 	# Compute scores for each author before sending them to be displayed
 	for author in populated_authors:
@@ -71,6 +78,7 @@ def do_topic_search(abstract):
 		author.sumCitations()
 		author.computeMostRecentYear()
 		author.totalScore()
+		author.setTfidfScore(docDict)
 
 	populated_authors.sort(key=lambda author: author.cumulativeScore, reverse=True)
 	return populated_authors
@@ -110,7 +118,11 @@ def search_list_of_authors(author_list, query_keywords):
 			# Authors papers
 			if 'entities' in data:
 				for paper in data['entities']:
-					p = AcademicPaper(paper[ATT_PAPER_TITLE].title())
+					id = -1
+					if ATT_ID in paper:
+						id = paper[ATT_ID]
+
+					p = AcademicPaper(paper[ATT_PAPER_TITLE].title(), id)
 
 					if ATT_CITATIONS in paper:
 						p.addCitations(paper[ATT_CITATIONS])

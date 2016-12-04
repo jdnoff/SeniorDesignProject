@@ -30,7 +30,7 @@
                         <b>{{ paper.title }}</b>
                         <p class="w3-opacity" style="text-indent: 5%">{{ paper.desc }}</p>
                     </td>
-                    <td>{{ paper.score|floatformat:4 }} </td>
+                    <td>{{ paper.jaccard_score|floatformat:4 }} or {{ paper.tfidf_score }}</td>
                 </tr>
             {% endfor %}
         </table>

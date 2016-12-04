@@ -41,6 +41,16 @@ class Author:
 			ret.append(paper.title)
 		return ret
 
+	def setTfidfScore(self, docDict):
+		"""
+		Adds tfidf similarity scores to each paper of this author
+		:param docDict: Dict of paper ids mapped to scores
+		:return:
+		"""
+		for paper in self.papers:
+			if paper.id in docDict:
+				paper.tfidf_score = docDict[paper.id]
+
 	def addPaper(self, paper):
 		"""
 		Adds an AcademicPaper to the papers list of this author
@@ -71,12 +81,15 @@ class Author:
 
 	def scoreAuthor(self):
 		for paper in self.papers:
-			self.score += paper.score
+			self.score += paper.jaccard_score
+			self.score += paper.tfidf_score
 
 
 class AcademicPaper:
-	def __init__(self, paper_title):
-		self.score = 0
+	def __init__(self, paper_title, id):
+		self.id = id
+		self.jaccard_score = 0
+		self.tfidf_score = 0
 		self.title = paper_title
 		self.authors = []
 		self.keywords = []
@@ -93,7 +106,7 @@ class AcademicPaper:
 			self.keywords.append(k)
 
 	def addScore(self, score):
-		self.score = score
+		self.jaccard_score = score
 
 	def addDesc(self, desc):
 		self.desc = desc
