@@ -75,6 +75,13 @@ WSGI_APPLICATION = 'ExpertFinder.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
+CACHES = {
+	'default': {
+		'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+		'LOCATION': '127.0.0.1:11212',
+	}
+}
+
 DATABASES = {
 	'default': {
 		'ENGINE': 'django.db.backends.sqlite3',

@@ -36,7 +36,7 @@ class TopicSearchView(View):
 			data = form.cleaned_data
 			title = data['manuscript_title']
 			author = data['manuscript_author']
-			abstract = data['manuscript_abstract']
+			abstract = data['manuscript_abstract'].lower()
 
 			author_list = do_topic_search(abstract)
 
@@ -74,7 +74,7 @@ class AuthorSearchView(View):
 			if form.is_valid():
 				# <process form cleaned data>
 				data = form.cleaned_data
-				author = data['author']
+				author = data['author'].lower()
 				papers = get_author_papers(author)
 				subsetForm = AuthorSearchSubsetForm()
 				c = [(p.id, p.title) for p in papers]

@@ -16,33 +16,29 @@
     <span class="w3-right "> Rank: {{ number }}</span>
     <h2>{{ author.author_name }}
     </h2>
-    <p class="w3-opacity">Cumulative Score:{{author.cumulativeScore}}<br> Similarity Score: {{ author.score }} <br> Total Citations: {{ author.citations }} <br> Most Recent
+    <p class="w3-opacity">Cumulative Score: {{ author.cumulativeScore|floatformat:4 }}<br> Similarity
+        Score: {{ author.score|floatformat:4 }} <br>
+        Total Citations: {{ author.citations }} <br> Most Recent
         Publication: {{ year }} <br> Number of Publications: {{ author.numPublications }}</p>
     <hr class="w3-clear">
 
-    <div id="cont" style="overflow-y: scroll; height:200px;">
-        <table class="w3-table w3-hoverable">
-            <tr>
-                <th>Paper Title</th>
-                <th>Score</th>
-                <th>Keywords</th>
-            </tr>
+    <div id="cont" style="overflow-y: scroll; height:250px;">
+        <table class="w3-table w3-small w3-hoverable">
             {% for paper in author.papers %}
                 <tr>
-                    <td>{{ paper.title }}<p></p></td>
-                    <td>{{ paper.score }} </td>
                     <td>
-                        {% for a in paper.keywords %}
-                            {{ a }}
-                        {% endfor %}
+                        <b>{{ paper.title }}</b>
+                        <p class="w3-opacity" style="text-indent: 5%">{{ paper.desc }}</p>
                     </td>
+                    <td>{{ paper.score|floatformat:4 }} </td>
                 </tr>
             {% endfor %}
         </table>
     </div>
     <p></p>
     <button type="button" class="w3-btn w3-theme-d1 w3-margin-bottom"><i class="fa fa-user"></i>  <a
-            style="text-decoration: none" href="https://academic.microsoft.com/#/detail/{{ author.author_id }}">
+            style="text-decoration: none" target="_blank"
+            href="https://academic.microsoft.com/#/detail/{{ author.author_id }}">
         Microsoft Academic Profile</a></button>
     <span class="w3-right">
         <button type="button" class="w3-btn w3-red w3-opacity w3-margin-bottom"><i

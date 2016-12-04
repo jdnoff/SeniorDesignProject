@@ -68,25 +68,6 @@
                     " - " + $("#citation-slider").slider("values", 1));
             $("#papernum-range").val("" + $("#papernum-slider").slider("values", 0) +
                     " - " + $("#papernum-slider").slider("values", 1));
-
-
-            $("#filter-button").click(function (event) {
-                var resultList = $(".author-list-item");
-                resultList.each(function () {
-                    if (($(this).data("recent-year") < $("#year-slider").slider("values", 0)) ||
-                            ($(this).data("recent-year") > $("#year-slider").slider("values", 1))) {
-                        $(this).hide("slow");
-                    } else if (($(this).data("total-citations") < $("#citation-slider").slider("values", 0)) ||
-                            ($(this).data("total-citations") > $("#citation-slider").slider("values", 1))) {
-                        $(this).hide("slow");
-                    } else if (($(this).data("author-numPubs") < $("#papernum-slider").slider("values", 0)) ||
-                            ($(this).data("author-numPubs") > $("#papernum-slider").slider("values", 1))) {
-                        $(this).hide("slow");
-                    } else {
-                        $(this).show("slow");
-                    }
-                });
-            });
         });
     </script>
     <div class="w3-container w3-card-2 w3-theme-d1 w3-round w3-margin"><br>
@@ -95,12 +76,12 @@
 
         <!-- Attribute sliders -->
         <hr class="w3-clear">
-        <div id="slider-container" class="w3-container" style="width: 60%">
+        <div id="slider-container" class="w3-container w3-center" style="width: 85%; margin: 0 auto;">
             <!-- Number of citations slider-->
             <label for="citation-range">Total Number of Citations:</label>
             <input type="text" id="citation-range" readonly
                    style="background:transparent; border: none; color: white; font-weight:bold;">
-            <div id="citation-slider" class="w3-theme-d1"></div>
+            <div id="citation-slider" class="w3-theme-d1" style="margin: 0 auto;"></div>
 
             <!-- Publication date slider-->
             <label for="year-range">Latest Publication Date:</label>
@@ -116,9 +97,6 @@
         </div>
 
         <hr class="w3-clear">
-        <button id="filter-button" type="button" class="w3-btn w3-theme-d5 w3-margin-bottom" value="Reorder elements">
-            <i class="fa fa-user"></i> Apply Filters
-        </button>
     </div>
     <div id="all-results">
         {% for result in results_list %}
