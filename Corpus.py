@@ -40,7 +40,10 @@ class Document:
         return self.vector
 
     def getWords(self):
-        return self.words
+        getWords = []
+        for word in self.words:
+            getWords.append(word.word)
+        return getWords
 
     def addScore(self, score):
         self.score = score
