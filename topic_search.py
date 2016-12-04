@@ -32,7 +32,7 @@ def do_topic_search(abstract):
 	}
 	keyword_list = parseQuery(abstract)
 	query_string = create_query(keyword_list)
-	params = construct_params(query_string, '', '5', '', attributes)
+	params = construct_params(query_string, '', '2', '', attributes)
 	real_data = evaluate_request(params)
 	# real_data = get_evaluate_test_results()
 
@@ -64,10 +64,12 @@ def search_list_of_authors(author_list, query_keywords):
 		cachedAuthor = cache.get(aId)
 		if not cachedAuthor:
 			# Cache miss
+			print(author_list[aId], " Not in cache, searching microsoft")
 			author = Author(author_list[aId], aId)
 			query = "Composite({}={})".format(academic_constants.ATT_AUTHOR_ID, aId)
 			params = construct_params(query, 'latest', 2, '', {
 				academic_constants.ATT_CITATIONS,
+				academic_constants.ATT_AUTHOR_AFFILIATION,
 				academic_constants.ATT_WORDS,
 				academic_constants.ATT_PAPER_TITLE,
 				academic_constants.ATT_FIELD_OF_STUDY,
@@ -77,7 +79,7 @@ def search_list_of_authors(author_list, query_keywords):
 				academic_constants.ATT_RERFENCES,
 			})
 			data = evaluate_request(params)
-			# print(json.dumps(data, indent=1))
+
 			# Authors papers
 			if 'entities' in data:
 				for paper in data['entities']:
