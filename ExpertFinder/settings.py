@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'ExpertFinder.wsgi.application'
 CACHES = {
 	'default': {
 		'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-		'LOCATION': '127.0.0.1:11212',
+		'LOCATION': '127.0.0.1:11211',
 	}
 }
 
