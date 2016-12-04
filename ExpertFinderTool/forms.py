@@ -19,4 +19,4 @@ class AuthorSearchForm(forms.Form):
 
 
 class AuthorSearchSubsetForm(forms.Form):
-	paper_list = forms.MultipleChoiceField(choices=test_paper_list, widget=forms.CheckboxSelectMultiple)
+	paper_list = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple, label="Select a subset of papers")
