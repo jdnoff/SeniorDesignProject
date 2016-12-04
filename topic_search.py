@@ -1,14 +1,13 @@
 import json
-from AS_RequestHandler import construct_params
-from AS_RequestHandler import evaluate_request
+from AS_RequestHandler import construct_params, evaluate_request
 from Query_Parser import parseQuery
 import academic_constants
 from Author import *
-from similarity_measure import jaccard_test
-from similarity_measure import keySplit
+from similarity_measure import jaccard_test, keySplit
 from TestResults.test_factory import get_evaluate_test_results
 from nltk.corpus import stopwords
 from django.core.cache import cache
+from Corpus import *
 
 """
 IMPORTANT: run this function and download stopwords corpus from the window:
@@ -38,12 +37,21 @@ def do_topic_search(abstract):
 	authorId_list = compile_author_list(real_data)
 	populated_authors = search_list_of_authors(authorId_list, keyword_list)
 
+	#tf-idf shit
+	docs = []
+	for author in populated_authors:
+		for paper in author.papers:
+			docs.append(TextBlob(paper.desc))
+	corpus = Corpus(docs)
+
+
 	# Compute scores for each author before sending them to be displayed
 	for author in populated_authors:
 		author.scoreAuthor()
 		author.sumCitations()
 		author.computeMostRecentYear()
 		author.totalScore()
+
 	populated_authors.sort(key=lambda author: author.cumulativeScore, reverse=True)
 	return populated_authors
 
