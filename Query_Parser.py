@@ -8,10 +8,15 @@ import requests
 API_KEY1 = '2188eefffbb2449f88b73e563deab172'
 API_KEY2 = '62841b36e69d4c3eb4cddfdb7ac56b74'
 
+# Jake's API keys
+JAKE_API_KEY1 = 'd1ec02129efc4f1881d2d1bab395bf93'
+JAKE_API_KEY2 = 'd711ea24618a4d91a5a4f05e7c89ea80'
+
+
 # Analytic API Constants
 KEYPHRASE_URL = "https://westus.api.cognitive.microsoft.com/text/analytics/v2.0/keyPhrases"
 ANALYTICS_HEADERS = {'Content-Type': 'application/json',
-                     'Ocp-Apim-Subscription-Key': API_KEY1}
+                     'Ocp-Apim-Subscription-Key': JAKE_API_KEY1}
 
 #Test Input demonstrating the format of an Analytics request
 TEST_INPUT = {"documents": [

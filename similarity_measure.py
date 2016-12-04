@@ -3,10 +3,20 @@
 
 from Query_Parser import *
 import fileinput
-from AS_RequestHandler import construct_params
-from AS_RequestHandler import evaluate_request
-import academic_constants
-import nltk
+from textblob import TextBlob
+import math
+
+def term_freq(word, doc):
+	return doc.words.count(word)/len(doc.words)
+
+def n_containing(word, docList):
+	return sum(1 for doc in docList if word in doc.words)
+
+def inverse_doc_freq(word, docList):
+	return math.log(len(docList) / (1+n_containing(word, docList)))
+
+def tf_idf(word, doc, docList):
+	return term_freq(word, doc) * inverse_doc_freq(word, docList)
 
 def get_corpus():
 	words = []

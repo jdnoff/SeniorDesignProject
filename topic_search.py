@@ -32,7 +32,7 @@ def do_topic_search(abstract):
 	}
 	keyword_list = parseQuery(abstract)
 	query_string = create_query(keyword_list)
-	params = construct_params(query_string, '', '10', '', attributes)
+	params = construct_params(query_string, '', '4', '', attributes)
 	real_data = evaluate_request(params)
 	# real_data = get_evaluate_test_results()
 
@@ -59,7 +59,7 @@ def search_list_of_authors(author_list, query_keywords):
 	cachedStopWords = stopwords.words("english")
 	for author in author_list:
 		query = "Composite({}={})".format(academic_constants.ATT_AUTHOR_ID, author.author_id)
-		params = construct_params(query, 'latest', 8, '', {
+		params = construct_params(query, 'latest', 2, '', {
 			academic_constants.ATT_CITATIONS,
 			academic_constants.ATT_WORDS,
 			academic_constants.ATT_PAPER_TITLE,
