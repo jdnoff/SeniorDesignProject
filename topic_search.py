@@ -32,7 +32,7 @@ def do_topic_search(abstract):
 	#NEW: create corpus from query words
 	docs = []
 	cachedStopWords = stopwords.words("english")
-	query = TextBlob(abstract)
+	query = TextBlob(abstract.lower())
 	docs.append(query)
 	corpWords = []
 	for word in query.words:
@@ -53,7 +53,7 @@ def do_topic_search(abstract):
 	#NEW: construct tf-idf vectors from documents
 	for author in populated_authors:
 		for paper in author.papers:
-			docs.append(TextBlob(paper.desc))
+			docs.append(TextBlob(paper.desc.lower()))
 	corpus = Corpus(docs, corpWords)
 	corpus.constructVectors()
 
@@ -62,6 +62,7 @@ def do_topic_search(abstract):
 	for document in corpus.scoredDocs:
 		docVector = document.vector
 		sim = cosine_sim(query, docVector)
+		document.addScore(sim)
 		print("doc", sim)
 
 	# Compute scores for each author before sending them to be displayed
