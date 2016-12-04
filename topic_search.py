@@ -3,7 +3,7 @@ from AS_RequestHandler import construct_params, evaluate_request
 from Query_Parser import parseQuery
 import academic_constants
 from Author import *
-from similarity_measure import jaccard_test, keySplit
+from similarity_measure import jaccard_test, keySplit, cosine_sim
 from TestResults.test_factory import get_evaluate_test_results
 from nltk.corpus import stopwords
 from django.core.cache import cache
@@ -28,22 +28,41 @@ def do_topic_search(abstract):
 		academic_constants.ATT_PAPER_TITLE,
 		academic_constants.ATT_CITATIONS
 	}
+
+	#NEW: create corpus from query words
+	docs = []
+	cachedStopWords = stopwords.words("english")
+	query = TextBlob(abstract)
+	docs.append(query)
+	corpWords = []
+	for word in query.words:
+		if word not in cachedStopWords and word not in corpWords:
+				corpWords.append(word)
+
+	#Initial AS Query
 	keyword_list = parseQuery(abstract)
 	query_string = create_query(keyword_list)
 	params = construct_params(query_string, '', '4', '', attributes)
 	real_data = evaluate_request(params)
 	# real_data = get_evaluate_test_results()
 
+	#Get Author information
 	authorId_list = compile_author_list(real_data)
 	populated_authors = search_list_of_authors(authorId_list, keyword_list)
 
-	#tf-idf shit
-	docs = []
+	#NEW: construct tf-idf vectors from documents
 	for author in populated_authors:
 		for paper in author.papers:
 			docs.append(TextBlob(paper.desc))
-	corpus = Corpus(docs)
+	corpus = Corpus(docs, corpWords)
+	corpus.constructVectors()
 
+	#NEW: cosine similarity
+	query = corpus.scoredDocs[0].vector
+	for document in corpus.scoredDocs:
+		docVector = document.vector
+		sim = cosine_sim(query, docVector)
+		print("doc", sim)
 
 	# Compute scores for each author before sending them to be displayed
 	for author in populated_authors:

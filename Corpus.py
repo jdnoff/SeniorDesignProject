@@ -9,21 +9,47 @@ from textblob import TextBlob
 from nltk.corpus import stopwords
 
 class Corpus:
-    def __init__(self, docList):
-        self.documents = []
-        for doc in docList:
-            self.documents.append(Document(doc, docList))
+    def __init__(self, docList, wordList):
+        self.documents = docList
+        self.words = wordList
+        self.scoredDocs = []
+        self.vectors = []
+
+    def constructVectors(self):
+        for doc in self.documents:
+            self.scoredDocs.append(Document(doc, self.documents, self.words))
+        for doc in self.scoredDocs:
+            self.vectors.append(doc.constructIDFVector())
 
 class Document:
-    def __init__(self, doc, docList):
+    def __init__(self, doc, docList, wordList):
         self.text = doc
         self.words = []
+        self.score = 0
+        self.vector = []
         cachedStopWords = stopwords.words("english")
-        for word in doc.words:
-            if word not in cachedStopWords:
+        for word in wordList:
+            tfidf = 0
+            if word in doc.words:
                 tfidf = tf_idf(word, doc, docList)
-                self.words.append(AbWord(word, tfidf))
-                print(word, tfidf)
+            self.words.append(AbWord(word, tfidf))
+
+    def constructIDFVector(self):
+        for word in self.words:
+            self.vector.append(word.tfidf)
+        return self.vector
+
+    def getWords(self):
+        return self.words
+
+    def addScore(self, score):
+        self.score = score
+
+    def createVector(self):
+        attributes = []
+        for word in self.words:
+            attributes.append(word.tfidf)
+        return attributes
 
 class AbWord:
     def __init__(self, word, tfidf):
