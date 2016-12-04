@@ -10,9 +10,9 @@ from nltk.corpus import stopwords
 
 class Corpus:
     def __init__(self, docList):
-        documents = []
+        self.documents = []
         for doc in docList:
-            documents.append(Document(doc, docList))
+            self.documents.append(Document(doc, docList))
 
 class Document:
     def __init__(self, doc, docList):
@@ -29,3 +29,6 @@ class AbWord:
     def __init__(self, word, tfidf):
         self.word = word
         self.tfidf = tfidf
+
+    def getWord(self):
+        return self.word
