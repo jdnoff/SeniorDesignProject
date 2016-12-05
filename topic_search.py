@@ -42,7 +42,7 @@ def do_topic_search(abstract):
 	#Initial AS Query
 	keyword_list = parseQuery(abstract)
 	query_string = create_query(keyword_list)
-	params = construct_params(query_string, '', '4', '', attributes)
+	params = construct_params(query_string, '', '8', '', attributes)
 	real_data = evaluate_request(params)
 	# real_data = get_evaluate_test_results()
 
@@ -74,11 +74,11 @@ def do_topic_search(abstract):
 
 	# Compute scores for each author before sending them to be displayed
 	for author in populated_authors:
-		author.scoreAuthor()
 		author.sumCitations()
 		author.computeMostRecentYear()
-		author.totalScore()
 		author.setTfidfScore(docDict)
+		author.scoreAuthor()
+		author.totalScore()
 
 	populated_authors.sort(key=lambda author: author.cumulativeScore, reverse=True)
 	return populated_authors
@@ -102,7 +102,7 @@ def search_list_of_authors(author_list, query_keywords):
 			print(author_list[aId], " Not in cache, searching microsoft")
 			author = Author(author_list[aId], aId)
 			query = "Composite({}={})".format(academic_constants.ATT_AUTHOR_ID, aId)
-			params = construct_params(query, 'latest', 2, '', {
+			params = construct_params(query, 'latest', 10, '', {
 				academic_constants.ATT_CITATIONS,
 				academic_constants.ATT_AUTHOR_AFFILIATION,
 				academic_constants.ATT_WORDS,
@@ -118,31 +118,23 @@ def search_list_of_authors(author_list, query_keywords):
 			# Authors papers
 			if 'entities' in data:
 				for paper in data['entities']:
-					id = -1
+					paper_id = -1
 					if ATT_ID in paper:
-						id = paper[ATT_ID]
+						paper_id = paper[ATT_ID]
 
-					p = AcademicPaper(paper[ATT_PAPER_TITLE].title(), id)
+					p = AcademicPaper(paper[ATT_PAPER_TITLE].title(), paper_id)
 
 					if ATT_CITATIONS in paper:
 						p.addCitations(paper[ATT_CITATIONS])
 
 					if ATT_EXTENDED in paper:
-						desc = json.dumps(paper[ATT_EXTENDED])
-						try:
-							desc = desc.split('\\"')
-							if desc[5] == 'D':
-								p.addDesc(desc[7])
-								abKey = keySplit(parseQuery(desc[7]), cachedStopWords)
-								p.addKeywords(abKey)
-								score = jaccard_test(queryKeys, abKey)
-								p.addScore(score)
+						desc = json.loads(paper[ATT_EXTENDED])
 
-							else:
-								p.addDesc("none")
-						except:
-							print("No Abstract")
-							break
+						if ATT_EXT_DESCRIPTION in desc:
+							p.addDesc(desc[ATT_EXT_DESCRIPTION])
+						else:
+							p.addDesc("none")
+							print("No abstract found for ", p.title)
 
 					if ATT_YEAR in paper:
 						p.year = paper[ATT_YEAR]
@@ -152,11 +144,6 @@ def search_list_of_authors(author_list, query_keywords):
 		else:
 			# Cache hit
 			authors.append(cachedAuthor)
-			# Compute score
-			cachedAuthor.score = 0  # Reset score
-			for paper in cachedAuthor.papers:
-				score = jaccard_test(queryKeys, paper.keywords)
-				paper.addScore(score)
 			print("Author= ", cachedAuthor.author_name)
 	return authors
 
