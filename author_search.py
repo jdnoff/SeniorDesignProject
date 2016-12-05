@@ -50,17 +50,13 @@ def read_response(data):
 				p.id = paper[ATT_ID]
 
 			if ATT_EXTENDED in paper:
-				desc = json.dumps(paper[ATT_EXTENDED])
-				try:
-					desc = desc.split('\\"')
-					if desc[5] == 'D':
-						p.addDesc(desc[7])
+				desc = json.loads(paper[ATT_EXTENDED])
 
-					else:
-						p.addDesc("none")
-				except:
-					print("No Abstract")
-					break
+				if ATT_EXT_DESCRIPTION in desc:
+					p.addDesc(desc[ATT_EXT_DESCRIPTION])
+				else:
+					p.addDesc("none")
+					print("No abstract found for ", p.title)
 			print(p.title)
 			paper_list.append(p)
 

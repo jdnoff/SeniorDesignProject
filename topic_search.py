@@ -3,8 +3,7 @@ from AS_RequestHandler import construct_params, evaluate_request
 from Query_Parser import parseQuery
 import academic_constants
 from Author import *
-from similarity_measure import jaccard_test, keySplit, cosine_sim
-from TestResults.test_factory import get_evaluate_test_results
+from similarity_measure import cosine_sim
 from nltk.corpus import stopwords
 from django.core.cache import cache
 from Corpus import *
@@ -29,7 +28,7 @@ def do_topic_search(abstract):
 		academic_constants.ATT_CITATIONS
 	}
 
-	#NEW: create corpus from query words
+	# NEW: create corpus from query words
 	docs = {}
 	cachedStopWords = stopwords.words("english")
 	query = TextBlob(abstract.lower())
@@ -39,18 +38,17 @@ def do_topic_search(abstract):
 		if word not in cachedStopWords and word not in corpWords:
 				corpWords.append(word)
 
-	#Initial AS Query
+	# Initial AS Query
 	keyword_list = parseQuery(abstract)
 	query_string = create_query(keyword_list)
 	params = construct_params(query_string, '', '8', '', attributes)
 	real_data = evaluate_request(params)
-	# real_data = get_evaluate_test_results()
 
-	#Get Author information
+	# Get Author information
 	authorId_list = compile_author_list(real_data)
-	populated_authors = search_list_of_authors(authorId_list, keyword_list)
+	populated_authors = search_list_of_authors(authorId_list)
 
-	#NEW: construct tf-idf vectors from documents
+	# NEW: construct tf-idf vectors from documents
 	for author in populated_authors:
 		for paper in author.papers:
 			if paper.id not in docs.keys():
@@ -58,7 +56,7 @@ def do_topic_search(abstract):
 	corpus = Corpus(docs, corpWords)
 	corpus.constructVectors()
 
-	#NEW: cosine similarity
+	# NEW: cosine similarity
 	query = corpus.scoredDocs[0].vector
 
 	# original doc has id of -1
@@ -70,7 +68,6 @@ def do_topic_search(abstract):
 		sim = cosine_sim(query, document.vector)
 		document.addScore(sim)
 		docDict[document.id] = sim
-		print(document.id, ": ", document.score)
 
 	# Compute scores for each author before sending them to be displayed
 	for author in populated_authors:
@@ -85,14 +82,12 @@ def do_topic_search(abstract):
 
 
 # 2
-def search_list_of_authors(author_list, query_keywords):
+def search_list_of_authors(author_list):
 	"""
 	Performs an evaluate request on each author in a given list.
 	:param author_list: a list of author names to be searched
 	:return: a list of Author objects
 	"""
-	cachedStopWords = stopwords.words("english")
-	queryKeys = keySplit(query_keywords, cachedStopWords)
 	authors = []
 	for aId in author_list.keys():
 		# Check cache
