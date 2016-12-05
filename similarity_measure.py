@@ -4,6 +4,9 @@
 import math
 import numpy as np
 
+""" TF-IDF functions based on examples from:
+		http://stevenloria.com/finding-important-words-in-a-document-using-tf-idf/ '
+"""
 def term_freq(word, doc):
 	return doc.words.count(word)/len(doc.words)
 
