@@ -10,19 +10,20 @@ from nltk.corpus import stopwords
 
 class Corpus:
     def __init__(self, docList, wordList):
-        self.documents = docList
+        self.documents = docList  # now a dict
         self.words = wordList
         self.scoredDocs = []
         self.vectors = []
 
     def constructVectors(self):
-        for doc in self.documents:
-            self.scoredDocs.append(Document(doc, self.documents, self.words))
+        for docId in self.documents.keys():
+            self.scoredDocs.append(Document(self.documents[docId], self.documents.values(), self.words, docId))
         for doc in self.scoredDocs:
             self.vectors.append(doc.constructIDFVector())
 
 class Document:
-    def __init__(self, doc, docList, wordList):
+    def __init__(self, doc, docList, wordList, id):
+        self.id = id
         self.text = doc
         self.words = []
         self.score = 0
