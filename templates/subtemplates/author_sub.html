@@ -19,6 +19,9 @@
         Score: {{ author.score|floatformat:4 }} <br>
         Total Citations: {{ author.citations }} <br> Most Recent
         Publication: {{ year }} <br> Number of Publications: {{ author.numPublications }}</p>
+    {% if author.coAuthorFlag %}
+        <b>CO AUTHOR</b>
+    {% endif %}
     <hr class="w3-clear">
 
     <div id="cont" style="overflow-y: scroll; height:250px;">

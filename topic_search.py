@@ -38,6 +38,9 @@ def do_topic_search(abstract):
 	# Get Author information
 	authorId_list = compile_author_list(real_data)
 	populated_authors = search_list_of_authors(authorId_list)
+	# Reset author scores
+	for author in populated_authors:
+		author.
 
 	score_authors(populated_authors, abstract=abstract)
 

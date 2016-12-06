@@ -26,6 +26,7 @@ class Author:
 		self.mostRecentYear = -1
 		self.numPublications = 0
 		self.cumulativeScore = 0
+		self.coAuthorFlag = False
 
 	def totalScore(self):
 		self.cumulativeScore = (self.citations / 10000) + self.score
