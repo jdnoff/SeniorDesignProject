@@ -29,17 +29,6 @@ def do_topic_search(abstract):
 		academic_constants.ATT_PAPER_TITLE,
 		academic_constants.ATT_CITATIONS
 	}
-
-	# NEW: create corpus from query words
-	docs = {}
-	cachedStopWords = stopwords.words("english")
-	query = TextBlob(abstract.lower())
-	docs[-1] = query
-	corpWords = []
-	for word in query.words:
-		if word not in cachedStopWords and word not in corpWords:
-			corpWords.append(word)
-
 	# Initial AS Query
 	keyword_list = parseQuery(abstract)
 	query_string = create_query(keyword_list)
@@ -49,10 +38,38 @@ def do_topic_search(abstract):
 	# Get Author information
 	authorId_list = compile_author_list(real_data)
 	populated_authors = search_list_of_authors(authorId_list)
+	# Reset author scores
+	for author in populated_authors:
+		author.
 
+	score_authors(populated_authors, abstract=abstract)
+
+	# Compute scores for each author before sending them to be displayed
+	for author in populated_authors:
+		author.sumCitations()
+		author.computeMostRecentYear()
+		for p in author.papers:
+			if p.title == p.desc:
+				p.desc = "Not available"
+		author.papers.sort(key=lambda paper: paper.cosine_similarity, reverse=True)
+
+	populated_authors.sort(key=lambda author: author.cumulativeScore, reverse=True)
+	return populated_authors
+
+
+def score_authors(author_list, abstract):
+	# NEW: create corpus from query words
+	docs = {}
+	cachedStopWords = stopwords.words("english")
+	query = TextBlob(abstract.lower())
+	docs[-1] = query
+	corpWords = []
+	for word in query.words:
+		if word not in cachedStopWords and word not in corpWords:
+			corpWords.append(word)
 	# NEW: construct tf-idf vectors from documents
 	maxCitations = 0
-	for author in populated_authors:
+	for author in author_list:
 		for paper in author.papers:
 			if paper.citations > maxCitations:
 				maxCitations = paper.citations
@@ -62,7 +79,7 @@ def do_topic_search(abstract):
 	corpus.constructVectors()
 
 	# NEW: cosine similarity
-	query = corpus.scoredDocs[0].vector
+	query = corpus.scoredDocs[0].vector  # <------- we dont really need this
 
 	# original doc has id of -1
 	for doc in corpus.scoredDocs:
@@ -74,20 +91,9 @@ def do_topic_search(abstract):
 		document.addScore(sim)
 		docDict[document.id] = sim
 
-	# Compute scores for each author before sending them to be displayed
-	for author in populated_authors:
-		author.sumCitations()
-		author.computeMostRecentYear()
+	for author in author_list:
 		author.setCosineSimilarity(docDict)
 		author.scoreAuthor(maxCitations)
-		for p in author.papers:
-			if p.title == p.desc:
-				p.desc = "Not available"
-		author.papers.sort(key=lambda paper: paper.cosine_similarity, reverse=True)
-
-	populated_authors.sort(key=lambda author: author.cumulativeScore, reverse=True)
-	return populated_authors
-
 
 # 2
 def search_list_of_authors(author_list):

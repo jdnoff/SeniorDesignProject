@@ -4,6 +4,7 @@ from AS_RequestHandler import evaluate_request
 from topic_search import do_topic_search
 from Author import *
 import json
+from topic_search import score_authors
 
 
 # return authors papers to user for subset
@@ -91,47 +92,23 @@ def get_papers_by_id(paperIds):
 
 
 def search_papers(papers):
-	total_authors = []
+	total_authors = {}
 	# Do topic search on each paper description
 	for p in papers:
 		print("Title", p.title, "\n", p.desc)
 		if p.desc != "none":
-			total_authors += do_topic_search(p.desc)
-	total_authors.sort(key=lambda author: author.cumulativeScore, reverse=True)
-	return total_authors
+			total_authors[p.id] = do_topic_search(p.desc)
 
-def search_paperids(paperIds):
-	"""
-	Performs a topic search on each paperid, returning a list of authors
-	:param paperIds: A list of paper ids to be searched
-	:return: a list of authors sorted and ready to be displayed
-	"""
-	# Make query
-	attributes = {
-		academic_constants.ATT_ID,
-		academic_constants.ATT_AUTHOR_NAME,
-		academic_constants.ATT_AUTHOR_ID,
-		academic_constants.ATT_WORDS,
-		academic_constants.ATT_PAPER_TITLE,
-		academic_constants.ATT_CITATIONS,
-		academic_constants.ATT_RERFENCES,
-		academic_constants.ATT_EXTENDED
-	}
-	wordslist = []
-	count = 0
-	for p in paperIds:
-		wordslist.append("{}={}".format(academic_constants.ATT_ID, p))
-		count += 1
-	query_string = 'Or({})'.format(','.join(wordslist))
-	params = construct_params(query_string, 'latest', count, '', attributes)
-	data = evaluate_request(params)
-	papers = read_response(data)
-
-	total_authors = []
-	# Do topic search on each paper description
-	for p in papers:
-		print("Title", p.title, "\n", p.desc)
-		if p.desc != "none":
-			total_authors += do_topic_search(p.desc)
-	total_authors.sort(key=lambda author: author.cumulativeScore, reverse=True)
-	return total_authors
+	ret_list = []
+	# Score similarity against other papers
+	for key in total_authors.keys():
+		for p in papers:
+			if key != p.id:
+				score_authors(total_authors[key], p.desc)
+		ret_list += total_authors[key]
+	ret_list.sort(key=lambda author: author.cumulativeScore, reverse=True)
+	# Detect co-authorship
+	paper_set = set([p.id for p in papers])
+	for author in ret_list:
+		author.coAuthorFlag = len(paper_set.intersection(set([p.id for p in author.papers]))) > 0
+	return ret_list
