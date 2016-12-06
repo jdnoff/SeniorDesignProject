@@ -79,11 +79,12 @@ class Author:
 		for paper in self.papers:
 			self.citations += paper.citations
 
-	def scoreAuthor(self):
+	def scoreAuthor(self, maxCitations):
 		total = 0
 		for paper in self.papers:
-			total += paper.cosine_similarity
-		self.score = total/len(self.papers)
+			paper.finalScore =( (.8)*(paper.cosine_similarity) + (.15)*(paper.citations/maxCitations) + (.05)*(paper.year/2016) )
+			total += paper.finalScore
+		self.cumulativeScore = total
 
 class AcademicPaper:
 	def __init__(self, paper_title, id):
@@ -97,6 +98,8 @@ class AcademicPaper:
 		self.referenceIds = []
 		self.journal_name = ""
 		self.conference_name = ""
+		self.citations = 0
+		self.finalScore = 0
 
 	def addReferenceIds(self, refIds):
 		for ref in refIds:
@@ -108,9 +111,6 @@ class AcademicPaper:
 
 	def addDesc(self, desc):
 		self.desc = desc
-
-	def addCitations(self, citations):
-		self.citations = citations
 
 	def addAuthor(self, author):
 		self.authors.append(author)

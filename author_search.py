@@ -42,7 +42,7 @@ def read_response(data):
 				p.addKeywords(paper[ATT_WORDS])
 
 			if ATT_CITATIONS in paper:
-				p.addCitations(paper[ATT_CITATIONS])
+				p.citations = paper[ATT_CITATIONS]
 
 			if ATT_YEAR in paper:
 				p.year = paper[ATT_YEAR]

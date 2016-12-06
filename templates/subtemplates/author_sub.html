@@ -29,7 +29,7 @@
                         <b>{{ paper.title }}</b> ({{ paper.conference_name }}{{ paper.journal_name }}{{ paper.year }})
                         <p class="w3-opacity" style="text-indent: 5%">{{ paper.desc }}</p>
                     </td>
-                    <td>{{ paper.cosine_similarity|floatformat:5 }}</td>
+                    <td>{{ paper.finalScore |floatformat:5 }}</td>
                 </tr>
             {% endfor %}
         </table>
