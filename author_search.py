@@ -67,6 +67,39 @@ def read_response(data):
 	return paper_list
 
 
+def get_papers_by_id(paperIds):
+	# Make query
+	attributes = {
+		academic_constants.ATT_ID,
+		academic_constants.ATT_AUTHOR_NAME,
+		academic_constants.ATT_AUTHOR_ID,
+		academic_constants.ATT_WORDS,
+		academic_constants.ATT_PAPER_TITLE,
+		academic_constants.ATT_CITATIONS,
+		academic_constants.ATT_RERFENCES,
+		academic_constants.ATT_EXTENDED
+	}
+	wordslist = []
+	count = 0
+	for p in paperIds:
+		wordslist.append("{}={}".format(academic_constants.ATT_ID, p))
+		count += 1
+	query_string = 'Or({})'.format(','.join(wordslist))
+	params = construct_params(query_string, 'latest', count, '', attributes)
+	data = evaluate_request(params)
+	return read_response(data)
+
+
+def search_papers(papers):
+	total_authors = []
+	# Do topic search on each paper description
+	for p in papers:
+		print("Title", p.title, "\n", p.desc)
+		if p.desc != "none":
+			total_authors += do_topic_search(p.desc)
+	total_authors.sort(key=lambda author: author.cumulativeScore, reverse=True)
+	return total_authors
+
 def search_paperids(paperIds):
 	"""
 	Performs a topic search on each paperid, returning a list of authors

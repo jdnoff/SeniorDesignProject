@@ -11,6 +11,7 @@ from .forms import AuthorSearchSubsetForm
 from topic_search import do_topic_search
 from author_search import get_author_papers
 from author_search import search_paperids
+from author_search import search_papers, get_papers_by_id
 
 # Create your views here.
 class LandingView(TemplateView):
@@ -62,13 +63,12 @@ class AuthorSearchView(View):
 		# Search subset of papers
 		if 'subset' in request.POST:
 			paperIds = request.POST.getlist('paper_list')
-			paperTitles = request.POST.getlist('paper_list[]')
-			print("TITLE: ", paperTitles)
-			author_list = search_paperids(paperIds)
+			papers = get_papers_by_id(paperIds)
+			author_list = search_papers(papers)
 
 			return render(request, 'results.html', {
 				'results_list': author_list,
-				'query': paperIds
+				'query': [p.title for p in papers]
 			})
 		else:
 			# get author name and body of work

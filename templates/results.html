@@ -58,10 +58,10 @@
     </script>
     <div class="w3-container w3-card-2 w3-theme-d1 w3-round w3-margin"><br>
         <span class="w3-right ">{{ number }}</span>
-        <h2 style="margin-bottom: -6px;">Search results for:</h2>
-        {% for q in query %}
-            <h2 style="margin-bottom: 1px; margin-left: 5em">{{ q }} </h2>
-        {% endfor %}
+        <h3>Search results for:
+            <ul style="margin-left: 5em">{% for q in query %}
+                <li>{{ q }}</li>{% endfor %}</ul>
+        </h3>
         <!-- Attribute sliders -->
         <hr class="w3-clear">
         <div id="slider-container" class="w3-container w3-center" style="width: 85%; margin: 0 auto;">
