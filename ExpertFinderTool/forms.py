@@ -5,10 +5,8 @@ test_paper_list = ['paper 1', 'paper 2', 'paper 3', 'paper 4', 'paper 5', 'paper
 
 
 class TopicSearchForm(forms.Form):
-	manuscript_title = forms.CharField(label='Manuscript Title', max_length=200, required=True,
+	manuscript_title = forms.CharField(label='Manuscript Title', max_length=200, required=False,
 	                                   widget=forms.TextInput(attrs=style_attribute))
-	manuscript_author = forms.CharField(label='Author Name', max_length=200, required=False,
-	                                    widget=forms.TextInput(attrs=style_attribute))
 	manuscript_abstract = forms.CharField(label='Manuscript Abstract', max_length=3000, required=True,
 	                                      widget=forms.Textarea(attrs=style_attribute))
 

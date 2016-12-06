@@ -10,29 +10,6 @@
 <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <link rel='stylesheet' href="{% static "ExpertFinderTool/style.css" %}">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script>
-    $(document).ready(function () {
-
-        function toggleSideNav() {
-            if ($("#mySidenav").width() === 0) {
-                $("#mySidenav").width(250);
-                $("#main").css("marginLeft", "250px");
-
-            } else {
-                $("#mySidenav").width(0);
-                $("#main").css("marginLeft", "0px");
-            }
-        }
-
-        $("#pancake").click(function () {
-            toggleSideNav();
-        })
-
-    });
-
-</script>
 <style>
     html, body, h1, h2, h3, h4, h5 {
         font-family: "Open Sans", sans-serif
@@ -41,7 +18,7 @@
     /* The side navigation menu */
     .sidenav {
         height: 100%; /* 100% Full-height */
-        width: 0; /* 0 width - change this with JavaScript */
+        width: 255px;
         position: fixed; /* Stay in place */
         z-index: 1; /* Stay on top */
         top: 0;
@@ -54,9 +31,9 @@
 
     /* The navigation menu links */
     .sidenav a {
-        padding: 8px 8px 8px 32px;
+        padding: 8px 0px 2px 0px;
         text-decoration: none;
-        font-size: 25px;
+        font-size: 22px;
         display: block;
         transition: 0.3s
     }
@@ -66,19 +43,6 @@
         color: #022841;
     }
 
-    /* Position and style the close button (top right corner) */
-    .sidenav .closebtn {
-        position: absolute;
-        top: 0;
-        right: 25px;
-        font-size: 36px;
-        margin-left: 50px;
-    }
-
-    /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
-    #main {
-        transition: margin-left .5s;
-    }
 
     /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
     @media screen and (max-height: 450px) {
@@ -94,26 +58,21 @@
 <body class="w3-theme-l5">
 
 <!-- Navbar -->
-<div id="mySidenav" class=" w3-theme-d1 sidenav">
-    <a style="padding: 0%" href="{% url 'home' %}"><img style=" width:250px; -webkit-filter: invert(100%)"
+<div id="mySidenav" class=" w3-theme-d1 sidenav w3-center">
+    <a style=" margin: 0 auto;" href="{% url 'home' %}"><img style="width:75%; -webkit-filter: invert(100%);"
                                                         src="{% static "ExpertFinderTool/academic_logo_tassle_left.png" %}"
                                                         class="w3-circle"
                                                         alt="Avatar">
     </a>
-    <a href="{% url 'topic_search' %}">Topic Search</a>
-    <a href="{% url 'author_search' %}">Author Search</a>
+    <a href="{% url 'topic_search' %}">Search By Abstract</a>
+    <a href="{% url 'author_search' %}">Search By Author</a>
     <a href="{% url 'about_us' %} #}">About Us</a>
 </div>
 
 
-<!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
 <div id="main">
     <div class="w3-top">
         <ul class="w3-navbar w3-theme-d1 w3-left-align w3-large">
-            <li class="w3-hide-small">
-                <div id="pancake" class="w3-padding-large w3-hover-white" title="News"><i
-                        id="pancake" class="fa fa-bars"></i></div>
-            </li>
             <li><a href="{% url 'home' %}" class="w3-padding-large w3-hover-white w3-theme-d1"><i
                     class="fa fa-home w3-margin-right"></i>Expert Finder</a></li>
             <li class="w3-hide-small w3-right"><a href="#" class="w3-padding-large w3-hover-white"

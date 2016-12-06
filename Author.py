@@ -41,7 +41,7 @@ class Author:
 			ret.append(paper.title)
 		return ret
 
-	def setTfidfScore(self, docDict):
+	def setCosineSimilarity(self, docDict):
 		"""
 		Adds tfidf similarity scores to each paper of this author
 		:param docDict: Dict of paper ids mapped to scores
@@ -81,15 +81,13 @@ class Author:
 
 	def scoreAuthor(self):
 		for paper in self.papers:
-			self.score += paper.jaccard_score
-			self.score += paper.tfidf_score
+			self.score += paper.cosine_similarity
 
 
 class AcademicPaper:
 	def __init__(self, paper_title, id):
 		self.id = id
-		self.jaccard_score = 0
-		self.tfidf_score = 0
+		self.cosine_similarity = 0
 		self.title = paper_title
 		self.authors = []
 		self.keywords = []
