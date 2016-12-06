@@ -10,7 +10,6 @@ from .forms import AuthorSearchForm
 from .forms import AuthorSearchSubsetForm
 from topic_search import do_topic_search
 from author_search import get_author_papers
-from author_search import search_paperids
 from author_search import search_papers, get_papers_by_id
 
 # Create your views here.
