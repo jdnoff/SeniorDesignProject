@@ -26,20 +26,18 @@
             {% for paper in author.papers %}
                 <tr>
                     <td>
-                        <b>{{ paper.title }}</b> ({{ paper.year }})
+                        <b>{{ paper.title }}</b> ({{ paper.conference_name }}{{ paper.journal_name }}{{ paper.year }})
                         <p class="w3-opacity" style="text-indent: 5%">{{ paper.desc }}</p>
                     </td>
-                    <td>{{ paper.tfidf_score|floatformat:5 }}</td>
+                    <td>{{ paper.cosine_similarity|floatformat:5 }}</td>
                 </tr>
             {% endfor %}
         </table>
     </div>
+    <hr class="w3-clear">
     <button type="button" class="w3-btn w3-theme-d1 w3-margin-bottom"><i class="fa fa-user"></i>  <a
             style="text-decoration: none" target="_blank"
             href="https://academic.microsoft.com/#/detail/{{ author.author_id }}">
         Microsoft Academic Profile</a></button>
-    <span class="w3-right">
-        <button type="button" class="w3-btn w3-red w3-opacity w3-margin-bottom"><i
-                class="fa fa-thumbs-down"></i> Remove</button>
-    </span>
+
 </div>

@@ -49,7 +49,7 @@ class Author:
 		"""
 		for paper in self.papers:
 			if paper.id in docDict:
-				paper.tfidf_score = docDict[paper.id]
+				paper.cosine_similarity = docDict[paper.id]
 
 	def addPaper(self, paper):
 		"""
@@ -94,6 +94,8 @@ class AcademicPaper:
 		self.year = -1
 		self.desc = ""
 		self.referenceIds = []
+		self.journal_name = ""
+		self.conference_name = ""
 
 	def addReferenceIds(self, refIds):
 		for ref in refIds:
@@ -102,9 +104,6 @@ class AcademicPaper:
 	def addKeywords(self, keywords_list):
 		for k in keywords_list:
 			self.keywords.append(k)
-
-	def addScore(self, score):
-		self.jaccard_score = score
 
 	def addDesc(self, desc):
 		self.desc = desc

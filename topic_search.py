@@ -78,7 +78,10 @@ def do_topic_search(abstract):
 		author.setCosineSimilarity(docDict)
 		author.scoreAuthor()
 		author.totalScore()
-		author.papers.sort(key=lambda paper: paper.tfidf_score, reverse=True)
+		for p in author.papers:
+			if p.title == p.desc:
+				p.desc = "Not available"
+		author.papers.sort(key=lambda paper: paper.cosine_similarity, reverse=True)
 
 	populated_authors.sort(key=lambda author: author.cumulativeScore, reverse=True)
 	return populated_authors
@@ -108,6 +111,8 @@ def search_list_of_authors(author_list):
 				academic_constants.ATT_PAPER_TITLE,
 				academic_constants.ATT_FIELD_OF_STUDY,
 				academic_constants.ATT_YEAR,
+				academic_constants.ATT_CONFERENCE_NAME,
+				academic_constants.ATT_JOURNAL_NAME,
 				academic_constants.ATT_EXTENDED,
 				academic_constants.ATT_ID,
 				academic_constants.ATT_RERFENCES,
@@ -122,6 +127,16 @@ def search_list_of_authors(author_list):
 						paper_id = paper[ATT_ID]
 
 					p = AcademicPaper(paper[ATT_PAPER_TITLE].title(), paper_id)
+
+					if 'C' in paper:
+						if 'CN' in paper['C']:
+							p.conference_name = paper['C']['CN'].upper()
+							p.conference_name += ', '
+
+					if 'J' in paper:
+						if 'JN' in paper['J']:
+							p.journal_name = paper['J']['JN'].upper()
+							p.journal_name += ', '
 
 					if ATT_CITATIONS in paper:
 						p.addCitations(paper[ATT_CITATIONS])
