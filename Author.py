@@ -49,7 +49,7 @@ class Author:
 		"""
 		for paper in self.papers:
 			if paper.id in docDict:
-				paper.cosine_similarity = docDict[paper.id]
+				paper.cosine_similarity += docDict[paper.id]
 
 	def addPaper(self, paper):
 		"""

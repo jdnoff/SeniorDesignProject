@@ -4,6 +4,7 @@ from AS_RequestHandler import evaluate_request
 from topic_search import do_topic_search
 from Author import *
 import json
+from topic_search import score_authors
 
 
 # return authors papers to user for subset
@@ -100,6 +101,7 @@ def search_papers(papers):
 	total_authors.sort(key=lambda author: author.cumulativeScore, reverse=True)
 	return total_authors
 
+
 def search_paperids(paperIds):
 	"""
 	Performs a topic search on each paperid, returning a list of authors
@@ -127,11 +129,20 @@ def search_paperids(paperIds):
 	data = evaluate_request(params)
 	papers = read_response(data)
 
-	total_authors = []
+	total_authors = {}
 	# Do topic search on each paper description
 	for p in papers:
 		print("Title", p.title, "\n", p.desc)
 		if p.desc != "none":
-			total_authors += do_topic_search(p.desc)
-	total_authors.sort(key=lambda author: author.cumulativeScore, reverse=True)
-	return total_authors
+			total_authors[p.id] = do_topic_search(p.desc)
+
+	ret_list = []
+	# Score similarity against other papers
+	for key in total_authors.keys():
+		for p in papers:
+			if key != p.id:
+				score_authors(total_authors[key], p.desc)
+				ret_list += total_authors[key]
+
+	ret_list.sort(key=lambda author: author.cumulativeScore, reverse=True)
+	return ret_list
