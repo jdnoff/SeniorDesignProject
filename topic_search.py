@@ -43,7 +43,7 @@ def do_topic_search(abstract):
 	# Initial AS Query
 	keyword_list = parseQuery(abstract)
 	query_string = create_query(keyword_list)
-	params = construct_params(query_string, '', '8', '', attributes)
+	params = construct_params(query_string, '', '10', '', attributes)
 	real_data = evaluate_request(params)
 
 	# Get Author information
@@ -51,8 +51,11 @@ def do_topic_search(abstract):
 	populated_authors = search_list_of_authors(authorId_list)
 
 	# NEW: construct tf-idf vectors from documents
+	maxCitations = 0
 	for author in populated_authors:
 		for paper in author.papers:
+			if paper.citations > maxCitations:
+				maxCitations = paper.citations
 			if paper.id not in docs.keys():
 				docs[paper.id] = TextBlob(paper.desc.lower())
 	corpus = Corpus(docs, corpWords)
@@ -76,8 +79,7 @@ def do_topic_search(abstract):
 		author.sumCitations()
 		author.computeMostRecentYear()
 		author.setCosineSimilarity(docDict)
-		author.scoreAuthor()
-		author.totalScore()
+		author.scoreAuthor(maxCitations)
 		for p in author.papers:
 			if p.title == p.desc:
 				p.desc = "Not available"
@@ -104,7 +106,7 @@ def search_list_of_authors(author_list):
 			print(author_list[aId], " Not in cache, searching microsoft")
 			author = Author(author_list[aId], aId)
 			query = "Composite({}={})".format(academic_constants.ATT_AUTHOR_ID, aId)
-			params = construct_params(query, 'latest', 10, '', {
+			params = construct_params(query, 'latest', 30, '', {
 				academic_constants.ATT_CITATIONS,
 				academic_constants.ATT_AUTHOR_AFFILIATION,
 				academic_constants.ATT_WORDS,
@@ -139,7 +141,7 @@ def search_list_of_authors(author_list):
 							p.journal_name += ', '
 
 					if ATT_CITATIONS in paper:
-						p.addCitations(paper[ATT_CITATIONS])
+						p.citations = paper[ATT_CITATIONS]
 
 					if ATT_EXTENDED in paper:
 						desc = json.loads(paper[ATT_EXTENDED])
@@ -148,7 +150,7 @@ def search_list_of_authors(author_list):
 							p.addDesc(desc[ATT_EXT_DESCRIPTION])
 						else:
 							p.addDesc(p.title)
-							print("No abstract found for ", p.title)
+							# print("No abstract found for ", p.title)
 					if ATT_YEAR in paper:
 						p.year = paper[ATT_YEAR]
 					author.addPaper(p)
