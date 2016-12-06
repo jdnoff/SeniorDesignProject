@@ -40,7 +40,8 @@ def do_topic_search(abstract):
 	populated_authors = search_list_of_authors(authorId_list)
 	# Reset author scores
 	for author in populated_authors:
-		author.
+		for p in author.papers:
+			p.cosine_similarity = 0
 
 	score_authors(populated_authors, abstract=abstract)
 
