@@ -132,7 +132,7 @@ def search_list_of_authors(author_list):
 						if ATT_EXT_DESCRIPTION in desc:
 							p.addDesc(desc[ATT_EXT_DESCRIPTION])
 						else:
-							p.addDesc("none")
+							p.addDesc(p.title)
 							print("No abstract found for ", p.title)
 					if ATT_YEAR in paper:
 						p.year = paper[ATT_YEAR]
