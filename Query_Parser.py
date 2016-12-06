@@ -70,12 +70,6 @@ def parseQuery(user_input):
 		print(json.dumps(data))
 	return word_list
 
-def test_query():
-	""" Test function to get a stored result of a test query. Use to save requests.
-		:return: keyword list """
-	with open('Analytics_results_test') as data_file:
-		return json.load(data_file)
-
 
 
 
