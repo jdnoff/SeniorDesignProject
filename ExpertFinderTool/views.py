@@ -35,14 +35,13 @@ class TopicSearchView(View):
 			# <process form cleaned data>
 			data = form.cleaned_data
 			title = data['manuscript_title']
-			author = data['manuscript_author']
 			abstract = data['manuscript_abstract'].lower()
 
 			author_list = do_topic_search(abstract)
 
 			return render(request, 'results.html', {
 				'results_list': author_list,
-				'query': title
+				'query': [title]
 			})
 
 		return render(request, self.template_name, {'form': form})
@@ -63,11 +62,13 @@ class AuthorSearchView(View):
 		# Search subset of papers
 		if 'subset' in request.POST:
 			paperIds = request.POST.getlist('paper_list')
+			paperTitles = request.POST.getlist('paper_list[]')
+			print("TITLE: ", paperTitles)
 			author_list = search_paperids(paperIds)
 
 			return render(request, 'results.html', {
 				'results_list': author_list,
-				'query': "test"
+				'query': paperIds
 			})
 		else:
 			# get author name and body of work

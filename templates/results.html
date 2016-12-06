@@ -38,23 +38,11 @@
             });
             $("#year-slider").slider({
                 range: true,
-                min: 1950,
+                min: 1990,
                 max: 2016,
                 values: [1950, 2016],
                 slide: function (event, ui) {
                     $("#year-range").val("" + ui.values[0] + " - " + ui.values[1]);
-                },
-                change: function (event, ui) {
-                    applyFilter(ui.values[1], ui.values[0]);
-                }
-            });
-            $("#papernum-slider").slider({
-                range: true,
-                min: 0,
-                max: 100,
-                values: [0, 100],
-                slide: function (event, ui) {
-                    $("#papernum-range").val("" + ui.values[0] + " - " + ui.values[1]);
                 },
                 change: function (event, ui) {
                     applyFilter(ui.values[1], ui.values[0]);
@@ -66,14 +54,14 @@
                     " - " + $("#year-slider").slider("values", 1));
             $("#citation-range").val("" + $("#citation-slider").slider("values", 0) +
                     " - " + $("#citation-slider").slider("values", 1));
-            $("#papernum-range").val("" + $("#papernum-slider").slider("values", 0) +
-                    " - " + $("#papernum-slider").slider("values", 1));
         });
     </script>
     <div class="w3-container w3-card-2 w3-theme-d1 w3-round w3-margin"><br>
         <span class="w3-right ">{{ number }}</span>
-        <h2 style="margin-bottom: -6px;">Search results for: {{ query }} </h2>
-
+        <h2 style="margin-bottom: -6px;">Search results for:</h2>
+        {% for q in query %}
+            <h2 style="margin-bottom: 1px; margin-left: 5em">{{ q }} </h2>
+        {% endfor %}
         <!-- Attribute sliders -->
         <hr class="w3-clear">
         <div id="slider-container" class="w3-container w3-center" style="width: 85%; margin: 0 auto;">
@@ -88,12 +76,6 @@
             <input type="text" id="year-range" readonly
                    style="background:transparent; border: none; color: white; font-weight:bold;">
             <div id="year-slider" class="w3-theme-d1"></div>
-
-            <!-- Publication number slider-->
-            <label for="papernum-range">Number of Publications:</label>
-            <input type="text" id="papernum-range" readonly
-                   style="background:transparent; border: none; color: white; font-weight:bold;">
-            <div id="papernum-slider" class="w3-theme-d1"></div>
         </div>
 
         <hr class="w3-clear">

@@ -8,10 +8,12 @@ from nltk.corpus import stopwords
 from django.core.cache import cache
 from Corpus import *
 
+
 """
 IMPORTANT: run this function and download stopwords corpus from the window:
 				nltk.download()
 """
+
 
 # Handler for the topic search use case
 def do_topic_search(abstract):
@@ -36,7 +38,7 @@ def do_topic_search(abstract):
 	corpWords = []
 	for word in query.words:
 		if word not in cachedStopWords and word not in corpWords:
-				corpWords.append(word)
+			corpWords.append(word)
 
 	# Initial AS Query
 	keyword_list = parseQuery(abstract)
@@ -73,9 +75,10 @@ def do_topic_search(abstract):
 	for author in populated_authors:
 		author.sumCitations()
 		author.computeMostRecentYear()
-		author.setTfidfScore(docDict)
+		author.setCosineSimilarity(docDict)
 		author.scoreAuthor()
 		author.totalScore()
+		author.papers.sort(key=lambda paper: paper.tfidf_score, reverse=True)
 
 	populated_authors.sort(key=lambda author: author.cumulativeScore, reverse=True)
 	return populated_authors
@@ -84,7 +87,8 @@ def do_topic_search(abstract):
 # 2
 def search_list_of_authors(author_list):
 	"""
-	Performs an evaluate request on each author in a given list.
+	Used to get additional information for a list of authors. Checks if an author is cached, if not it performs an
+	evaluate request to get the information and caches it.
 	:param author_list: a list of author names to be searched
 	:return: a list of Author objects
 	"""
@@ -130,7 +134,6 @@ def search_list_of_authors(author_list):
 						else:
 							p.addDesc("none")
 							print("No abstract found for ", p.title)
-
 					if ATT_YEAR in paper:
 						p.year = paper[ATT_YEAR]
 					author.addPaper(p)

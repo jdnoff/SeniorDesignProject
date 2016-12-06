@@ -33,7 +33,11 @@ def read_response(data):
 	paper_list = []
 	if 'entities' in data:
 		for paper in data['entities']:
-			p = AcademicPaper(paper[ATT_PAPER_TITLE].title())
+			paper_id = -1
+			if ATT_ID in paper:
+				paper_id = paper[ATT_ID]
+
+			p = AcademicPaper(paper[ATT_PAPER_TITLE].title(), paper_id)
 			if ATT_WORDS in paper:
 				p.addKeywords(paper[ATT_WORDS])
 
@@ -64,6 +68,11 @@ def read_response(data):
 
 
 def search_paperids(paperIds):
+	"""
+	Performs a topic search on each paperid, returning a list of authors
+	:param paperIds: A list of paper ids to be searched
+	:return: a list of authors sorted and ready to be displayed
+	"""
 	# Make query
 	attributes = {
 		academic_constants.ATT_ID,
