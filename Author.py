@@ -80,9 +80,10 @@ class Author:
 			self.citations += paper.citations
 
 	def scoreAuthor(self):
+		total = 0
 		for paper in self.papers:
-			self.score += paper.cosine_similarity
-
+			total += paper.cosine_similarity
+		self.score = total/len(self.papers)
 
 class AcademicPaper:
 	def __init__(self, paper_title, id):
