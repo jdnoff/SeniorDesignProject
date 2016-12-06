@@ -28,7 +28,6 @@ class Document:
         self.words = []
         self.score = 0
         self.vector = []
-        cachedStopWords = stopwords.words("english")
         for word in wordList:
             tfidf = 0
             if word in doc.words:
