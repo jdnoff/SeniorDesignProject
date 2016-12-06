@@ -38,6 +38,7 @@ INSTALLED_APPS = [
 	'django.contrib.sessions',
 	'django.contrib.messages',
 	'django.contrib.staticfiles',
+	'django.contrib.humanize',
 	'ExpertFinderTool',
 ]
 
@@ -78,7 +79,7 @@ WSGI_APPLICATION = 'ExpertFinder.wsgi.application'
 CACHES = {
 	'default': {
 		'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-		'LOCATION': '127.0.0.1:11211',
+		'LOCATION': '127.0.0.1:11212',
 	}
 }
 

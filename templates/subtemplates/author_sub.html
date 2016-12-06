@@ -1,30 +1,29 @@
 {% load static %}
+{% load humanize %}
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<div class="author-list-item w3-container w3-hover-light-grey w3-card-2 w3-white w3-round w3-margin"
+<div class="author-list-item  w3-hover-light-grey w3-card-2 w3-white w3-round w3-margin w3-row"
      data-author-score="{{ score }}"
      data-recent-year="{{ year }}"
      data-total-citations="{{ author.citations }}"
      data-author-numPubs="{{ author.numPublications }}"
 >
-    <br>
-    <img src="{% static "ExpertFinderTool/academic_logo.gif" %}" alt="Avatar" class="w3-left w3-circle w3-margin-right"
-         style="width:60px">
-    <span class="w3-right "> Rank: {{ number }}</span>
-    <h2>{{ author.author_name }}
-    </h2>
-    <p class="w3-opacity">Cumulative Score: {{ author.cumulativeScore|floatformat:4 }}<br> Similarity
-        Score: {{ author.score|floatformat:4 }} <br>
-        Total Citations: {{ author.citations }} <br> Most Recent
-        Publication: {{ year }} <br> Number of Publications: {{ author.numPublications }}</p>
-    {% if author.coAuthorFlag %}
-        <b>CO AUTHOR</b>
-    {% endif %}
-    <hr class="w3-clear">
-
-    <div id="cont" style="overflow-y: scroll; height:250px;">
+    <div class="w3-col s3 w3-theme-d1 " style=" padding-left: 1%; height: 100%">
+        <h2>{{ author.author_name }}</h2>
+        <button type="button" class="w3-btn w3-theme-l1 w3-margin-bottom"><i class="fa fa-user"></i>  <a
+                style="text-decoration: none" target="_blank"
+                href="https://academic.microsoft.com/#/detail/{{ author.author_id }}">
+            Microsoft Academic Profile</a></button>
+        <p class="">Rank: {{ number|ordinal }}<br>Cumulative Score: {{ author.cumulativeScore|floatformat:4 }} <br>
+            Total Citations: {{ author.citations }} <br> Most Recent
+            Publication: {{ year }} <br> Number of Publications: {{ author.numPublications }}</p>
+        {% if author.coAuthorFlag %}
+            <b>CO AUTHOR</b>
+        {% endif %}
+    </div>
+    <div id="cont" style="overflow-y: scroll; height:250px; border-right: thin #034974" class="w3-col s9">
         <table class="w3-table w3-small w3-hoverable">
             {% for paper in author.papers %}
                 <tr>
@@ -37,10 +36,8 @@
             {% endfor %}
         </table>
     </div>
-    <hr class="w3-clear">
-    <button type="button" class="w3-btn w3-theme-d1 w3-margin-bottom"><i class="fa fa-user"></i>  <a
-            style="text-decoration: none" target="_blank"
-            href="https://academic.microsoft.com/#/detail/{{ author.author_id }}">
-        Microsoft Academic Profile</a></button>
-
+    {#    <div class="w3-row">#}
+    {#        <br>#}
+    {#        <hr class="w3-clear">#}
+    {#    </div>#}
 </div>
