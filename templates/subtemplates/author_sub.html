@@ -10,7 +10,7 @@
      data-total-citations="{{ author.citations }}"
      data-author-numPubs="{{ author.numPublications }}"
 >
-    <div class="w3-col s3 w3-theme-d1 " style=" padding-left: 1%; height: 100%">
+    <div class="w3-col s3 w3-theme-d1 " style=" padding-left: 1%; height: 250px">
         <h2>{{ author.author_name }}</h2>
         <button type="button" class="w3-btn w3-theme-l5"><i class="fa fa-user"></i>  <a
                 style="text-decoration: none" target="_blank"
@@ -18,11 +18,10 @@
             Microsoft Academic Profile</a></button>
         <p class="">Rank: {{ number|ordinal }}<br>
             Total Citations: {{ author.citations }} <br> Most Recent
-            Publication: {{ year }} <br> Number of Publications: {{ author.numPublications }}</p>
+            Publication: {{ year }} <br> Number of Publications: {{ author.numPublications }}{% if author.numPublications == 40 %}+{% endif %}</p>
         {% if author.coAuthorFlag %}
             <b>CO AUTHOR</b>
         {% endif %}
-    <br><br>
     </div>
     <div id="cont" style="overflow-y: scroll; height:250px; border-right: thin #034974" class="w3-col s9">
         <table class="w3-table w3-small w3-hoverable">

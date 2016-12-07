@@ -14,6 +14,9 @@ IMPORTANT: run this function and download stopwords corpus from the window:
 				nltk.download()
 """
 
+# Size parameters for each query
+QUERY_SIZE_INITIAL = 12
+QUERY_SIZE_AUTHOR = 40
 
 # Handler for the topic search use case
 def do_topic_search(abstract):
@@ -32,7 +35,7 @@ def do_topic_search(abstract):
 	# Initial AS Query
 	keyword_list = parseQuery(abstract)
 	query_string = create_query(keyword_list)
-	params = construct_params(query_string, '', '10', '', attributes)
+	params = construct_params(query_string, '', QUERY_SIZE_INITIAL, '', attributes)
 	real_data = evaluate_request(params)
 
 	# Get Author information
@@ -114,7 +117,7 @@ def search_list_of_authors(author_list):
 			print(author_list[aId], " Not in cache, searching microsoft")
 			author = Author(author_list[aId], aId)
 			query = "Composite({}={})".format(academic_constants.ATT_AUTHOR_ID, aId)
-			params = construct_params(query, 'latest', 30, '', {
+			params = construct_params(query, 'latest', QUERY_SIZE_AUTHOR, '', {
 				academic_constants.ATT_CITATIONS,
 				academic_constants.ATT_AUTHOR_AFFILIATION,
 				academic_constants.ATT_WORDS,

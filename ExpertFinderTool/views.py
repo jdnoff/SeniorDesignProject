@@ -1,8 +1,4 @@
 from django.shortcuts import render
-from django.shortcuts import render_to_response
-from django.shortcuts import reverse
-from django.template import RequestContext
-from django.shortcuts import HttpResponseRedirect
 from django.views.generic import TemplateView
 from django.views.generic import View
 from .forms import TopicSearchForm
@@ -11,10 +7,6 @@ from .forms import AuthorSearchSubsetForm
 from topic_search import do_topic_search
 from author_search import get_author_papers
 from author_search import search_papers, get_papers_by_id
-
-# Create your views here.
-class LandingView(TemplateView):
-	template_name = 'landing_page.html'
 
 
 class AboutUsView(TemplateView):
@@ -44,7 +36,8 @@ class TopicSearchView(View):
 
 			return render(request, 'results.html', {
 				'results_list': author_list,
-				'query': [title]
+				'query': [title],
+				'max_citations': max(author.citations for author in author_list)
 			})
 
 		return render(request, self.template_name, {
@@ -76,7 +69,8 @@ class AuthorSearchView(View):
 
 			return render(request, 'results.html', {
 				'results_list': author_list,
-				'query': [p.title for p in papers]
+				'query': [p.title for p in papers],
+				'max_citations': max(author.citations for author in author_list)
 			})
 		else:
 			# get author name and body of work

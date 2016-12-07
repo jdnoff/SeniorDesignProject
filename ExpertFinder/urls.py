@@ -15,8 +15,6 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from ExpertFinderTool import views
-from ExpertFinderTool.views import LandingView
 from ExpertFinderTool.views import TopicSearchView
 from ExpertFinderTool.views import AuthorSearchView
 from ExpertFinderTool.views import AboutUsView
