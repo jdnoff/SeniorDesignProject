@@ -37,7 +37,7 @@ class TopicSearchView(View):
 			return render(request, 'results.html', {
 				'results_list': author_list,
 				'query': [title],
-				'max_citations': max(author.citations for author in author_list)
+				'max_citations': max([author.citations for author in author_list], default=1000)
 			})
 
 		return render(request, self.template_name, {
@@ -70,7 +70,7 @@ class AuthorSearchView(View):
 			return render(request, 'results.html', {
 				'results_list': author_list,
 				'query': [p.title for p in papers],
-				'max_citations': max(author.citations for author in author_list)
+				'max_citations': max([author.citations for author in author_list], default=1000)
 			})
 		else:
 			# get author name and body of work
