@@ -18,7 +18,7 @@
             Microsoft Academic Profile</a></button>
         <p class="">Rank: {{ number|ordinal }}<br>
             Total Citations: {{ author.citations }} <br> Most Recent
-            Publication: {{ year }} <br> Number of Publications: {{ author.numPublications }}{% if author.numPublications == 100 %}+{% endif %}</p>
+            Publication: {{ year }} <br> Number of Publications: {{ author.numPublications }}{% if author.numPublications == 40 %}+{% endif %}</p>
         {% if author.coAuthorFlag %}
             <b>CO AUTHOR</b>
         {% endif %}
