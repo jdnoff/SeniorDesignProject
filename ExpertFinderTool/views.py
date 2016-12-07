@@ -27,7 +27,10 @@ class TopicSearchView(View):
 
 	def get(self, request, *args, **kwargs):
 		form = self.form_class()
-		return render(request, self.template_name, {'form': form})
+		return render(request, self.template_name, {
+			'form': form,
+			'blurb': 'Enter information about the manuscript you would like to find reviewers for'
+		})
 
 	def post(self, request, *args, **kwargs):
 		form = self.form_class(request.POST)
@@ -44,7 +47,10 @@ class TopicSearchView(View):
 				'query': [title]
 			})
 
-		return render(request, self.template_name, {'form': form})
+		return render(request, self.template_name, {
+			'form': form,
+			'blurb': 'Enter information about the manuscript you would like to find reviewers for'
+		})
 
 
 class AuthorSearchView(View):
@@ -54,7 +60,10 @@ class AuthorSearchView(View):
 
 	def get(self, request, *args, **kwargs):
 		form = self.form_class()
-		return render(request, self.search_tmp, {'form': form})
+		return render(request, self.search_tmp, {
+			'form': form,
+			'blurb': 'Enter the name of the author you would like to review'
+		})
 
 	def post(self, request, *args, **kwargs):
 		form = self.form_class(request.POST)
@@ -81,4 +90,7 @@ class AuthorSearchView(View):
 				subsetForm.fields['paper_list'].choices = c
 				return render(request, self.template_name, {'form': subsetForm})
 
-		return render(request, self.search_tmp, {'form': form})
+		return render(request, self.search_tmp, {
+			'form': form,
+			'blurb': 'Enter the name of the author you would like to review'
+		})

@@ -17,16 +17,6 @@
 
     /* The side navigation menu */
     .sidenav {
-        height: 100%; /* 100% Full-height */
-        width: 255px;
-        position: fixed; /* Stay in place */
-        z-index: 1; /* Stay on top */
-        top: 0;
-        left: 0;
-        background-color: #111; /* Black*/
-        overflow-x: hidden; /* Disable horizontal scroll */
-        padding-top: 60px; /* Place content 60px from the top */
-        transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
     }
 
     /* The navigation menu links */
@@ -43,7 +33,6 @@
         color: #022841;
     }
 
-
     /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
     @media screen and (max-height: 450px) {
         .sidenav {
@@ -56,21 +45,19 @@
     }
 </style>
 <body class="w3-theme-l5">
-
-<!-- Navbar -->
-<div id="mySidenav" class=" w3-theme-d1 sidenav w3-center">
-    <a style=" margin: 0 auto;" href="{% url 'home' %}"><img style="width:75%; -webkit-filter: invert(100%);"
-                                                        src="{% static "ExpertFinderTool/academic_logo_tassle_left.png" %}"
-                                                        class="w3-circle"
-                                                        alt="Avatar">
-    </a>
-    <a href="{% url 'topic_search' %}">Search By Abstract</a>
-    <a href="{% url 'author_search' %}">Search By Author</a>
-    <a href="{% url 'about_us' %} #}">About Us</a>
-</div>
-
-
 <div id="main">
+    <!-- Navbar -->
+    <nav id="mySidenav" class=" w3-theme-d1 sidenav w3-sidenav w3-center" style="width: 15%; height: 100%">
+        <a class="w3-hover-none" style=" margin: 0 auto; padding-top: 10%" href="{% url 'home' %}">
+            <img style="width:75%; -webkit-filter: invert(100%);"
+                 src="{% static "ExpertFinderTool/academic_logo_tassle_left.png" %}"
+                 class="w3-circle"
+                 alt="Avatar">
+        </a>
+        <a class="w3-hover-none w3-hover-text-grey" href="{% url 'topic_search' %}">Search By Abstract</a>
+        <a class="w3-hover-none w3-hover-text-grey" href="{% url 'author_search' %}">Search By Author</a>
+        <a class="w3-hover-none w3-hover-text-grey" href="{% url 'about_us' %} #}">About Us</a>
+    </nav>
     <div class="w3-top">
         <ul class="w3-navbar w3-theme-d1 w3-left-align w3-large">
             <li><a href="{% url 'home' %}" class="w3-padding-large w3-hover-white w3-theme-d1"><i
@@ -84,7 +71,7 @@
     </div>
 
     <!-- Page Container -->
-    <div class="w3-container w3-content" style="max-width:1400px;margin-top:80px;">
+    <div class="w3-container w3-content" style="max-width:1400px;margin-top:2%; margin-left: 15%">
         <!-- Middle Column -->
         <div class="w3-col m12">
             <!------------------------------------------------------------------------------------------->
@@ -93,7 +80,6 @@
             {% endblock %}
             <!-- End Middle Column -->
         </div>
-
         <!-- End Page Container -->
     </div>
     <br>
