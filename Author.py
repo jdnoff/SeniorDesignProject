@@ -28,9 +28,6 @@ class Author:
 		self.cumulativeScore = 0
 		self.coAuthorFlag = False
 
-	def totalScore(self):
-		self.cumulativeScore = (self.citations / 10000) + self.score
-
 	def computeMostRecentYear(self):
 		for paper in self.papers:
 			if paper.year > self.mostRecentYear:
@@ -80,12 +77,15 @@ class Author:
 		for paper in self.papers:
 			self.citations += paper.citations
 
-	def scoreAuthor(self, maxCitations):
-		total = 0
+	def scorePapers(self, maxCitations):
 		for paper in self.papers:
-			paper.finalScore =( (.8)*(paper.cosine_similarity) + (.15)*(paper.citations/maxCitations) + (.05)*(paper.year/2016) )
+			paper.scorePaper(maxCitations)
+
+	def scoreAuthor(self):
+		total = 0
+		for paper in self.papers[:10]:
 			total += paper.finalScore
-		self.cumulativeScore = total
+		self.cumulativeScore = total/len(self.papers[:10])
 
 class AcademicPaper:
 	def __init__(self, paper_title, id):
@@ -115,6 +115,9 @@ class AcademicPaper:
 
 	def addAuthor(self, author):
 		self.authors.append(author)
+
+	def scorePaper(self, maxCitations):
+		self.finalScore = ( (.75)*(self.cosine_similarity) + (.2)*(self.citations/maxCitations) + (.05)*(self.year/2016) )
 
 	def addAuthors(self, author_list):
 		"""

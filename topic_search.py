@@ -52,7 +52,6 @@ def do_topic_search(abstract):
 		for p in author.papers:
 			if p.title == p.desc:
 				p.desc = "Not available"
-		author.papers.sort(key=lambda paper: paper.cosine_similarity, reverse=True)
 
 	populated_authors.sort(key=lambda author: author.cumulativeScore, reverse=True)
 	return populated_authors
@@ -94,7 +93,9 @@ def score_authors(author_list, abstract):
 
 	for author in author_list:
 		author.setCosineSimilarity(docDict)
-		author.scoreAuthor(maxCitations)
+		author.scorePapers(maxCitations)
+		author.papers.sort(key=lambda paper: paper.finalScore, reverse=True)
+		author.scoreAuthor()
 
 # 2
 def search_list_of_authors(author_list):
