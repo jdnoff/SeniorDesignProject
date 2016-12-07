@@ -17,14 +17,6 @@
 
     /* The side navigation menu */
     .sidenav {
-{#        height: 100%; /* 100% Full-height */#}
-{#            width: 20%; position: fixed; /* Stay in place */#}
-{#        z-index: 1; /* Stay on top */#}
-{#        top: 0;#}
-{#        left: 0;#}
-{#        overflow-x: hidden; /* Disable horizontal scroll */#}
-{#        padding-top: 60px; /* Place content 60px from the top */#}
-{#        transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */#}
     }
 
     /* The navigation menu links */
@@ -62,9 +54,9 @@
                  class="w3-circle"
                  alt="Avatar">
         </a>
-        <a href="{% url 'topic_search' %}">Search By Abstract</a>
-        <a href="{% url 'author_search' %}">Search By Author</a>
-        <a href="{% url 'about_us' %} #}">About Us</a>
+        <a class="w3-hover-none w3-hover-text-grey" href="{% url 'topic_search' %}">Search By Abstract</a>
+        <a class="w3-hover-none w3-hover-text-grey" href="{% url 'author_search' %}">Search By Author</a>
+        <a class="w3-hover-none w3-hover-text-grey" href="{% url 'about_us' %} #}">About Us</a>
     </nav>
     <div class="w3-top">
         <ul class="w3-navbar w3-theme-d1 w3-left-align w3-large">
