@@ -25,6 +25,13 @@ class TopicSearchView(View):
 		})
 
 	def post(self, request, *args, **kwargs):
+		"""
+		Handles a POST request and renders a results page. Unless the form is invalid then it is redisplayed
+		:param request: POST request
+		:param args:
+		:param kwargs:
+		:return:
+		"""
 		form = self.form_class(request.POST)
 		if form.is_valid():
 			# <process form cleaned data>
