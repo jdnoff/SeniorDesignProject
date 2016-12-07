@@ -12,16 +12,17 @@
 >
     <div class="w3-col s3 w3-theme-d1 " style=" padding-left: 1%; height: 100%">
         <h2>{{ author.author_name }}</h2>
-        <button type="button" class="w3-btn w3-theme-l1 w3-margin-bottom"><i class="fa fa-user"></i>  <a
+        <button type="button" class="w3-btn w3-theme-l5"><i class="fa fa-user"></i>  <a
                 style="text-decoration: none" target="_blank"
                 href="https://academic.microsoft.com/#/detail/{{ author.author_id }}">
             Microsoft Academic Profile</a></button>
-        <p class="">Rank: {{ number|ordinal }}<br>Cumulative Score: {{ author.cumulativeScore|floatformat:4 }} <br>
+        <p class="">Rank: {{ number|ordinal }}<br>
             Total Citations: {{ author.citations }} <br> Most Recent
             Publication: {{ year }} <br> Number of Publications: {{ author.numPublications }}</p>
         {% if author.coAuthorFlag %}
             <b>CO AUTHOR</b>
         {% endif %}
+    <br><br>
     </div>
     <div id="cont" style="overflow-y: scroll; height:250px; border-right: thin #034974" class="w3-col s9">
         <table class="w3-table w3-small w3-hoverable">
@@ -31,7 +32,7 @@
                         <b>{{ paper.title }}</b> ({{ paper.conference_name }}{{ paper.journal_name }}{{ paper.year }})
                         <p class="w3-opacity" style="text-indent: 5%">{{ paper.desc }}</p>
                     </td>
-                    <td>{{ paper.finalScore |floatformat:5 }}</td>
+{#                    <td>{{ paper.finalScore |floatformat:5 }}</td>#}
                 </tr>
             {% endfor %}
         </table>
