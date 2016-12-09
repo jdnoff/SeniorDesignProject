@@ -17,4 +17,7 @@ class AuthorSearchForm(forms.Form):
 
 
 class AuthorSearchSubsetForm(forms.Form):
-	paper_list = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple, label='')
+	paper_list = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple(attrs=
+	                                                                           {'class': 'w3-check',
+	                                                                            'style': 'list-style-type: none'
+	                                                                            }), label='')

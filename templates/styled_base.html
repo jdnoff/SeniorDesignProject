@@ -17,38 +17,58 @@
 
     /* The side navigation menu */
     .sidenav {
+        float: left;
+        clear: both;
     }
 
-    /* The navigation menu links */
-    .sidenav a {
-        padding: 8px 0px 2px 0px;
-        text-decoration: none;
-        font-size: 22px;
-        display: block;
-        transition: 0.3s
-    }
-
-    /* When you mouse over the navigation links, change their color */
-    .sidenav a:hover, .offcanvas a:focus {
-        color: #022841;
-    }
-
-    /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
-    @media screen and (max-height: 450px) {
-        .sidenav {
-            padding-top: 15px;
-        }
-
-        .sidenav a {
-            font-size: 18px;
+    @media screen and (max-width: 858px) {
+        html {
+            font-size: 12px;
         }
     }
+
+    @media screen and (max-width: 780px) {
+        html {
+            font-size: 11px;
+        }
+    }
+
+    @media screen and (max-width: 702px) {
+        html {
+            font-size: 10px;
+        }
+    }
+
+    @media screen and (max-width: 724px) {
+        html {
+            font-size: 9px;
+        }
+    }
+
+    @media screen and (max-width: 480px) {
+        html {
+            font-size: 8px;
+        }
+        .sidenav{
+            padding-top:15%;
+            padding-left: 0%;
+            width: 20%;
+        }
+        .sidenav a{
+            font-size: x-small;
+        }
+        #page_container{
+            padding-top: 10%;
+        }
+    }
+
 </style>
 <body class="w3-theme-l5">
-<div id="main">
+<div id="main" class="w3-display-container">
     <!-- Navbar -->
-    <nav id="mySidenav" class=" w3-theme-d1 sidenav w3-sidenav w3-center" style="width: 15%; height: 100%">
-        <a class="w3-hover-none" style=" margin: 0 auto; padding-top: 10%" href="{% url 'home' %}">
+    <nav id="mySidenav" class=" w3-theme-d1 sidenav w3-sidenav w3-center w3-display-left"
+         style="width: 15%; height: 100%;margin-top: 3%">
+        <a class="w3-hover-none" style=" margin: 0 auto; margin-top: 22%" href="{% url 'home' %}">
             <img style="width:75%; -webkit-filter: invert(100%);"
                  src="{% static "ExpertFinderTool/academic_logo_tassle_left.png" %}"
                  class="w3-circle"
@@ -58,20 +78,22 @@
         <a class="w3-hover-none w3-hover-text-grey" href="{% url 'author_search' %}">Search By Author</a>
         <a class="w3-hover-none w3-hover-text-grey" href="{% url 'about_us' %} #}">Project Poster</a>
     </nav>
-    <div class="w3-top">
-        <ul class="w3-navbar w3-theme-d1 w3-left-align w3-large">
-            <li><a href="{% url 'home' %}" class="w3-padding-large w3-hover-white w3-theme-d1"><i
-                    class="fa fa-home w3-margin-right"></i>Expert Finder</a></li>
-            <li class="w3-hide-small w3-right"><a href="#" class="w3-padding-large w3-hover-white"
-                                                  title="My Account"><img
-                    style="height:25px;width:25px; -webkit-filter: invert(100%)"
-                    src="{% static "ExpertFinderTool/academic_logo_tassle_left.png" %}" class="w3-circle"
-                    alt="Avatar"></a></li>
+
+    <div class="w3-top w3-card-4" style="position: fixed">
+        <ul class="w3-navbar w3-theme-d1 ">
+            <li class="w3-left-align ">
+                <a href="{% url 'home' %}" class="w3-padding-large w3-hover-white w3-theme-d1"><i
+                        class="fa fa-home w3-margin-right"></i>Expert Finder</a>
+            </li>
+            <li class="w3-hide-small w3-hide-medium w3-right w3-right-align">
+                    <img class=""style="height:5%;width:5%; -webkit-filter: invert(100%)"
+                         src="{% static "ExpertFinderTool/academic_logo_tassle_left.png" %}" class="w3-circle"
+                         alt="Avatar">
+            </li>
         </ul>
     </div>
-
     <!-- Page Container -->
-    <div class="w3-container w3-content" style="max-width:1400px;margin-top:2%; margin-left: 15%">
+    <div id="page_container" class="w3-container w3-content" style="max-width:1400px;margin-top:2%; margin-left: 15%">
         <!-- Middle Column -->
         <div class="w3-col m12">
             <!------------------------------------------------------------------------------------------->
