@@ -12,6 +12,8 @@ from topic_search import score_authors
 #
 # return all results
 
+INITIAL_PAPER_QUERY = 20
+
 def get_author_papers(authorName):
 	attributes = {
 		academic_constants.ATT_ID,
@@ -24,7 +26,7 @@ def get_author_papers(authorName):
 		academic_constants.ATT_EXTENDED
 	}
 	query_string = "Composite(AA.AuN=\'{}\')".format(authorName)
-	params = construct_params(query_string, 'latest', '10', '', attributes)
+	params = construct_params(query_string, 'latest', INITIAL_PAPER_QUERY, '', attributes)
 	real_data = evaluate_request(params)
 	return read_response(real_data)
 

@@ -1,15 +1,31 @@
 {% extends "styled_base.html" %}
 {% block content_area %}
-    <div class="w3-row-padding"style="padding-top: 3%">
+    <style>
+        ul {
+            list-style-type: none;
+        }
+
+    </style>
+    <div class="w3-row-padding" style="padding-top: 5%">
         <div class="w3-col m12">
             <div class="w3-card-2 w3-round w3-theme-l4">
                 <div class="w3-container w3-padding">
                     <h5 class="w3-opacity">Select a subset of papers to find reviewers for</h5>
-                    <form action="" method="post" class="w3-checkbox">
+                    <form action="" method="post" class=" " style="list-style: none">
                         {% csrf_token %}
-                        {{ form.as_p }}
+                        <table class="w3-table ">
+                            {% for paper in form.paper_list %}
+                                <tr>
+                                    <td class="w3-padding-4 w3-hover-white">
+                                        <label class="w3-validate w3-round-medium">
+                                            {{ paper.tag }} {{ paper.choice_label }}
+                                        </label>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
                         <span>
-                        <button name="subset" id="search_submit" type="submit" class="w3-btn w3-theme-d1"><i
+                        <button name="subset" style="margin-top: 1%" id="search_submit" type="submit" class="w3-padding w3-btn w3-theme-d1"><i
                                 class="fa fa-rocket"></i> Search Authors
                         </button>
                         </span>
