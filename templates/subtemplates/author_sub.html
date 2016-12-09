@@ -10,23 +10,23 @@
      data-total-citations="{{ author.citations }}"
      data-author-numPubs="{{ author.numPublications }}"
 >
-    <div class="w3-col s3 w3-theme-d1 " style=" padding-left: 1%; height: 200px; overflow: hidden">
+    <div class="w3-col s3 w3-theme-d1 w3-round" style=" padding-left: 1%; height: 200px; overflow: hidden">
         <h4>{{ author.author_name }}</h4>
         <a style="text-decoration: none" target="_blank"
            href="https://academic.microsoft.com/#/detail/{{ author.author_id }}">
-            <button type="button" class="w3-btn w3-theme-l5 w3-small"><i class="fa fa-user"></i>  
+            <button type="button" class="w3-btn w3-theme-l5 w3-round w3-small"><i class="fa fa-user"></i>  
                 Microsoft Academic Profile
             </button>
         </a>
         <p class="">{{ number|ordinal }}  {% if author.coAuthorFlag %}
-            <span class="w3-small w3-tag w3-blue w3-padding-4">Co-Author</span>
+            <span class="w3-small w3-tag w3-theme-l1 w3-round w3-padding-4">Co-Author</span>
             {% endif %}<br>
             Total Citations: {{ author.citations }} <br> Most Recent
             Publication: {{ year }} <br> Number of Publications:
             {{ author.numPublications }}{% if author.numPublications == 40 %}+{% endif %}</p>
     </div>
     <div id="cont" style="overflow-y: scroll; height:200px; border-right: thin #034974" class="w3-col s9">
-        <table class="w3-table w3-small w3-hoverable">
+        <table class="w3-table w3-small w3-hoverable w3-round">
             {% for paper in author.papers %}
                 <tr>
                     <td>
