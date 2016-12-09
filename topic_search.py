@@ -15,7 +15,7 @@ IMPORTANT: run this function and download stopwords corpus from the window:
 """
 
 # Size parameters for each query
-QUERY_SIZE_INITIAL = 12
+QUERY_SIZE_INITIAL = 13
 QUERY_SIZE_AUTHOR = 40
 
 # Handler for the topic search use case
@@ -55,7 +55,7 @@ def do_topic_search(abstract):
 		for p in author.papers:
 			if p.title == p.desc:
 				p.desc = "Not available"
-
+	populated_authors = list(filter(lambda a: a.numPublications > 3, populated_authors))
 	populated_authors.sort(key=lambda author: author.cumulativeScore, reverse=True)
 	return populated_authors
 
