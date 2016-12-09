@@ -25,6 +25,13 @@ class TopicSearchView(View):
 		})
 
 	def post(self, request, *args, **kwargs):
+		"""
+		Handles a POST request and renders a results page. Unless the form is invalid then it is redisplayed
+		:param request: POST request
+		:param args:
+		:param kwargs:
+		:return:
+		"""
 		form = self.form_class(request.POST)
 		if form.is_valid():
 			# <process form cleaned data>
@@ -37,7 +44,7 @@ class TopicSearchView(View):
 			return render(request, 'results.html', {
 				'results_list': author_list,
 				'query': [title],
-				'max_citations': max(author.citations for author in author_list)
+				'max_citations': max([author.citations for author in author_list], default=1000)
 			})
 
 		return render(request, self.template_name, {
@@ -70,7 +77,7 @@ class AuthorSearchView(View):
 			return render(request, 'results.html', {
 				'results_list': author_list,
 				'query': [p.title for p in papers],
-				'max_citations': max(author.citations for author in author_list)
+				'max_citations': max([author.citations for author in author_list], default=1000)
 			})
 		else:
 			# get author name and body of work

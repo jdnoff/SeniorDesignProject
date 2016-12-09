@@ -26,7 +26,6 @@ def get_author_papers(authorName):
 	query_string = "Composite(AA.AuN=\'{}\')".format(authorName)
 	params = construct_params(query_string, 'latest', '10', '', attributes)
 	real_data = evaluate_request(params)
-	print(json.dumps(real_data))
 	return read_response(real_data)
 
 
@@ -62,7 +61,6 @@ def read_response(data):
 				else:
 					p.addDesc("none")
 					print("No abstract found for ", p.title)
-			print(p.title)
 			paper_list.append(p)
 
 	return paper_list
@@ -95,7 +93,6 @@ def search_papers(papers):
 	total_authors = {}
 	# Do topic search on each paper description
 	for p in papers:
-		print("Title", p.title, "\n", p.desc)
 		if p.desc != "none":
 			total_authors[p.id] = do_topic_search(p.desc)
 
@@ -105,7 +102,19 @@ def search_papers(papers):
 		for p in papers:
 			if key != p.id:
 				score_authors(total_authors[key], p.desc)
-		ret_list += total_authors[key]
+		for author in total_authors[key]:
+			# if author not in ret_list:
+			if not any(author.author_id == a.author_id for a in ret_list):
+				# Add author
+				ret_list.append(author)
+			else:
+				# Duplicate author
+				for a in ret_list:
+					if a.author_id == author.author_id:
+						dd = {}
+						for p in author.papers:
+							dd[p.id] = p.cosine_similarity
+						a.setCosineSimilarity(dd)
 	ret_list.sort(key=lambda author: author.cumulativeScore, reverse=True)
 	# Detect co-authorship
 	paper_set = set([p.id for p in papers])
