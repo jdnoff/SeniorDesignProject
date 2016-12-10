@@ -30,11 +30,11 @@ ExpertFinder uses the academic databases of Microsoft Academic to provide its se
 ExpertFinder takes advantage of memcached's caching service and uses it to cache the results that it retrieves from Microsoft Academic. Doing so allows ExpertFinder to reduce the overall number of calls it must make to the database and allows it to provide a faster service.
 
 ### Required Packages ###
-*Django==1.10.1
-*nltk==3.2.1
-*python-memcached==1.58
-*requests==2.11.1
-*six==1.10.0
+* Django==1.10.1
+* nltk==3.2.1
+* python-memcached==1.58
+* requests==2.11.1
+* six==1.10.0
 
 
 ## Useful Links ##
