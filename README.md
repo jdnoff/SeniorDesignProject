@@ -40,10 +40,10 @@ ExpertFinder takes advantage of memcached's caching service and uses it to cache
 ### Installation ###
 #### Installation on ubuntu 16.04 ####
 * Install required packages 
- * python3
- * django
- * memcached
-
+    * python3
+    * django
+    * memcached
+* Clone repo
 
 ## Useful Links ##
 
