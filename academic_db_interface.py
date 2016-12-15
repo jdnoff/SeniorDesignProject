@@ -66,7 +66,6 @@ def get_papers(query, numPapers):
 					p.addDesc(desc[ATT_EXT_DESCRIPTION])
 				else:
 					p.addDesc("none")
-					print("No abstract found for ", p.title)
 			paper_list.append(p)
 
 	return paper_list
@@ -104,9 +103,6 @@ def compile_author_list(data):
 				auth_name = auth['AuN']
 				if auth_id not in authors.keys():
 					authors[auth_id] = auth_name
-	else:
-		# bad response
-		print("Bad response")
 	return authors
 
 
@@ -124,8 +120,6 @@ def get_list_of_authors(author_list, num_papers):
 		cachedAuthor = cache.get(aId)
 		if not cachedAuthor:
 			# Cache miss
-			# TODO: replace prints with logger
-			print(author_list[aId], " Not in cache, searching microsoft")
 			author = Author(author_list[aId], aId)
 			query = "Composite({}={})".format(ATT_AUTHOR_ID, aId)
 			params = construct_params(query, 'latest', num_papers, '', {
@@ -172,7 +166,6 @@ def get_list_of_authors(author_list, num_papers):
 							p.addDesc(desc[ATT_EXT_DESCRIPTION])
 						else:
 							p.addDesc(p.title)
-						# print("No abstract found for ", p.title)
 					if ATT_YEAR in paper:
 						p.year = paper[ATT_YEAR]
 					author.addPaper(p)
@@ -181,7 +174,6 @@ def get_list_of_authors(author_list, num_papers):
 		else:
 			# Cache hit
 			authors.append(cachedAuthor)
-			print("Author= ", cachedAuthor.author_name)
 	return authors
 
 

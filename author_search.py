@@ -1,7 +1,6 @@
 import academic_constants
 from topic_search import do_topic_search
 from Author import *
-import json
 from topic_search import score_authors
 import academic_db_interface
 
