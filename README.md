@@ -37,6 +37,14 @@ ExpertFinder takes advantage of memcached's caching service and uses it to cache
 * six==1.10.0
 
 
+### Installation ###
+#### Installation on ubuntu 16.04 ####
+* Install required packages 
+ * python3
+ * django
+ * memcached
+
+
 ## Useful Links ##
 
 ### Django ###
