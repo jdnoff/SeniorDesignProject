@@ -56,8 +56,9 @@ ExpertFinder takes advantage of memcached's caching service and uses it to cache
 #### Development installation ####
 * Download code
 * Install python dependencies
-    * pip install -r requirements.txt
-* 
+    * pip3 install -r requirements.txt
+* Run the development server (default port is 8000)
+    * python3 manage.py runserver
 
 ## Useful Links ##
 
