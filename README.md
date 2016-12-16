@@ -43,7 +43,7 @@ ExpertFinder takes advantage of memcached's caching service and uses it to cache
 
 
 ### Installation ###
-#### Installation on ubuntu 16.04 ####
+#### Production installation on ubuntu 16.04 ####
 * Install required packages 
     * python3
     * django
@@ -51,6 +51,12 @@ ExpertFinder takes advantage of memcached's caching service and uses it to cache
     * gunicorn
     * nginx
 * Clone repo
+* 
+
+#### Development installation ####
+* Download code
+* Install python dependencies
+    * pip install -r requirements.txt
 * 
 
 ## Useful Links ##
