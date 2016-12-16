@@ -43,7 +43,9 @@ ExpertFinder takes advantage of memcached's caching service and uses it to cache
     * python3
     * django
     * memcached
+    * gunicorn
 * Clone repo
+* 
 
 ## Useful Links ##
 
