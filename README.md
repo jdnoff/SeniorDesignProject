@@ -46,7 +46,9 @@ ExpertFinder takes advantage of memcached's caching service and uses it to cache
 * Set up memcached
     * Change port from 11211 to 11212 in /etc/memcached.conf
     * service memcached start
-* 
+* Set up nginx
+    * Create a symbolic link to expertfinder-nginx.conf in /etc/nginx/sites-available and /etc/nginx/sites-enabled
+
 
 #### Development installation ####
 * Download project
