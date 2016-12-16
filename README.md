@@ -43,6 +43,12 @@ ExpertFinder takes advantage of memcached's caching service and uses it to cache
     * gunicorn
     * nginx
 * Clone repo
+* Install python dependencies
+    * pip3 install -r requirements.txt
+* Download corpora
+    * python3
+    * import nltk
+    * nltk.download(all-corpora)
 * Set up memcached
     * Change port from 11211 to 11212 in /etc/memcached.conf
     * service memcached start
