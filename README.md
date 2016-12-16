@@ -48,6 +48,10 @@ ExpertFinder takes advantage of memcached's caching service and uses it to cache
     * service memcached start
 * Set up nginx
     * Create a symbolic link to expertfinder-nginx.conf in /etc/nginx/sites-available and /etc/nginx/sites-enabled
+    * start nginx
+    * service nginx start
+* Start gunicorn
+    *  gunicorn -w 3 ExpertFinder.wsgi:application --bind=unix:/home/ubuntu/project/gunicorn.sock --timeout 10000
 
 
 #### Development installation ####
