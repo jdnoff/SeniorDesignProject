@@ -41,9 +41,9 @@ class Author:
 
 	def setCosineSimilarity(self, docDict):
 		"""
-		Adds tfidf similarity scores to each paper of this author
+		Adds Cosine Similarity scores to each paper of this author
 		:param docDict: Dict of paper ids mapped to scores
-		:return:
+		:return: No return value.
 		"""
 		for paper in self.papers:
 			if paper.id in docDict:
