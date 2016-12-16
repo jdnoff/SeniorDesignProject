@@ -1,11 +1,8 @@
 import academic_constants
-from AS_RequestHandler import construct_params
-from AS_RequestHandler import evaluate_request
 from topic_search import do_topic_search
 from Author import *
-import json
 from topic_search import score_authors
-
+import academic_db_interface
 
 # return authors papers to user for subset
 # grab referenced papers and use them as initial search
@@ -14,84 +11,39 @@ from topic_search import score_authors
 
 INITIAL_PAPER_QUERY = 20
 
+
 def get_author_papers(authorName):
-	attributes = {
-		academic_constants.ATT_ID,
-		academic_constants.ATT_AUTHOR_NAME,
-		academic_constants.ATT_AUTHOR_ID,
-		academic_constants.ATT_WORDS,
-		academic_constants.ATT_PAPER_TITLE,
-		academic_constants.ATT_CITATIONS,
-		academic_constants.ATT_RERFENCES,
-		academic_constants.ATT_EXTENDED
-	}
+	"""
+	Gets a list of an authors papers
+	:param authorName: Name of the author
+	:return: A list of papers by the given author
+	"""
 	query_string = "Composite(AA.AuN=\'{}\')".format(authorName)
-	params = construct_params(query_string, 'latest', INITIAL_PAPER_QUERY, '', attributes)
-	real_data = evaluate_request(params)
-	return read_response(real_data)
-
-
-def read_response(data):
-	paper_list = []
-	if 'entities' in data:
-		for paper in data['entities']:
-			paper_id = -1
-			if ATT_ID in paper:
-				paper_id = paper[ATT_ID]
-
-			p = AcademicPaper(paper[ATT_PAPER_TITLE].title(), paper_id)
-			if ATT_WORDS in paper:
-				p.addKeywords(paper[ATT_WORDS])
-
-			if ATT_CITATIONS in paper:
-				p.citations = paper[ATT_CITATIONS]
-
-			if ATT_YEAR in paper:
-				p.year = paper[ATT_YEAR]
-
-			if ATT_RERFENCES in paper:
-				p.addReferenceIds(paper[ATT_RERFENCES])
-
-			if ATT_ID in paper:
-				p.id = paper[ATT_ID]
-
-			if ATT_EXTENDED in paper:
-				desc = json.loads(paper[ATT_EXTENDED])
-
-				if ATT_EXT_DESCRIPTION in desc:
-					p.addDesc(desc[ATT_EXT_DESCRIPTION])
-				else:
-					p.addDesc("none")
-					print("No abstract found for ", p.title)
-			paper_list.append(p)
-
-	return paper_list
+	return academic_db_interface.get_papers(query_string, INITIAL_PAPER_QUERY)
 
 
 def get_papers_by_id(paperIds):
+	"""
+	Gets a list of papers from paperids
+	:param paperIds: List of paperids corresponding to selected papers
+	:return: Populated list of papers
+	"""
 	# Make query
-	attributes = {
-		academic_constants.ATT_ID,
-		academic_constants.ATT_AUTHOR_NAME,
-		academic_constants.ATT_AUTHOR_ID,
-		academic_constants.ATT_WORDS,
-		academic_constants.ATT_PAPER_TITLE,
-		academic_constants.ATT_CITATIONS,
-		academic_constants.ATT_RERFENCES,
-		academic_constants.ATT_EXTENDED
-	}
 	wordslist = []
 	count = 0
 	for p in paperIds:
 		wordslist.append("{}={}".format(academic_constants.ATT_ID, p))
 		count += 1
 	query_string = 'Or({})'.format(','.join(wordslist))
-	params = construct_params(query_string, 'latest', count, '', attributes)
-	data = evaluate_request(params)
-	return read_response(data)
+	return academic_db_interface.get_papers(query_string, count)
 
 
 def search_papers(papers):
+	"""
+	This is the logic of author search. Performs an author search on the list of papers
+	:param papers: List of papers to be searched
+	:return: A populated list of authors ready to be displayed
+	"""
 	total_authors = {}
 	# Do topic search on each paper description
 	for p in papers:
