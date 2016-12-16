@@ -34,14 +34,6 @@ ExpertFinder uses the academic databases of Microsoft Academic to provide its se
 ### Memcached ###
 ExpertFinder takes advantage of memcached's caching service and uses it to cache the results that it retrieves from Microsoft Academic. Doing so allows ExpertFinder to reduce the overall number of calls it must make to the database and allows it to provide a faster service.
 
-### Required Python Packages ###
-* Django==1.10.1
-* nltk==3.2.1
-* python-memcached==1.58
-* requests==2.11.1
-* six==1.10.0
-
-
 ### Installation ###
 #### Production installation on ubuntu 16.04 ####
 * Install required packages 
@@ -51,12 +43,19 @@ ExpertFinder takes advantage of memcached's caching service and uses it to cache
     * gunicorn
     * nginx
 * Clone repo
+* Set up memcached
+    * Change port from 11211 to 11212 in /etc/memcached.conf
+    * service memcached start
 * 
 
 #### Development installation ####
-* Download code
+* Download project
 * Install python dependencies
     * pip3 install -r requirements.txt
+* Download corpora
+    * python3
+    * import nltk
+    * nltk.download(all-corpora)
 * Run the development server (default port is 8000)
     * python3 manage.py runserver
 
