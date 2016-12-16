@@ -5,6 +5,7 @@ from similarity_measure import cosine_sim
 from nltk.corpus import stopwords
 from Corpus import *
 import academic_db_interface
+from textblob import TextBlob
 
 
 """

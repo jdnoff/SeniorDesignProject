@@ -9,15 +9,20 @@ professionals in the peer review process by querying scholarly libraries
 to compile a list of experts for a specific topic.
 
 ## Use Cases ##
-### Topic Search ###
+### Search by Abstract (Topic Search) ###
 Topic Search is designed to help the peer review process for a single academic manuscript. Enter a manuscript's abstract and title to recieve a list of academic professionals that have similar fields of research, ranking them based on how similar thier work is to the manuscript. 
 * Rank potential reviewers based on number of papers written on the searched subject,
     the number of times their papers have been cited,
     and the time since the reviewer has published a paper related to the topic
 
-###  Author Search ###
+### Search by Author (Author Search) ###
 Author search allows the user to find potential reviewers for an already established author. The user queries the authors name, from there the user is allowed to select a subset of the authors papers. After doing so, a list of ranked reviewers is returned to the user. Each ranked based on their ability to review the author's body of work.
 
+## Ranking Algorithm ##
+Each author is ranked based on the average of a weighted metric calculated for each paper. The document score for each of an authors papers is calculated as a weighted sum of document similarity, number of citations, and recency of the paper. Similarity is weighted highest, followed by citations then recency. An author’s final score is the average document score of their ten highest scoring papers (average of all paper scores for authors with less than ten).
+
+### Document Similarity ###
+Cosine Similarity is used to measure how similar a given document is to the user’s query. Each document is represented as a vector composed of its TF-IDF (Term Frequency-Inverse Document Frequency) scores with respect to the terms in the query. The TF-IDF score of a word indicates how important that word is to the document that contains it when compared to the entire list of documents. The cosine of the angle between the TF-IDF vectors represents how similar the documents are. 
 
 ## Technical Information ##
 ### Web Framework ###
@@ -29,7 +34,7 @@ ExpertFinder uses the academic databases of Microsoft Academic to provide its se
 ### Memcached ###
 ExpertFinder takes advantage of memcached's caching service and uses it to cache the results that it retrieves from Microsoft Academic. Doing so allows ExpertFinder to reduce the overall number of calls it must make to the database and allows it to provide a faster service.
 
-### Required Packages ###
+### Required Python Packages ###
 * Django==1.10.1
 * nltk==3.2.1
 * python-memcached==1.58
@@ -38,13 +43,20 @@ ExpertFinder takes advantage of memcached's caching service and uses it to cache
 
 
 ### Installation ###
-#### Installation on ubuntu 16.04 ####
+#### Production installation on ubuntu 16.04 ####
 * Install required packages 
     * python3
     * django
     * memcached
     * gunicorn
+    * nginx
 * Clone repo
+* 
+
+#### Development installation ####
+* Download code
+* Install python dependencies
+    * pip install -r requirements.txt
 * 
 
 ## Useful Links ##
